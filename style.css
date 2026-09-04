@@ -11994,3 +11994,121 @@ body.entry-consent-open{
     margin:-69px 0 0 -69px!important;
   }
 }
+
+
+/* =========================================================
+   MOBILE QUIZ TEXT FIX V11
+   Root cause: old mobile grid-template-columns was still active.
+   ========================================================= */
+@media(max-width:767px){
+
+  /* First two cards: image above, readable text below. */
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(1),
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(2){
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:144px auto!important;
+    align-items:stretch!important;
+    min-width:0!important;
+    overflow:hidden!important;
+    padding:7px 7px 11px!important;
+  }
+
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(1) .quiz-option-image,
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(2) .quiz-option-image{
+    grid-column:1!important;
+    grid-row:1!important;
+    width:100%!important;
+    height:144px!important;
+    min-width:0!important;
+  }
+
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(1) > span,
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(2) > span{
+    grid-column:1!important;
+    grid-row:2!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    min-width:0!important;
+    min-height:46px!important;
+    margin:0!important;
+    padding:10px 7px 2px!important;
+    box-sizing:border-box!important;
+    overflow-wrap:anywhere!important;
+    word-break:normal!important;
+    white-space:normal!important;
+    text-align:center!important;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif!important;
+    font-size:12px!important;
+    font-weight:700!important;
+    line-height:1.18!important;
+    color:#171717!important;
+  }
+
+  /* Third card: horizontal layout, but label gets a real bounded column. */
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3){
+    display:grid!important;
+    grid-template-columns:128px minmax(0,1fr)!important;
+    grid-template-rows:128px!important;
+    align-items:center!important;
+    min-width:0!important;
+    overflow:hidden!important;
+  }
+
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3) .quiz-option-image{
+    grid-column:1!important;
+    grid-row:1!important;
+    width:128px!important;
+    height:128px!important;
+  }
+
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3) > span{
+    grid-column:2!important;
+    grid-row:1!important;
+    display:flex!important;
+    align-items:center!important;
+    width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0 14px!important;
+    box-sizing:border-box!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+    text-align:left!important;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif!important;
+    font-size:13px!important;
+    font-weight:700!important;
+    line-height:1.2!important;
+    color:#171717!important;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(1),
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(2){
+    grid-template-rows:130px auto!important;
+  }
+
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(1) .quiz-option-image,
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(2) .quiz-option-image{
+    height:130px!important;
+  }
+
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(1) > span,
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(2) > span{
+    min-height:44px!important;
+    font-size:11.5px!important;
+  }
+
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3){
+    grid-template-columns:112px minmax(0,1fr)!important;
+    grid-template-rows:112px!important;
+  }
+
+  body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3) .quiz-option-image{
+    width:112px!important;
+    height:112px!important;
+  }
+}
