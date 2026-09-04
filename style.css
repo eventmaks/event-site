@@ -11667,3 +11667,68 @@ body.entry-consent-open{
   .quiz-options-gifts .quiz-option-image{height:130px!important}
   .faq-question{font-size:14px!important}
 }
+
+
+/* =========================================================
+   MOBILE HERO FIX V8 — ROOT CAUSE FIX
+   The old body.hero-ready .portrait rule was overriding the
+   mobile centering transform because of higher specificity.
+   ========================================================= */
+@media(max-width:767px){
+
+  body.phone-lite .hero .portrait,
+  body.phone-lite.hero-ready .hero .portrait,
+  body.phone-lite.hero-opened .hero .portrait,
+  body.phone-lite.hero-ready.hero-opened .hero .portrait{
+    position:absolute!important;
+    top:auto!important;
+    left:50%!important;
+    right:auto!important;
+    bottom:-2px!important;
+    width:min(96vw,390px)!important;
+    height:auto!important;
+    max-width:none!important;
+    opacity:1!important;
+    transform:translateX(-50%)!important;
+    animation:none!important;
+    transform-origin:50% 100%!important;
+  }
+
+  body.phone-lite .hero .portrait picture,
+  body.phone-lite .hero .portrait img{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    max-width:none!important;
+  }
+
+  /* Keep the entire available torso visible instead of scaling from the right edge. */
+  body.phone-lite .hero .portrait img{
+    transform:none!important;
+    animation:none!important;
+    object-fit:contain!important;
+    object-position:50% 100%!important;
+    filter:drop-shadow(0 4px 4px rgba(22,8,12,.07))!important;
+  }
+
+  /* Text is also locked to the real viewport, not the old 320px artboard. */
+  body.phone-lite .hero .title{
+    left:16px!important;
+    width:calc(100% - 32px)!important;
+    text-align:center!important;
+  }
+
+  body.phone-lite .hero .subtitle{
+    left:22px!important;
+    width:calc(100% - 44px)!important;
+    text-align:center!important;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .hero .portrait,
+  body.phone-lite.hero-ready .hero .portrait,
+  body.phone-lite.hero-opened .hero .portrait{
+    width:min(100vw,370px)!important;
+  }
+}
