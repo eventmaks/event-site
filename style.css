@@ -12112,3 +12112,106 @@ body.entry-consent-open{
     height:112px!important;
   }
 }
+
+
+/* =========================================================
+   MOBILE BENEFITS + PUG TREAT V12
+   Restore desktop-like reversible visualization on phone.
+   ========================================================= */
+@media(max-width:767px){
+
+  /* WHAT YOU GET:
+     Restore the exact progress-variable based reveal.
+     Older mobile rules forced opacity:1 / transform:none. */
+  body.phone-lite .benefits-title{
+    opacity:calc(.18 + var(--benefits-title-p) * .82)!important;
+    transform:translateY(calc((1 - var(--benefits-title-p)) * 11px))!important;
+    will-change:opacity,transform!important;
+  }
+
+  body.phone-lite .benefits-underline{
+    transform:rotate(-1deg) scaleX(var(--benefits-title-p))!important;
+    transform-origin:left center!important;
+  }
+
+  body.phone-lite .benefits-heart{
+    opacity:calc(.20 + var(--benefits-title-p) * .80)!important;
+    transform:rotate(-9deg) scale(calc(.88 + var(--benefits-title-p) * .12))!important;
+  }
+
+  body.phone-lite .benefits-line{
+    transform:scaleY(var(--benefits-line-p))!important;
+    transform-origin:top center!important;
+    will-change:transform!important;
+  }
+
+  body.phone-lite .benefit-card{
+    --card-p:0;
+    opacity:calc(.075 + var(--card-p) * .925)!important;
+    transform:
+      translateY(calc((1 - var(--card-p)) * 14px))
+      scale(calc(.997 + var(--card-p) * .003))!important;
+    transition:none!important;
+    will-change:opacity,transform!important;
+  }
+
+  body.phone-lite .benefit-card h3,
+  body.phone-lite .benefit-card p{
+    opacity:clamp(0, calc((var(--card-p) - .12) * 1.18), 1)!important;
+    transform:translateY(calc((1 - var(--card-p)) * 5px))!important;
+    transition:none!important;
+  }
+
+  body.phone-lite .benefit-card .benefit-dot{
+    opacity:var(--card-p)!important;
+    transform:scale(calc(.45 + var(--card-p) * .55))!important;
+  }
+
+  /* PUG TREAT:
+     Older mobile layers hid it completely. */
+  body.phone-lite .cost-treat{
+    display:block!important;
+    visibility:visible!important;
+    position:absolute!important;
+    z-index:12!important;
+    left:0!important;
+    top:0!important;
+    width:34px!important;
+    max-width:none!important;
+    pointer-events:none!important;
+    transform-origin:8% 50%!important;
+    will-change:transform,opacity!important;
+  }
+
+  body.phone-lite .cost-treat img{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    filter:drop-shadow(0 5px 6px rgba(50,36,24,.20))!important;
+  }
+
+  /* Allow the treat to travel slightly outside the card edge without
+     disappearing, while the whole section itself remains clipped to viewport. */
+  body.phone-lite .cost-stage{
+    overflow:visible!important;
+  }
+
+  body.phone-lite .cost-section{
+    overflow:hidden!important;
+  }
+
+  /* Pug keeps a small reversible entrance tied to --cost-p. */
+  body.phone-lite .cost-pug{
+    transform:
+      translateY(calc((1 - var(--cost-p)) * 24px))
+      scale(calc(.97 + var(--cost-p) * .03))!important;
+    transform-origin:center bottom!important;
+    will-change:transform!important;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .cost-treat{
+    width:31px!important;
+  }
+}

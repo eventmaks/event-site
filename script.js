@@ -671,15 +671,14 @@
     }
 
     bRefresh();
-    if(phoneLite){
-      benefitsSection.style.setProperty("--benefits-scene-p","1");
-      bSetAll(1);
-    }else{
-      window.addEventListener("scroll",bRequest,{passive:true});
-      window.addEventListener("resize",bResize,{passive:true});
-      window.addEventListener("load",bResize,{once:true});
-      bRender();
-    }
+
+    /* Same reversible reveal on desktop and phone:
+       scrolling down opens each card progressively;
+       scrolling back up closes it along the same curve. */
+    window.addEventListener("scroll",bRequest,{passive:true});
+    window.addEventListener("resize",bResize,{passive:true});
+    window.addEventListener("load",bResize,{once:true});
+    bRender();
   }
 
 
@@ -866,6 +865,7 @@
       const end=vh*.02;
       const raw=cClamp((start-sectionRect.top)/(start-end));
       const t=cSmooth(raw);
+      costStage.style.setProperty("--cost-p",t.toFixed(4));
 
       /*
         REFERENCE GEOMETRY:
@@ -887,13 +887,13 @@
       };
 
       const p1={
-        x:(cardRect.left-stageRect.left)+(cardRect.width*.66),
-        y:(cardRect.top-stageRect.top)-34
+        x:(cardRect.left-stageRect.left)+(cardRect.width*(phoneLite ? .58 : .66)),
+        y:(cardRect.top-stageRect.top)-(phoneLite ? 20 : 34)
       };
 
       const p2={
-        x:(cardRect.right-stageRect.left)+64,
-        y:(cardRect.top-stageRect.top)+(cardRect.height*.14)
+        x:(cardRect.right-stageRect.left)+(phoneLite ? 20 : 64),
+        y:(cardRect.top-stageRect.top)+(cardRect.height*(phoneLite ? .20 : .14))
       };
 
       /*
@@ -935,16 +935,11 @@
       cRAF=requestAnimationFrame(cRender);
     }
 
-    if(phoneLite){
-      costTreat.style.opacity="0";
-      costTreat.style.visibility="hidden";
-      costSection.style.setProperty("--cost-p","1");
-    }else{
-      window.addEventListener("scroll",cRequest,{passive:true});
-      window.addEventListener("resize",cRequest,{passive:true});
-      window.addEventListener("load",cRequest,{once:true});
-      cRender();
-    }
+    costTreat.style.visibility="visible";
+    window.addEventListener("scroll",cRequest,{passive:true});
+    window.addEventListener("resize",cRequest,{passive:true});
+    window.addEventListener("load",cRequest,{once:true});
+    cRender();
   }
 
 
