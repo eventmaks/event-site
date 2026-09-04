@@ -38,9 +38,51 @@
     setTimeout(startOnce,650);
   }
 
-  // Desktop typewriter; mobile copy stays stable like the reference.
+  // Desktop keeps the typewriter.
+  // Phone uses a softer reference-style phrase transition:
+  // fade/slide out -> swap phrase -> fade/slide back in.
   if(phoneLite && typed){
+    let mobilePhraseIndex=0;
+    let mobilePhraseTimer=0;
+    let heroSubtitleVisible=true;
+
     typed.textContent=phrases[0];
+
+    const scheduleMobilePhrase=()=>{
+      window.clearTimeout(mobilePhraseTimer);
+      mobilePhraseTimer=window.setTimeout(()=>{
+        if(!heroSubtitleVisible){
+          scheduleMobilePhrase();
+          return;
+        }
+
+        typed.classList.add("is-switching");
+
+        window.setTimeout(()=>{
+          mobilePhraseIndex=(mobilePhraseIndex+1)%phrases.length;
+          typed.textContent=phrases[mobilePhraseIndex];
+
+          requestAnimationFrame(()=>{
+            requestAnimationFrame(()=>{
+              typed.classList.remove("is-switching");
+            });
+          });
+        },520);
+
+        scheduleMobilePhrase();
+      },3150);
+    };
+
+    const heroForSubtitle=document.querySelector(".hero");
+    if(heroForSubtitle && "IntersectionObserver" in window){
+      const subtitleObserver=new IntersectionObserver(entries=>{
+        heroSubtitleVisible=entries.some(entry=>entry.isIntersecting);
+      },{threshold:.04});
+      subtitleObserver.observe(heroForSubtitle);
+    }
+
+    // Let the first phrase sit for a moment after the opening reveal.
+    mobilePhraseTimer=window.setTimeout(scheduleMobilePhrase,1850);
   }
 
   if(typed && !phoneLite){

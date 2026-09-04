@@ -12285,3 +12285,45 @@ body.entry-consent-open{
     font-size:27px!important;
   }
 }
+
+
+/* =========================================================
+   MOBILE HERO SUBTITLE V14
+   Smooth switch between the two approved hero phrases.
+   ========================================================= */
+@media(max-width:767px){
+  body.phone-lite .hero .subtitle{
+    min-height:42px!important;
+    display:flex!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+    overflow:visible!important;
+  }
+
+  body.phone-lite .hero .subtitle #typed{
+    display:inline-block!important;
+    max-width:100%!important;
+    white-space:normal!important;
+    text-align:center!important;
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+    transition:
+      opacity .52s ease,
+      transform .58s cubic-bezier(.22,.61,.36,1),
+      filter .52s ease!important;
+    will-change:opacity,transform,filter;
+  }
+
+  body.phone-lite .hero .subtitle #typed.is-switching{
+    opacity:0!important;
+    transform:translateY(-7px) scale(.985)!important;
+    filter:blur(2.5px)!important;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .hero .subtitle{
+    min-height:46px!important;
+  }
+}
