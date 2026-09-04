@@ -11732,3 +11732,135 @@ body.entry-consent-open{
     width:min(100vw,370px)!important;
   }
 }
+
+
+/* =========================================================
+   MOBILE SHOWREEL FIX V9
+   Based on SR9097 (our bug) vs SR3436 (Borisov reference).
+   ========================================================= */
+@media(max-width:767px){
+
+  /* Root cause #1:
+     old mobile scene was 158svh with a sticky 100svh stage.
+     After the video was fully visible, the user still had to scroll
+     through a large invisible remainder. */
+  body.phone-lite .showreel-scene{
+    position:relative!important;
+    height:auto!important;
+    min-height:0!important;
+    padding:0 0 20px!important;
+    overflow:hidden!important;
+    background:#EAE5DF!important;
+  }
+
+  body.phone-lite .showreel-stage{
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    width:100%!important;
+    height:72svh!important;
+    min-height:500px!important;
+    max-height:650px!important;
+    margin:0!important;
+    border-radius:0!important;
+    overflow:hidden!important;
+    background:#171215!important;
+    box-shadow:none!important;
+  }
+
+  /* Root cause #2:
+     the SVG warm mask created the huge white shutters seen at 4–7 sec.
+     On phone the reference goes directly into the moving image. */
+  body.phone-lite .showreel-mask{
+    display:none!important;
+    opacity:0!important;
+  }
+
+  body.phone-lite .showreel-video{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:50% 48%!important;
+    transform:none!important;
+    filter:none!important;
+    opacity:1!important;
+  }
+
+  /* Keep the element user explicitly wanted, but make it clean:
+     one circular text cue, no Play circles. */
+  body.phone-lite .showreel-ring{
+    display:block!important;
+    z-index:7!important;
+    left:50%!important;
+    top:50%!important;
+    width:142px!important;
+    height:142px!important;
+    margin:-71px 0 0 -71px!important;
+    color:#fff!important;
+    opacity:.96!important;
+    transform:none!important;
+    pointer-events:none!important;
+    animation:showreelPhoneRing 20s linear infinite!important;
+    will-change:transform!important;
+    text-shadow:0 1px 5px rgba(0,0,0,.28);
+  }
+
+  body.phone-lite .showreel-ring text{
+    fill:currentColor!important;
+    font-size:19px!important;
+    letter-spacing:1.45px!important;
+  }
+
+  @keyframes showreelPhoneRing{
+    to{transform:rotate(360deg)}
+  }
+
+  body.phone-lite .showreel-arrow,
+  body.phone-lite .showreel-choice{
+    display:none!important;
+  }
+
+  body.phone-lite .showreel-under-ui{
+    display:none!important;
+  }
+
+  body.phone-lite .showreel-sound{
+    z-index:8!important;
+    right:12px!important;
+    bottom:12px!important;
+    min-height:40px!important;
+    padding:8px 12px!important;
+    border:1px solid rgba(255,255,255,.48)!important;
+    border-radius:999px!important;
+    background:rgba(23,18,21,.62)!important;
+    color:#fff!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    font-size:7.5px!important;
+  }
+
+  /* No artificial blank bridge after the video. */
+  body.phone-lite .showreel-scene + .about-reference{
+    margin-top:0!important;
+  }
+
+  body.phone-lite .about-reference{
+    position:relative!important;
+    margin-top:0!important;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .showreel-stage{
+    height:69svh!important;
+    min-height:470px!important;
+  }
+
+  body.phone-lite .showreel-ring{
+    width:132px!important;
+    height:132px!important;
+    margin:-66px 0 0 -66px!important;
+  }
+}

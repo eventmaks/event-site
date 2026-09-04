@@ -292,22 +292,31 @@
       if("IntersectionObserver" in window){
         const showreelMobileObserver=new IntersectionObserver(entries=>{
           entries.forEach(entry=>{
-            if(entry.isIntersecting && entry.intersectionRatio>.12){
+            if(entry.isIntersecting && entry.intersectionRatio>.10){
               srVideo.play().catch(()=>{});
             }else{
               srVideo.pause();
             }
           });
-        },{threshold:[0,.12,.45]});
+        },{threshold:[0,.10,.45]});
         showreelMobileObserver.observe(srStage || srVideo);
+      }else{
+        srVideo.play().catch(()=>{});
       }
     }
 
-    window.addEventListener("scroll",srRequest,{passive:true});
-    window.addEventListener("resize",srResize,{passive:true});
-    window.addEventListener("load",srResize,{once:true});
-    srLastMode="";
-    srUpdate();
+    /* Mobile uses a direct video composition.
+       No scroll mask/sticky scene: this removes the white shutter effect
+       and the long empty tail after the video. */
+    if(srMask) srMask.style.display="none";
+    if(srRing){
+      srRing.style.opacity="1";
+      srRing.style.pointerEvents="none";
+    }
+    if(srSound){
+      srSound.style.opacity="1";
+      srSound.style.pointerEvents="auto";
+    }
   }else{
     window.addEventListener("scroll",srRequest,{passive:true});
     window.addEventListener("resize",srResize,{passive:true});
