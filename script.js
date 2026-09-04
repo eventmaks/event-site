@@ -156,6 +156,7 @@
 
     if(srMask && srHole && srMaskBase && srPaper){
       srMask.setAttribute("viewBox",`0 0 ${vw} ${vh}`);
+      if(phoneLite) srMask.setAttribute("preserveAspectRatio","none");
       srMaskBase.setAttribute("width",vw);
       srMaskBase.setAttribute("height",vh);
       srPaper.setAttribute("width",vw);
@@ -180,46 +181,82 @@
     srStage.style.setProperty("--cx",`${cxPct}%`);
     srStage.style.setProperty("--cy",`${cyPct}%`);
 
-    /*
-      Same timing curve as before, but instead of scaling a giant SVG,
-      enlarge only the transparent vector circle.
-    */
-    const g=srClamp((entry-.50)/.50);
-    const accel=Math.pow(g,3);
-
     const farX=Math.max(cxPx,vw-cxPx);
     const farY=Math.max(cyPx,vh-cyPx);
-    const requiredRadius=Math.sqrt(farX*farX+farY*farY)+90;
-    const radius=70+(requiredRadius-70)*accel;
+    const requiredRadius=Math.sqrt(farX*farX+farY*farY)+28;
 
-    srHole.setAttribute("cx",cxPx.toFixed(1));
-    srHole.setAttribute("cy",cyPx.toFixed(1));
-    srHole.setAttribute("r",radius.toFixed(1));
+    if(phoneLite){
+      /*
+        Phone reference behavior:
+        the circle first enters the viewport small, then opens while the
+        user scrolls. Because entry is derived from scroll position, the
+        same motion runs backwards when the user scrolls up.
+      */
+      const g=srClamp((entry-.47)/.49);
+      const open=srSmooth(g);
+      const radius=54+(requiredRadius-54)*open;
 
-    const maskFade=srSmooth(srClamp((g-.94)/.06));
-    srMask.style.opacity=String(1-maskFade);
+      srHole.setAttribute("cx",cxPx.toFixed(1));
+      srHole.setAttribute("cy",cyPx.toFixed(1));
+      srHole.setAttribute("r",radius.toFixed(1));
+      srMask.style.opacity="1";
 
-    if(srRing){
-      const rotation=105*srSmooth(srClamp(g/.78));
-      const ringFade=srSmooth(srClamp((g-.80)/.18));
-      srRing.style.transform=`rotate(${rotation.toFixed(2)}deg)`;
-      srRing.style.opacity=String(1-ringFade);
-    }
+      if(srRing){
+        const ringFade=srSmooth(srClamp((g-.24)/.34));
+        const rotation=42*srSmooth(srClamp(g/.68));
+        srRing.style.setProperty("--sr-ring-opacity",String(1-ringFade));
+        srRing.style.setProperty("--sr-ring-rot",`${rotation.toFixed(2)}deg`);
+      }
 
-    if(srArrow){
-      const arrowFade=srSmooth(srClamp((entry-.56)/.16));
-      srArrow.style.opacity=String(1-arrowFade);
-      srArrow.style.transform=`rotate(${(8-8*arrowFade).toFixed(2)}deg) translateX(${(-8*arrowFade).toFixed(2)}px)`;
-    }
+      if(srArrow){
+        srArrow.style.opacity="0";
+      }
 
-    const labels=srSmooth(srClamp((g-.73)/.20));
-    if(srLeftLabel) srLeftLabel.style.opacity=String(labels);
-    if(srRightLabel) srRightLabel.style.opacity=String(labels);
+      if(srLeftLabel) srLeftLabel.style.opacity="0";
+      if(srRightLabel) srRightLabel.style.opacity="0";
 
-    if(srSound){
-      const soundOpacity=srSmooth(srClamp((g-.90)/.10));
-      srSound.style.opacity=String(soundOpacity);
-      srSound.style.pointerEvents=soundOpacity>.85 ? "auto" : "none";
+      if(srSound){
+        const soundOpacity=srSmooth(srClamp((g-.76)/.18));
+        srSound.style.opacity=String(soundOpacity);
+        srSound.style.pointerEvents=soundOpacity>.82 ? "auto" : "none";
+      }
+    }else{
+      /*
+        Desktop/tablet behavior stays unchanged.
+      */
+      const g=srClamp((entry-.50)/.50);
+      const accel=Math.pow(g,3);
+      const radius=70+(requiredRadius-70)*accel;
+
+      srHole.setAttribute("cx",cxPx.toFixed(1));
+      srHole.setAttribute("cy",cyPx.toFixed(1));
+      srHole.setAttribute("r",radius.toFixed(1));
+
+      const maskFade=srSmooth(srClamp((g-.94)/.06));
+      srMask.style.opacity=String(1-maskFade);
+
+      if(srRing){
+        const rotation=105*srSmooth(srClamp(g/.78));
+        const ringFade=srSmooth(srClamp((g-.80)/.18));
+        srRing.style.transform=`rotate(${rotation.toFixed(2)}deg)`;
+        srRing.style.opacity=String(1-ringFade);
+      }
+
+      if(srArrow){
+        const arrowFade=srSmooth(srClamp((entry-.56)/.16));
+        srArrow.style.opacity=String(1-arrowFade);
+        srArrow.style.transform=`rotate(${(8-8*arrowFade).toFixed(2)}deg) translateX(${(-8*arrowFade).toFixed(2)}px)`;
+      }
+
+      const labels=srSmooth(srClamp((g-.73)/.20));
+      if(srLeftLabel) srLeftLabel.style.opacity=String(labels);
+      if(srRightLabel) srRightLabel.style.opacity=String(labels);
+
+      if(srSound){
+        const soundOpacity=srSmooth(srClamp((g-.90)/.10));
+        srSound.style.opacity=String(soundOpacity);
+        srSound.style.pointerEvents=soundOpacity>.85 ? "auto" : "none";
+      }
     }
 
     if(srVideo && srVideo.paused && !phoneLite){
@@ -292,31 +329,27 @@
       if("IntersectionObserver" in window){
         const showreelMobileObserver=new IntersectionObserver(entries=>{
           entries.forEach(entry=>{
-            if(entry.isIntersecting && entry.intersectionRatio>.10){
+            if(entry.isIntersecting && entry.intersectionRatio>.08){
               srVideo.play().catch(()=>{});
             }else{
               srVideo.pause();
             }
           });
-        },{threshold:[0,.10,.45]});
+        },{threshold:[0,.08,.45]});
         showreelMobileObserver.observe(srStage || srVideo);
       }else{
         srVideo.play().catch(()=>{});
       }
     }
 
-    /* Mobile uses a direct video composition.
-       No scroll mask/sticky scene: this removes the white shutter effect
-       and the long empty tail after the video. */
-    if(srMask) srMask.style.display="none";
-    if(srRing){
-      srRing.style.opacity="1";
-      srRing.style.pointerEvents="none";
-    }
-    if(srSound){
-      srSound.style.opacity="1";
-      srSound.style.pointerEvents="auto";
-    }
+    if(srMask) srMask.style.display="block";
+    if(srRing) srRing.style.pointerEvents="none";
+
+    window.addEventListener("scroll",srRequest,{passive:true});
+    window.addEventListener("resize",srResize,{passive:true});
+    window.addEventListener("load",srResize,{once:true});
+    srLastMode="";
+    srUpdate();
   }else{
     window.addEventListener("scroll",srRequest,{passive:true});
     window.addEventListener("resize",srResize,{passive:true});
