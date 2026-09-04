@@ -151,12 +151,15 @@
         <span id="typed"></span><b class="typing-caret">|</b>
       </div>
 <div class="portrait">
-        <img
-          src="assets/hero-person-clean.webp"
-          alt="Максим Череповский"
-          fetchpriority="high"
-          decoding="async"
-         loading="eager">
+        <picture>
+          <source media="(max-width: 767px)" srcset="assets/hero-person-mobile.webp">
+          <img
+            src="assets/hero-person-clean.webp"
+            alt="Максим Череповский"
+            fetchpriority="high"
+            decoding="async"
+            loading="eager">
+        </picture>
       </div>
 
       <img class="arrow" src="assets/hero-arrow.svg" alt="" aria-hidden="true" loading="lazy" decoding="async">

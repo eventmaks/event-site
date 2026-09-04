@@ -11,12 +11,6 @@
   ];
 
   function begin(){
-    if(phoneLite){
-      body.classList.add("hero-ready","hero-opened");
-      if(noise) noise.classList.add("visible");
-      return;
-    }
-
     requestAnimationFrame(()=>{
       requestAnimationFrame(()=>{
         body.classList.add("hero-ready");
@@ -44,8 +38,7 @@
     setTimeout(startOnce,650);
   }
 
-  // Real typewriter loop on larger screens.
-  // On phones the subtitle is deliberately static: less layout churn and easier reading.
+  // Desktop typewriter; mobile copy stays stable like the reference.
   if(phoneLite && typed){
     typed.textContent=phrases[0];
   }
@@ -176,8 +169,8 @@
     const {vw,vh}=srMetrics;
     const mobile=vw<1200;
     const cxPct=mobile ? 50 : 37.5;
-    const cyStart=mobile ? 7 : 5;
-    const cyEnd=mobile ? 32 : 50;
+    const cyStart=phoneLite ? 50 : (mobile ? 7 : 5);
+    const cyEnd=phoneLite ? 50 : (mobile ? 32 : 50);
     const cyPct=cyStart+(cyEnd-cyStart)*Math.pow(entry,1.5);
 
     const cxPx=vw*(cxPct/100);
@@ -229,7 +222,7 @@
       srSound.style.pointerEvents=soundOpacity>.85 ? "auto" : "none";
     }
 
-    if(srVideo && srVideo.paused){
+    if(srVideo && srVideo.paused && !phoneLite){
       srVideo.play().catch(()=>{});
     }
   }
@@ -299,23 +292,22 @@
       if("IntersectionObserver" in window){
         const showreelMobileObserver=new IntersectionObserver(entries=>{
           entries.forEach(entry=>{
-            if(entry.isIntersecting && entry.intersectionRatio>.18){
+            if(entry.isIntersecting && entry.intersectionRatio>.12){
               srVideo.play().catch(()=>{});
             }else{
               srVideo.pause();
             }
           });
-        },{threshold:[0,.18,.5]});
+        },{threshold:[0,.12,.45]});
         showreelMobileObserver.observe(srStage || srVideo);
-      }else{
-        srVideo.play().catch(()=>{});
       }
     }
-    if(srMask) srMask.style.opacity="0";
-    if(srSound){
-      srSound.style.opacity="1";
-      srSound.style.pointerEvents="auto";
-    }
+
+    window.addEventListener("scroll",srRequest,{passive:true});
+    window.addEventListener("resize",srResize,{passive:true});
+    window.addEventListener("load",srResize,{once:true});
+    srLastMode="";
+    srUpdate();
   }else{
     window.addEventListener("scroll",srRequest,{passive:true});
     window.addEventListener("resize",srResize,{passive:true});
@@ -337,9 +329,7 @@
      ======================================================== */
   const teamReveal=[...document.querySelectorAll(".team-reveal")];
 
-  if(phoneLite){
-    teamReveal.forEach(item=>item.classList.add("is-visible"));
-  }else if("IntersectionObserver" in window && teamReveal.length){
+  if("IntersectionObserver" in window && teamReveal.length){
     const teamObserver=new IntersectionObserver(entries=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
@@ -366,9 +356,7 @@
      ======================================================== */
   const portfolioReveal=[...document.querySelectorAll(".portfolio-reveal")];
 
-  if(phoneLite){
-    portfolioReveal.forEach(item=>item.classList.add("is-visible"));
-  }else if("IntersectionObserver" in window && portfolioReveal.length){
+  if("IntersectionObserver" in window && portfolioReveal.length){
     const portfolioObserver=new IntersectionObserver(entries=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
@@ -776,21 +764,11 @@
 
     crRefresh();
 
-    if(phoneLite){
-      contractRefSection.style.setProperty("--contract-scene-p","1");
-      contractRefSection.style.setProperty("--contract-paper-y","0px");
-      contractRefSection.style.setProperty("--pen-p","1");
-      contractHeartPath.style.strokeDashoffset="0";
-      contractHeartPath.style.opacity="1";
-      crPlacePen(1);
-      contractPenMover.style.opacity=".80";
-    }else{
-      crPlacePen(0);
-      window.addEventListener("scroll",crRequest,{passive:true});
-      window.addEventListener("resize",crResize,{passive:true});
-      window.addEventListener("load",crResize,{once:true});
-      crRender();
-    }
+    crPlacePen(0);
+    window.addEventListener("scroll",crRequest,{passive:true});
+    window.addEventListener("resize",crResize,{passive:true});
+    window.addEventListener("load",crResize,{once:true});
+    crRender();
   }
 
 
@@ -1371,9 +1349,7 @@
   }
 
   updateContactPhoneTime();
-  if(!phoneLite){
-    window.setInterval(updateContactPhoneTime,30000);
-  }
+  window.setInterval(updateContactPhoneTime,30000);
 
   /* Very small desktop pointer tilt — disabled on touch/reduced motion. */
   if(

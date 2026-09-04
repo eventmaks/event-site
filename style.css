@@ -11392,732 +11392,278 @@ body.entry-consent-open{
 
 
 /* =========================================================
-   MOBILE REBUILD V5
-   Rebuilt after reviewing the real iPhone screen recording.
-   <=767px only. Desktop remains untouched.
+   MOBILE REFERENCE V7
+   SR3436 = Borisov reference, SR6120 = previous build.
+   The phone layout is rebuilt, while key visual mechanics remain alive.
    ========================================================= */
 @media(max-width:767px){
-
-  /* =======================================================
-     0. ROOT — eliminate the sideways "jump"/crop seen in video
-     ======================================================= */
-  html,
-  body{
+  html,body{
     width:100%!important;
     max-width:100%!important;
     overflow-x:hidden!important;
-    overscroll-behavior-x:none!important;
   }
+  body.phone-lite .calc{display:none!important}
+  body.phone-lite .noise{opacity:.045!important}
+  body.phone-lite .plastic{opacity:.055!important}
 
-  body.phone-lite{
-    position:relative!important;
-  }
-
-  body.phone-lite main,
-  body.phone-lite section{
-    max-width:100vw!important;
-  }
-
-  /* The desktop opening screen looked like a second blank page on iPhone. */
-  body.phone-lite .opening-screen{
-    display:none!important;
-  }
-
-  body.phone-lite .title,
-  body.phone-lite .subtitle,
-  body.phone-lite .arrow,
-  body.phone-lite .portrait{
-    opacity:1!important;
-  }
-
-  /* =======================================================
-     1. PERFORMANCE — no decorative layer should cost FPS
-     ======================================================= */
-  body.phone-lite .noise,
-  body.phone-lite .plastic,
-  body.phone-lite .quiz-noise,
-  body.phone-lite .benefits-noise,
-  body.phone-lite .contract-ref-noise,
-  body.phone-lite .cost-noise,
-  body.phone-lite .reviews-noise,
-  body.phone-lite .faq-noise,
-  body.phone-lite .contact-final-noise,
-  body.phone-lite .portfolio-noise{
-    display:none!important;
-  }
-
-  body.phone-lite .about-pattern-track,
-  body.phone-lite .team-pattern-track,
-  body.phone-lite .portfolio-word-track,
-  body.phone-lite .team-marquee-track{
-    animation:none!important;
-    transform:none!important;
-    will-change:auto!important;
-  }
-
-  /* Keep background typography, but static and much lighter. */
-  body.phone-lite .about-pattern-row:nth-child(n+6),
-  body.phone-lite .team-pattern-row:nth-child(n+7){
-    display:none!important;
-  }
-
-  body.phone-lite .about-pattern,
-  body.phone-lite .team-bg-pattern{
-    opacity:.045!important;
-  }
-
-  body.phone-lite .portfolio-word{
-    opacity:.12!important;
-  }
-
-  body.phone-lite *,
-  body.phone-lite *:before,
-  body.phone-lite *:after{
-    -webkit-tap-highlight-color:transparent;
-  }
-
-  body.phone-lite .team-photo-wrap img,
-  body.phone-lite .portfolio-photo-bg,
-  body.phone-lite .review-slide,
-  body.phone-lite .benefit-card{
-    transition:none!important;
-    will-change:auto!important;
-  }
-
-  /* =======================================================
-     2. HERO — centered, no accidental horizontal pan
-     ======================================================= */
-  .hero{
-    height:100svh!important;
-    min-height:620px!important;
-    overflow:hidden!important;
-  }
-
+  /* HERO */
+  .hero{height:100svh!important;min-height:640px!important;overflow:hidden!important}
   .canvas{
-    width:100%!important;
-    max-width:none!important;
-    height:100svh!important;
-    min-height:620px!important;
-    overflow:hidden!important;
+    left:0!important;top:0!important;width:100%!important;max-width:none!important;
+    height:100svh!important;min-height:640px!important;transform:none!important
   }
-
   .hero .title{
-    top:28px!important;
-    left:20px!important;
-    width:calc(100% - 40px)!important;
-    max-width:none!important;
-    font-size:clamp(42px,11.8vw,48px)!important;
-    line-height:.92!important;
-    letter-spacing:-.04em!important;
+    top:34px!important;left:18px!important;width:calc(100% - 36px)!important;
+    max-width:none!important;white-space:normal!important;text-align:center!important;
+    font-size:clamp(45px,12.6vw,54px)!important;line-height:.88!important;letter-spacing:-.045em!important
   }
-
   .hero .subtitle{
-    top:145px!important;
-    left:20px!important;
-    width:calc(100% - 56px)!important;
-    max-width:330px!important;
-    min-height:0!important;
-    font-size:14px!important;
-    line-height:1.18!important;
-    white-space:normal!important;
+    top:150px!important;left:28px!important;width:calc(100% - 56px)!important;
+    max-width:none!important;white-space:normal!important;text-align:center!important;
+    font-size:14px!important;line-height:1.22!important
   }
-
-  .hero .subtitle #typed{
-    white-space:normal!important;
-    transform:none!important;
-    filter:none!important;
+  .hero .subtitle #typed{white-space:normal!important;transform:none!important;filter:none!important}
+  .portrait{
+    top:auto!important;left:50%!important;bottom:-2px!important;width:min(101vw,410px)!important;
+    height:auto!important;transform:translateX(-50%)!important;transform-origin:50% 100%!important
   }
-
-  .hero .arrow{
-    top:194px!important;
-    right:24px!important;
-    left:auto!important;
-    width:46px!important;
+  .portrait picture,.portrait img{display:block!important;width:100%!important;height:auto!important}
+  .portrait img{
+    animation:heroPhoneBreath 6.8s ease-in-out infinite!important;
+    transform-origin:50% 100%!important;will-change:transform
   }
+  @keyframes heroPhoneBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+  .hero .arrow{top:208px!important;left:auto!important;right:26px!important;width:46px!important}
+  .opening-half{transition-duration:.9s!important;transition-delay:.26s!important}
+  .opening-brand{width:300px!important}
+  .opening-brand strong{font-size:35px!important;line-height:.92!important}
 
-  .hero .portrait{
-    left:50%!important;
-    right:auto!important;
-    bottom:-2px!important;
-    width:min(124vw,485px)!important;
-    max-width:none!important;
-    transform:translateX(-50%)!important;
-    overflow:visible!important;
-  }
-
-  .hero .portrait img{
-    animation:none!important;
-    transform:none!important;
-    will-change:auto!important;
-  }
-
-  /* =======================================================
-     3. SHOWREEL — good composition, no desktop sticky mechanics
-     ======================================================= */
+  /* SHOWREEL — same circular reveal idea as reference */
   .showreel-scene{
-    height:auto!important;
-    min-height:0!important;
-    padding:18px 16px 34px!important;
+    position:relative!important;height:158svh!important;min-height:980px!important;
+    padding:0!important;background:#EAE5DF!important
   }
-
   .showreel-stage{
-    height:min(65svh,560px)!important;
-    min-height:455px!important;
-    border-radius:18px!important;
-    box-shadow:none!important;
+    position:sticky!important;top:0!important;width:100%!important;height:100svh!important;
+    min-height:640px!important;border-radius:0!important;overflow:hidden!important;
+    background:#EAE5DF!important;box-shadow:none!important
   }
-
   .showreel-video{
-    object-position:50% 48%!important;
-    filter:none!important;
-    transition:none!important;
+    inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;
+    object-position:center center!important;transform:none!important;filter:none!important
   }
-
+  .showreel-mask{display:block!important;opacity:1}
+  .showreel-choice{display:none!important}
   .showreel-ring{
-    width:132px!important;
-    height:132px!important;
-    margin:-66px 0 0 -66px!important;
-    color:#fff!important;
-    opacity:.94!important;
+    display:block!important;left:50%!important;top:50%!important;width:154px!important;height:154px!important;
+    margin:-77px 0 0 -77px!important;color:#171215!important;will-change:transform,opacity!important
   }
-
-  .showreel-ring text{
-    font-size:18px!important;
-  }
-
-  .showreel-arrow{
-    display:none!important;
-  }
-
+  .showreel-ring text{font-size:19px!important;letter-spacing:1.5px!important}
+  .showreel-arrow{display:none!important}
   .showreel-sound{
-    right:11px!important;
-    bottom:11px!important;
-    min-height:38px!important;
-    padding:8px 12px!important;
-    font-size:7.5px!important;
-    background:rgba(23,18,21,.74)!important;
+    right:12px!important;bottom:12px!important;min-height:42px!important;padding:9px 13px!important;
+    background:rgba(23,18,21,.68)!important;font-size:8px!important
   }
 
-  /* =======================================================
-     4. ABOUT — less oversized, easier to read
-     ======================================================= */
-  .about-left{
-    min-height:530px!important;
-  }
-
+  /* ABOUT */
+  .about-reference{display:block!important}
+  .about-left{min-height:610px!important}
   .about-pattern{
-    height:545px!important;
-    left:-17%!important;
-    width:134%!important;
-    top:-10px!important;
+    left:-23%!important;top:-22px!important;width:148%!important;height:650px!important;
+    min-height:0!important;opacity:.09!important
   }
-
-  .about-pattern-row{
-    height:56px!important;
-    font-size:21px!important;
+  .about-pattern-row{height:62px!important;font-size:24px!important}
+  .about-pattern-row:nth-child(n+7){display:none!important}
+  .about-pattern-track{animation:none!important;will-change:auto!important}
+  .about-pattern-row:nth-child(1) .about-pattern-track,
+  .about-pattern-row:nth-child(3) .about-pattern-track{
+    animation:aboutTickerLeft 27s linear infinite!important;will-change:transform!important
   }
-
+  .about-pattern-row:nth-child(2) .about-pattern-track,
+  .about-pattern-row:nth-child(4) .about-pattern-track{
+    animation:aboutTickerRight 31s linear infinite!important;will-change:transform!important
+  }
   .about-photo-card{
-    top:61px!important;
-    width:min(78vw,304px)!important;
-    height:408px!important;
+    top:84px!important;left:50%!important;width:min(76vw,306px)!important;max-width:none!important;
+    height:462px!important;transform:translateX(-50%)!important
   }
+  .about-tape{left:-20px!important;top:-25px!important;width:112px!important;height:38px!important}
+  .about-right-text{width:calc(100% - 38px)!important;max-width:520px!important;padding:48px 0 58px!important}
+  .about-right h2{font-size:clamp(39px,10.8vw,46px)!important;line-height:.91!important}
+  .about-title-line{width:min(275px,76vw)!important}
+  .about-right p,.about-right li{font-size:13.5px!important;line-height:1.58!important}
+  .about-right li{margin-bottom:17px!important}
 
-  .about-right-text{
-    width:calc(100% - 40px)!important;
-    padding:42px 0 50px!important;
-  }
-
-  .about-right h2{
-    font-size:clamp(36px,10.2vw,42px)!important;
-    line-height:.94!important;
-  }
-
-  .about-right p,
-  .about-right li{
-    font-size:13.5px!important;
-    line-height:1.54!important;
-  }
-
-  .about-right li{
-    margin-bottom:15px!important;
-  }
-
-  /* =======================================================
-     5. TEAM — the recording had a large empty area + huge cards
-     ======================================================= */
-  .team-section{
-    overflow:hidden!important;
-  }
-
-  .team-shell{
-    min-height:0!important;
-    padding:48px 18px 60px!important;
-  }
-
-  .team-head h2{
-    font-size:clamp(42px,11.5vw,49px)!important;
-  }
-
+  /* TEAM — compact editorial collage */
+  .team-shell{min-height:0!important;width:100%!important;padding:54px 16px 70px!important}
+  .team-head{padding:0!important}
+  .team-head h2{font-size:clamp(44px,11.8vw,51px)!important}
+  .team-line{width:210px!important}
   .team-grid{
-    display:grid!important;
-    grid-template-columns:1fr!important;
-    gap:30px!important;
-    width:100%!important;
-    height:auto!important;
-    margin:30px 0 0!important;
-    padding:0!important;
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:18px 12px!important;width:100%!important;height:auto!important;margin-top:30px!important;padding:0!important
   }
-
-  .team-card,
-  .team-card-1,
-  .team-card-2,
-  .team-card-3,
-  .team-card-4,
-  .team-card-5{
-    position:relative!important;
-    left:auto!important;
-    right:auto!important;
-    top:auto!important;
-    width:100%!important;
-    max-width:none!important;
-    margin:0!important;
-    opacity:1!important;
-    transform:none!important;
+  .team-card,.team-card-1,.team-card-2,.team-card-3,.team-card-4,.team-card-5{
+    position:relative!important;left:auto!important;right:auto!important;top:auto!important;
+    width:100%!important;max-width:none!important;margin:0!important;opacity:1;transform:none
   }
-
-  .team-card:nth-child(even){
-    width:92%!important;
-    justify-self:end!important;
+  .team-card-3{grid-column:1/-1!important;width:72%!important;justify-self:center!important}
+  .team-photo-wrap,.team-card-4 .team-photo-wrap,.team-card-5 .team-photo-wrap{
+    width:100%!important;height:auto!important;aspect-ratio:3/4!important
   }
+  .team-card-3 .team-photo-wrap{aspect-ratio:4/5!important}
+  .team-photo-wrap img{transition:none!important}
+  .team-name{margin-top:7px!important;font-size:13px!important;line-height:1.06!important}
+  .team-bg-pattern{left:-28%!important;width:156%!important;opacity:.055!important}
+  .team-pattern-row:nth-child(n+7){display:none!important}
+  .team-pattern-track{animation:none!important;will-change:auto!important}
+  .team-pattern-row:nth-child(2) .team-pattern-track{animation:teamTickerLeft 32s linear infinite!important}
+  .team-pattern-row:nth-child(5) .team-pattern-track{animation:teamTickerRight 34s linear infinite!important}
+  .team-marquee{display:none!important}
 
-  .team-photo-wrap,
-  .team-card-4 .team-photo-wrap,
-  .team-card-5 .team-photo-wrap{
-    width:100%!important;
-    height:auto!important;
-    aspect-ratio:4 / 5!important;
-  }
+  /* PORTFOLIO — denser photo rhythm */
+  .portfolio-section{padding:56px 0 102px!important}
+  .portfolio-head,.portfolio-gallery{width:calc(100% - 28px)!important;max-width:540px!important}
+  .portfolio-head{margin-bottom:28px!important}
+  .portfolio-head h2{font-size:clamp(46px,12.5vw,55px)!important}
+  .portfolio-underline{width:min(250px,68vw)!important}
+  .portfolio-gallery{gap:11px!important}
+  .portfolio-pair,.portfolio-triptych,.portfolio-finale{gap:11px!important}
+  .portfolio-wide .portfolio-img{height:245px!important}
+  .portfolio-pair{grid-template-columns:1fr 1fr!important}
+  .portfolio-pair .portfolio-img{height:205px!important}
+  .portfolio-img-dark{height:245px!important}
+  .portfolio-triptych{grid-template-columns:repeat(3,1fr)!important}
+  .portfolio-triptych .portfolio-img{height:165px!important}
+  .portfolio-finale{grid-template-columns:.9fr 1.1fr!important}
+  .portfolio-finale-vertical .portfolio-img,.portfolio-finale-wide .portfolio-img{height:285px!important}
+  .portfolio-word{bottom:22px!important}
+  .portfolio-word-track{animation:portfolioTicker 29s linear infinite!important}
+  .portfolio-word span{font-size:48px!important}
 
-  .team-name{
-    margin-top:9px!important;
-    font-size:16px!important;
-  }
-
-  .team-marquee{
-    display:none!important;
-  }
-
-  /* =======================================================
-     6. PORTFOLIO — this was one of the better blocks in the recording
-     ======================================================= */
-  .portfolio-section{
-    padding:52px 0 82px!important;
-  }
-
-  .portfolio-head,
-  .portfolio-gallery{
-    width:calc(100% - 30px)!important;
-  }
-
-  .portfolio-head h2{
-    font-size:clamp(44px,12vw,52px)!important;
-  }
-
-  .portfolio-wide .portfolio-img,
-  .portfolio-img-dark,
-  .portfolio-pair .portfolio-img,
-  .portfolio-triptych .portfolio-img,
-  .portfolio-finale-wide .portfolio-img{
-    height:265px!important;
-  }
-
-  .portfolio-finale-vertical .portfolio-img{
-    height:390px!important;
-  }
-
-  /* =======================================================
-     7. QUIZ — cards were visually oversized and navigation weak
-     ======================================================= */
-  .quiz-section{
-    padding:50px 0 58px!important;
-  }
-
-  .quiz-shell{
-    width:calc(100% - 24px)!important;
-  }
-
-  .quiz-head h2{
-    font-size:clamp(25px,7.4vw,31px)!important;
-    line-height:1.06!important;
-  }
-
-  .quiz-card-inner{
-    padding:18px 14px 16px!important;
-  }
-
-  .quiz-question{
-    font-size:18px!important;
-    line-height:1.18!important;
-  }
-
-  .quiz-options-gifts{
-    display:grid!important;
-    grid-template-columns:1fr!important;
-    gap:9px!important;
-  }
-
+  /* QUIZ — two gifts beside each other like reference */
+  .quiz-section{padding:60px 0 72px!important}
+  .quiz-shell{width:calc(100% - 24px)!important;max-width:560px!important}
+  .quiz-head{width:100%!important;margin-bottom:25px!important}
+  .quiz-head h2{font-size:clamp(27px,7.7vw,33px)!important;line-height:1.04!important}
+  .quiz-card{min-height:0!important;border-radius:18px!important}
+  .quiz-card-inner{padding:20px 14px 18px!important}
+  .quiz-question{font-size:19px!important;line-height:1.16!important}
+  .quiz-options-gifts{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
   .quiz-options-gifts .quiz-gift{
-    display:grid!important;
-    grid-template-columns:96px minmax(0,1fr)!important;
-    grid-template-rows:96px!important;
-    align-items:center!important;
-    min-height:0!important;
-    height:auto!important;
-    padding:7px!important;
-    border-radius:12px!important;
+    display:grid!important;grid-template-rows:144px minmax(42px,auto)!important;padding:7px 7px 10px!important
   }
-
-  .quiz-options-gifts .quiz-option-image{
-    width:96px!important;
-    height:96px!important;
-    min-height:0!important;
+  .quiz-options-gifts .quiz-gift:nth-child(3){
+    grid-column:1/-1!important;grid-template-columns:128px 1fr!important;grid-template-rows:128px!important;align-items:center!important
   }
-
-  .quiz-options-gifts .quiz-gift > span{
-    min-height:0!important;
-    margin:0!important;
-    padding:0 10px!important;
-    font-size:12px!important;
-    line-height:1.25!important;
-    text-align:left!important;
+  .quiz-options-gifts .quiz-option-image{width:100%!important;height:144px!important}
+  .quiz-options-gifts .quiz-gift:nth-child(3) .quiz-option-image{width:128px!important;height:128px!important}
+  .quiz-gift-label{padding:9px 5px 0!important;font-size:11px!important;line-height:1.2!important}
+  .quiz-options-gifts .quiz-gift:nth-child(3) .quiz-gift-label{
+    padding:0 12px!important;text-align:left!important;font-size:12px!important
   }
-
-  .quiz-gift:before{
-    left:11px!important;
-    top:11px!important;
-    width:24px!important;
-    height:24px!important;
-  }
-
-  .quiz-gift-check{
-    width:27px!important;
-    height:27px!important;
-    right:10px!important;
-    bottom:10px!important;
-  }
-
+  .quiz-options-list{gap:9px!important}
   .quiz-options-list .quiz-option{
-    min-height:54px!important;
-    padding:12px 40px 12px 46px!important;
-    font-size:12px!important;
+    min-height:58px!important;padding:13px 43px 13px 48px!important;font-size:12.5px!important
   }
+  .quiz-footer{padding:12px 14px 15px!important}
+  .quiz-next{min-height:48px!important}
 
-  .quiz-footer{
-    padding:12px 14px 14px!important;
-  }
-
-  .quiz-next{
-    min-height:48px!important;
-    background:#48222D!important;
-    color:#fff!important;
-    opacity:1;
-  }
-
-  .quiz-next:disabled{
-    opacity:.38!important;
-  }
-
-  /* =======================================================
-     8. BENEFITS — heading was dominating the whole phone
-     ======================================================= */
-  .benefits-section{
-    padding:52px 0 60px!important;
-  }
-
-  .benefits-title{
-    padding-right:42px!important;
-    margin-bottom:30px!important;
-  }
-
-  .benefits-title h2{
-    font-size:clamp(39px,10.8vw,46px)!important;
-    line-height:.92!important;
-  }
-
+  /* BENEFITS */
+  .benefits-section{min-height:0!important;padding:62px 0 74px!important}
+  .benefits-shell{width:calc(100% - 30px)!important}
+  .benefits-title{width:100%!important;margin:0 0 34px!important;padding-right:50px!important}
+  .benefits-title h2{font-size:clamp(42px,11.6vw,50px)!important}
+  .benefits-underline{left:0!important;width:min(280px,72vw)!important}
+  .benefits-heart{width:50px!important;height:44px!important}
+  .benefits-timeline{width:100%!important;padding-left:25px!important}
+  .benefits-line{left:6px!important}
+  .benefit-dot{left:-24px!important}
   .benefit-card{
-    padding:20px 18px!important;
+    min-height:0!important;margin-bottom:12px!important;padding:21px 19px!important;
+    opacity:1!important;transform:none!important
   }
+  .benefit-card h3{font-size:20px!important}
+  .benefit-card p{font-size:12.5px!important;line-height:1.55!important}
 
-  .benefit-card h3{
-    font-size:19px!important;
-  }
+  /* CONTRACT — keep animated heart/pen */
+  .contract-ref{min-height:760px!important;padding:58px 0 76px!important}
+  .contract-ref-shell{width:calc(100% - 30px)!important;grid-template-columns:1fr!important;gap:8px!important}
+  .contract-ref-visual{padding:0!important;justify-content:center!important}
+  .contract-ref-art{width:min(360px,94vw)!important}
+  .contract-visual-note{display:none!important}
+  .contract-ref-copy{padding:10px 0 0!important;text-align:center!important}
+  .contract-copy-kicker{justify-content:center!important;font-size:7.5px!important}
+  .contract-ref-copy h2{font-size:clamp(39px,10.8vw,47px)!important;line-height:.9!important}
+  .contract-copy-sign{justify-content:center!important;margin-top:22px!important}
 
-  .benefit-card p{
-    font-size:12.5px!important;
-  }
-
-  /* =======================================================
-     9. CONTRACT — keep the nice composition, slightly calmer type
-     ======================================================= */
-  .contract-ref{
-    padding:50px 0 58px!important;
-  }
-
-  .contract-ref-copy h2{
-    font-size:clamp(37px,10.4vw,44px)!important;
-  }
-
-  /* =======================================================
-     10. COST — biggest layout bug: huge empty blue tail under the pug
-     ======================================================= */
-  .cost-section{
-    padding:50px 0 28px!important;
-  }
-
+  /* COST */
+  .cost-section{padding:58px 0 42px!important}
+  .cost-scene{height:auto!important;min-height:0!important}
   .cost-stage{
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:center!important;
-    height:auto!important;
-    min-height:0!important;
-    padding:0 14px!important;
-    overflow:hidden!important;
+    position:relative!important;top:auto!important;display:flex!important;flex-direction:column!important;
+    align-items:center!important;width:100%!important;height:auto!important;min-height:0!important;
+    padding:0 15px!important;overflow:hidden!important
   }
-
-  .cost-title{
-    width:100%!important;
-    margin-bottom:24px!important;
-  }
-
-  .cost-title h2{
-    font-size:45px!important;
-  }
-
+  .cost-title{position:relative!important;top:auto!important;left:auto!important;transform:none!important;margin:0 auto 28px!important}
+  .cost-title h2{font-size:48px!important}
   .cost-card{
-    width:100%!important;
-    max-width:360px!important;
-    margin:0 auto!important;
+    position:relative!important;left:auto!important;top:auto!important;width:100%!important;max-width:360px!important;
+    min-height:0!important;margin:0 auto!important;transform:none!important;border-radius:18px!important
   }
-
-  .cost-card-copy{
-    padding:25px 20px 23px!important;
-  }
-
+  .cost-card-copy{padding:27px 22px 25px!important}
+  .cost-card li{font-size:12.5px!important;line-height:1.43!important}
   .cost-pug{
-    position:relative!important;
-    right:auto!important;
-    left:auto!important;
-    bottom:auto!important;
-    display:block!important;
-    align-self:flex-end!important;
-    width:205px!important;
-    max-width:58vw!important;
-    margin:18px -6px -8px 0!important;
-    transform:none!important;
+    position:relative!important;right:auto!important;bottom:auto!important;align-self:flex-end!important;
+    width:196px!important;max-width:56vw!important;margin:16px 0 -4px!important;transform:none!important
   }
+  .cost-treat{display:none!important}
 
-  .cost-treat{
-    display:none!important;
+  /* REVIEWS */
+  .reviews-carousel-section{padding:58px 0 72px!important}
+  .reviews-carousel-head{width:calc(100% - 30px)!important}
+  .reviews-head-copy h2{font-size:48px!important}
+  .reviews-track{gap:13px!important;padding-left:15px!important}
+  .review-slide,.review-slide:nth-child(even){
+    width:min(82vw,305px)!important;flex-basis:min(82vw,305px)!important;
+    margin-top:0!important;transform:none!important
   }
+  .review-slide-inner{min-height:318px!important;padding:24px 20px!important}
+  .review-slide p{font-size:12.5px!important;line-height:1.55!important}
 
-  /* =======================================================
-     11. REVIEWS — stable carousel, no floating cards
-     ======================================================= */
-  .reviews-carousel-section{
-    padding:50px 0 60px!important;
-  }
-
-  .reviews-track{
-    gap:12px!important;
-  }
-
-  .review-slide{
-    width:min(84vw,300px)!important;
-    flex-basis:min(84vw,300px)!important;
-    margin-top:0!important;
-    transform:none!important;
-  }
-
-  .review-slide:nth-child(even){
-    margin-top:0!important;
-  }
-
-  /* =======================================================
-     12. FAQ — recording showed missing/clipped first letters
-     ======================================================= */
-  .faq-section{
-    padding:52px 0 58px!important;
-  }
-
-  .faq-title-block h2{
-    font-size:clamp(41px,11vw,47px)!important;
-  }
-
-  .faq-item:before{
-    left:15px!important;
-    top:20px!important;
-  }
-
+  /* FAQ */
+  .faq-section{padding:60px 0 72px!important}
+  .faq-shell{width:calc(100% - 30px)!important;gap:30px!important}
+  .faq-title-block{position:relative!important;top:auto!important;padding-top:0!important}
+  .faq-title-block h2{font-size:clamp(43px,11.7vw,50px)!important}
+  .faq-item{border-radius:28px!important}
   .faq-question{
-    min-height:62px!important;
-    padding:14px 52px 14px 52px!important;
-    font-size:14px!important;
-    line-height:1.24!important;
-    overflow:visible!important;
+    min-height:66px!important;padding:15px 18px 15px 52px!important;
+    font-size:15px!important;line-height:1.22!important
   }
-
-  .faq-plus{
-    flex:0 0 27px!important;
-    width:27px!important;
-    height:27px!important;
-  }
-
+  .faq-item:before{left:18px!important;top:20px!important}
   .faq-answer-inner{
-    padding-left:52px!important;
-    padding-right:20px!important;
-    font-size:12.5px!important;
+    padding-left:52px!important;padding-right:20px!important;font-size:12.5px!important;line-height:1.55!important
   }
+  .faq-answer-inner:before{left:52px!important}
 
-  .faq-answer-inner:before{
-    left:52px!important;
-  }
-
-  /* =======================================================
-     13. CONTACT — preserve the good phone mockup, just fit it cleanly
-     ======================================================= */
-  .contact-final{
-    padding-top:52px!important;
-  }
-
-  .contact-final-inner{
-    width:calc(100% - 28px)!important;
-  }
-
-  .contact-final-inner h2{
-    font-size:21px!important;
-    margin-bottom:26px!important;
-  }
-
+  /* CONTACT */
+  .contact-final{min-height:0!important;padding:62px 0 0!important}
+  .contact-final-inner{width:calc(100% - 28px)!important}
+  .contact-final-inner h2{margin-bottom:30px!important;font-size:22px!important}
   .contact-phone{
-    width:min(318px,calc(100vw - 34px))!important;
-    height:382px!important;
+    width:min(326px,calc(100vw - 32px))!important;height:398px!important;border-radius:50px 50px 0 0!important
   }
+  .contact-wave{height:205px!important;transform:none!important}
 
-  .site-footer{
-    font-size:9px!important;
-  }
-
-  /* No accidental huge gaps at decorative bridges. */
-  .flow-bridge{
-    min-height:0!important;
-  }
+  .flow-bridge{--bridge-p:1!important}
 }
 
 @media(max-width:360px){
-  .hero .title{
-    font-size:40px!important;
-  }
-
-  .hero .subtitle{
-    top:138px!important;
-    font-size:13px!important;
-  }
-
-  .hero .portrait{
-    width:min(128vw,455px)!important;
-  }
-
-  .quiz-options-gifts .quiz-gift{
-    grid-template-columns:86px minmax(0,1fr)!important;
-    grid-template-rows:86px!important;
-  }
-
-  .quiz-options-gifts .quiz-option-image{
-    width:86px!important;
-    height:86px!important;
-  }
-
-  .faq-question{
-    font-size:13.5px!important;
-  }
-}
-
-
-/* =========================================================
-   MOBILE REBUILD V6 — TEAM COMPRESSION / FINAL PHONE RHYTHM
-   ========================================================= */
-@media(max-width:767px){
-
-  .team-shell{
-    padding-bottom:54px!important;
-  }
-
-  .team-grid{
-    display:grid!important;
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:24px 12px!important;
-    width:100%!important;
-    height:auto!important;
-    margin-top:28px!important;
-  }
-
-  .team-card,
-  .team-card:nth-child(even),
-  .team-card-1,
-  .team-card-2,
-  .team-card-3,
-  .team-card-4,
-  .team-card-5{
-    width:100%!important;
-    max-width:none!important;
-    margin:0!important;
-    justify-self:stretch!important;
-  }
-
-  .team-card-3{
-    grid-column:1 / -1!important;
-    width:76%!important;
-    justify-self:center!important;
-  }
-
-  .team-photo-wrap,
-  .team-card-4 .team-photo-wrap,
-  .team-card-5 .team-photo-wrap{
-    aspect-ratio:3 / 4!important;
-    height:auto!important;
-  }
-
-  .team-card-3 .team-photo-wrap{
-    aspect-ratio:4 / 5!important;
-  }
-
-  .team-name{
-    font-size:13px!important;
-    line-height:1.05!important;
-    margin-top:7px!important;
-  }
-
-  /* About was good in the recording, just remove a little vertical drag. */
-  .about-right-text{
-    padding-bottom:42px!important;
-  }
-
-  /* Keep compact gaps between major phone sections. */
-  .flow-team-portfolio,
-  .flow-portfolio-quiz,
-  .flow-contract-cost,
-  .flow-faq-contact{
-    height:32px!important;
-  }
-}
-
-@media(max-width:360px){
-  .team-grid{
-    gap:20px 10px!important;
-  }
-
-  .team-name{
-    font-size:12px!important;
-  }
+  .hero .title{font-size:42px!important}
+  .hero .subtitle{top:143px!important;font-size:13px!important}
+  .portrait{width:106vw!important}
+  .quiz-options-gifts .quiz-gift{grid-template-rows:130px minmax(40px,auto)!important}
+  .quiz-options-gifts .quiz-option-image{height:130px!important}
+  .faq-question{font-size:14px!important}
 }
