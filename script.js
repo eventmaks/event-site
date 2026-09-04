@@ -2,6 +2,8 @@
   const body=document.body;
   const noise=document.querySelector(".noise");
   const typed=document.getElementById("typed");
+  const phoneLite=window.matchMedia("(max-width: 767px)").matches;
+  if(phoneLite) body.classList.add("phone-lite");
 
   const phrases=[
     "ОРГАНИЗАТОР - КООРДИНАТОР МЕРОПРИЯТИЙ",
@@ -83,26 +85,30 @@
   }
 
   if(noise){
-    let noiseActive=true;
-    let noiseTimer=0;
+    if(phoneLite){
+      noise.style.backgroundPosition="50% 50%";
+    }else{
+      let noiseActive=true;
+      let noiseTimer=0;
 
-    const tickNoise=()=>{
-      if(noiseActive){
-        noise.style.backgroundPosition=
-          `${Math.floor(Math.random()*100)}% ${Math.floor(Math.random()*100)}%`;
+      const tickNoise=()=>{
+        if(noiseActive){
+          noise.style.backgroundPosition=
+            `${Math.floor(Math.random()*100)}% ${Math.floor(Math.random()*100)}%`;
+        }
+        noiseTimer=window.setTimeout(tickNoise,130);
+      };
+
+      const heroForNoise=document.querySelector(".hero");
+      if(heroForNoise && "IntersectionObserver" in window){
+        const noiseObserver=new IntersectionObserver(entries=>{
+          noiseActive=entries.some(entry=>entry.isIntersecting);
+        },{threshold:0});
+        noiseObserver.observe(heroForNoise);
       }
-      noiseTimer=window.setTimeout(tickNoise,130);
-    };
 
-    const heroForNoise=document.querySelector(".hero");
-    if(heroForNoise && "IntersectionObserver" in window){
-      const noiseObserver=new IntersectionObserver(entries=>{
-        noiseActive=entries.some(entry=>entry.isIntersecting);
-      },{threshold:0});
-      noiseObserver.observe(heroForNoise);
+      tickNoise();
     }
-
-    tickNoise();
   }
 
   /* ========================================================
@@ -274,10 +280,38 @@
   }
 
   srRefreshMetrics();
-  window.addEventListener("scroll",srRequest,{passive:true});
-  window.addEventListener("resize",srResize,{passive:true});
-  window.addEventListener("load",srResize,{once:true});
-  srUpdate();
+  if(phoneLite){
+    if(srVideo){
+      srVideo.autoplay=true;
+      srVideo.preload="metadata";
+      srVideo.muted=true;
+
+      if("IntersectionObserver" in window){
+        const showreelMobileObserver=new IntersectionObserver(entries=>{
+          entries.forEach(entry=>{
+            if(entry.isIntersecting && entry.intersectionRatio>.18){
+              srVideo.play().catch(()=>{});
+            }else{
+              srVideo.pause();
+            }
+          });
+        },{threshold:[0,.18,.5]});
+        showreelMobileObserver.observe(srStage || srVideo);
+      }else{
+        srVideo.play().catch(()=>{});
+      }
+    }
+    if(srMask) srMask.style.opacity="0";
+    if(srSound){
+      srSound.style.opacity="1";
+      srSound.style.pointerEvents="auto";
+    }
+  }else{
+    window.addEventListener("scroll",srRequest,{passive:true});
+    window.addEventListener("resize",srResize,{passive:true});
+    window.addEventListener("load",srResize,{once:true});
+    srUpdate();
+  }
 
   if(srSound && srVideo){
     srSound.addEventListener("click",()=>{
@@ -593,10 +627,15 @@
     }
 
     bRefresh();
-    window.addEventListener("scroll",bRequest,{passive:true});
-    window.addEventListener("resize",bResize,{passive:true});
-    window.addEventListener("load",bResize,{once:true});
-    bRender();
+    if(phoneLite){
+      benefitsSection.style.setProperty("--benefits-scene-p","1");
+      bSetAll(1);
+    }else{
+      window.addEventListener("scroll",bRequest,{passive:true});
+      window.addEventListener("resize",bResize,{passive:true});
+      window.addEventListener("load",bResize,{once:true});
+      bRender();
+    }
   }
 
 
@@ -722,13 +761,22 @@
     }
 
     crRefresh();
-    crPlacePen(0);
 
-    window.addEventListener("scroll",crRequest,{passive:true});
-    window.addEventListener("resize",crResize,{passive:true});
-    window.addEventListener("load",crResize,{once:true});
-
-    crRender();
+    if(phoneLite){
+      contractRefSection.style.setProperty("--contract-scene-p","1");
+      contractRefSection.style.setProperty("--contract-paper-y","0px");
+      contractRefSection.style.setProperty("--pen-p","1");
+      contractHeartPath.style.strokeDashoffset="0";
+      contractHeartPath.style.opacity="1";
+      crPlacePen(1);
+      contractPenMover.style.opacity=".80";
+    }else{
+      crPlacePen(0);
+      window.addEventListener("scroll",crRequest,{passive:true});
+      window.addEventListener("resize",crResize,{passive:true});
+      window.addEventListener("load",crResize,{once:true});
+      crRender();
+    }
   }
 
 
@@ -853,11 +901,16 @@
       cRAF=requestAnimationFrame(cRender);
     }
 
-    window.addEventListener("scroll",cRequest,{passive:true});
-    window.addEventListener("resize",cRequest,{passive:true});
-    window.addEventListener("load",cRequest,{once:true});
-
-    cRender();
+    if(phoneLite){
+      costTreat.style.opacity="0";
+      costTreat.style.visibility="hidden";
+      costSection.style.setProperty("--cost-p","1");
+    }else{
+      window.addEventListener("scroll",cRequest,{passive:true});
+      window.addEventListener("resize",cRequest,{passive:true});
+      window.addEventListener("load",cRequest,{once:true});
+      cRender();
+    }
   }
 
 
@@ -986,18 +1039,28 @@
       reviewsRender();
     });
 
-    window.addEventListener("scroll",requestReviewsScrollRender,{passive:true});
+    if(!phoneLite){
+      window.addEventListener("scroll",requestReviewsScrollRender,{passive:true});
+    }
     window.addEventListener("resize",()=>{
       reviewsRender();
-      requestReviewsScrollRender();
+      if(!phoneLite) requestReviewsScrollRender();
     },{passive:true});
     window.addEventListener("load",()=>{
       reviewsRender();
-      requestReviewsScrollRender();
+      if(!phoneLite) requestReviewsScrollRender();
     },{once:true});
 
     reviewsRender();
-    reviewsScrollRender();
+    if(phoneLite){
+      if(reviewsSection){
+        reviewsSection.style.setProperty("--reviews-scene-p",".55");
+        reviewsSection.style.setProperty("--reviews-wave-x","0px");
+      }
+      reviewSlides.forEach(slide=>slide.style.setProperty("--review-float","0px"));
+    }else{
+      reviewsScrollRender();
+    }
   }
 
 
@@ -1115,29 +1178,6 @@
   }
 
   /* ========================================================
-     SHOWREEL PLAY ICONS — no more inert buttons
-     ======================================================== */
-  const showreelPlayButtons=[...document.querySelectorAll(".showreel-choice")];
-
-  showreelPlayButtons.forEach(button=>{
-    button.addEventListener("click",()=>{
-      if(!srVideo) return;
-
-      /*
-        The showreel already autoplays muted. A deliberate click on the
-        play icon turns the sound on and ensures playback is running.
-      */
-      srVideo.muted=false;
-      srVideo.play().catch(()=>{});
-
-      if(srSound){
-        srSound.textContent="ВЫКЛЮЧИТЬ ЗВУК";
-      }
-    });
-  });
-
-
-  /* ========================================================
      VISUAL UPGRADE V1 — About / Team / Portfolio
      One requestAnimationFrame loop, no layout mutation outside viewport.
      ======================================================== */
@@ -1213,11 +1253,14 @@
     requestAnimationFrame(updateVisualLayers);
   }
 
-  if(!visualReduceMotion){
+  if(!visualReduceMotion && !phoneLite){
     window.addEventListener("scroll",requestVisualUpdate,{passive:true});
     window.addEventListener("resize",requestVisualUpdate,{passive:true});
     window.addEventListener("load",requestVisualUpdate,{once:true});
     requestVisualUpdate();
+  }else if(phoneLite){
+    if(aboutPattern) aboutPattern.style.setProperty("--about-pattern-y","0px");
+    if(aboutPhoto) aboutPhoto.style.setProperty("--about-photo-y","0px");
   }
 
   /* Small 3D response only on desktop pointer devices. */
@@ -1289,10 +1332,19 @@
     fcRAF=requestAnimationFrame(fcRender);
   }
 
-  window.addEventListener("scroll",requestFcRender,{passive:true});
-  window.addEventListener("resize",requestFcRender,{passive:true});
-  window.addEventListener("load",requestFcRender,{once:true});
-  requestFcRender();
+  if(phoneLite){
+    if(faqSectionVisual) faqSectionVisual.style.setProperty("--faq-scene-p","1");
+    if(contactSectionVisual){
+      contactSectionVisual.style.setProperty("--contact-scene-p","1");
+      contactSectionVisual.style.setProperty("--contact-wave-x","0px");
+      contactSectionVisual.style.setProperty("--contact-phone-y","0px");
+    }
+  }else{
+    window.addEventListener("scroll",requestFcRender,{passive:true});
+    window.addEventListener("resize",requestFcRender,{passive:true});
+    window.addEventListener("load",requestFcRender,{once:true});
+    requestFcRender();
+  }
 
   /* Real local time inside the stylized phone. */
   function updateContactPhoneTime(){
@@ -1356,10 +1408,14 @@
   }
 
   if(flowBridges.length){
-    window.addEventListener("scroll",requestFlowBridges,{passive:true});
-    window.addEventListener("resize",requestFlowBridges,{passive:true});
-    window.addEventListener("load",requestFlowBridges,{once:true});
-    requestFlowBridges();
+    if(phoneLite){
+      flowBridges.forEach(bridge=>bridge.style.setProperty("--bridge-p","1"));
+    }else{
+      window.addEventListener("scroll",requestFlowBridges,{passive:true});
+      window.addEventListener("resize",requestFlowBridges,{passive:true});
+      window.addEventListener("load",requestFlowBridges,{once:true});
+      requestFlowBridges();
+    }
   }
 
 

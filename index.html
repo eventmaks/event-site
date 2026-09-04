@@ -170,22 +170,21 @@
       <video
         class="showreel-video"
         id="showreelVideo"
-        src="assets/showreel.mp4"
         autoplay
         muted
         loop
         playsinline
-        preload="auto"
+        preload="metadata"
+        poster="assets/showreel-mobile-poster.jpg"
         disablepictureinpicture
-      ></video>
+      >
+        <source media="(max-width: 767px)" src="assets/showreel-mobile.mp4" type="video/mp4">
+        <source src="assets/showreel.mp4" type="video/mp4">
+      </video>
 
       <!-- UI that lives UNDER the warm mask.
            It becomes visible naturally as the circular hole expands. -->
       <div class="showreel-under-ui">
-        
-        <button class="showreel-choice showreel-choice-right" type="button" aria-label="Свадебное видео">
-          <span class="showreel-play-triangle"></span>
-        </button>
               </div>
 
             <svg
@@ -212,6 +211,9 @@
       </svg>
 
       <!-- Elements above the mask, visible in the initial light-paper scene. -->
+
+
+      <!-- Decorative ring restored; no play button inside it. -->
       <div class="showreel-ring" id="showreelRing" aria-hidden="true">
         <svg viewBox="0 0 220 220">
           <defs>
@@ -226,10 +228,7 @@
         </svg>
       </div>
 
-      <button class="showreel-choice showreel-choice-left" id="showreelMainButton" type="button" aria-label="Шоурил">
-        <span class="showreel-play-triangle"></span>
-      </button>
-
+      <!-- Decorative hand-drawn arrow restored. -->
       <svg class="showreel-arrow" id="showreelArrow" viewBox="0 0 180 130" aria-hidden="true">
         <path d="M160 12
                  C154 45 132 69 95 79
