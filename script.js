@@ -11,6 +11,12 @@
   ];
 
   function begin(){
+    if(phoneLite){
+      body.classList.add("hero-ready","hero-opened");
+      if(noise) noise.classList.add("visible");
+      return;
+    }
+
     requestAnimationFrame(()=>{
       requestAnimationFrame(()=>{
         body.classList.add("hero-ready");
@@ -38,9 +44,13 @@
     setTimeout(startOnce,650);
   }
 
-  // Real typewriter loop:
-  // type phrase -> hold -> erase -> type the next phrase.
-  if(typed){
+  // Real typewriter loop on larger screens.
+  // On phones the subtitle is deliberately static: less layout churn and easier reading.
+  if(phoneLite && typed){
+    typed.textContent=phrases[0];
+  }
+
+  if(typed && !phoneLite){
     let phraseIndex=0;
     let charIndex=0;
     let deleting=false;
@@ -327,7 +337,9 @@
      ======================================================== */
   const teamReveal=[...document.querySelectorAll(".team-reveal")];
 
-  if("IntersectionObserver" in window && teamReveal.length){
+  if(phoneLite){
+    teamReveal.forEach(item=>item.classList.add("is-visible"));
+  }else if("IntersectionObserver" in window && teamReveal.length){
     const teamObserver=new IntersectionObserver(entries=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
@@ -354,7 +366,9 @@
      ======================================================== */
   const portfolioReveal=[...document.querySelectorAll(".portfolio-reveal")];
 
-  if("IntersectionObserver" in window && portfolioReveal.length){
+  if(phoneLite){
+    portfolioReveal.forEach(item=>item.classList.add("is-visible"));
+  }else if("IntersectionObserver" in window && portfolioReveal.length){
     const portfolioObserver=new IntersectionObserver(entries=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
@@ -1357,7 +1371,9 @@
   }
 
   updateContactPhoneTime();
-  window.setInterval(updateContactPhoneTime,30000);
+  if(!phoneLite){
+    window.setInterval(updateContactPhoneTime,30000);
+  }
 
   /* Very small desktop pointer tilt — disabled on touch/reduced motion. */
   if(
