@@ -12215,3 +12215,73 @@ body.entry-consent-open{
     width:31px!important;
   }
 }
+
+
+/* =========================================================
+   MOBILE FINAL FIXES V13
+   Full surname + longer visible pug treat.
+   ========================================================= */
+@media(max-width:767px){
+
+  /* MAIN HERO TITLE:
+     Explicit two-line layout guarantees that the final "Й" can never be clipped. */
+  body.phone-lite .hero .title{
+    left:12px!important;
+    width:calc(100% - 24px)!important;
+    max-width:none!important;
+    overflow:visible!important;
+    white-space:normal!important;
+    text-align:center!important;
+    font-size:clamp(39px,10.8vw,45px)!important;
+    line-height:.91!important;
+    letter-spacing:-.045em!important;
+  }
+
+  body.phone-lite .hero .title > span{
+    display:block!important;
+    width:100%!important;
+    white-space:nowrap!important;
+    overflow:visible!important;
+  }
+
+  /* OPENING SCREEN:
+     This title also used to have too little horizontal room on iPhone. */
+  body.phone-lite .opening-brand{
+    width:calc(100% - 32px)!important;
+    max-width:360px!important;
+    text-align:center!important;
+  }
+
+  body.phone-lite .opening-brand strong{
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+    white-space:normal!important;
+    overflow:visible!important;
+    font-size:30px!important;
+    line-height:.96!important;
+    letter-spacing:-.035em!important;
+  }
+
+  body.phone-lite .opening-brand span{
+    display:block!important;
+    max-width:320px!important;
+    margin:9px auto 0!important;
+  }
+
+  /* Keep treat fully readable/visible while it waits at the pug's mouth. */
+  body.phone-lite .cost-treat{
+    opacity:1;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .hero .title{
+    font-size:38px!important;
+    letter-spacing:-.05em!important;
+  }
+
+  body.phone-lite .opening-brand strong{
+    font-size:27px!important;
+  }
+}

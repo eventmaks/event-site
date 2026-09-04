@@ -862,8 +862,24 @@
         finishes near the moment the block approaches the top.
       */
       const start=vh*.92;
-      const end=vh*.02;
-      const raw=cClamp((start-sectionRect.top)/(start-end));
+
+      let raw;
+      if(phoneLite){
+        /*
+          Mobile timing is tied to the actual dog position.
+          The treat reaches the mouth when the pug has entered the lower
+          part of the viewport instead of finishing while the dog is still
+          below the screen.
+        */
+        const pugOffset=pugRect.top-sectionRect.top;
+        const arrivalSectionTop=(vh*.70)-pugOffset;
+        const denominator=Math.max(1,start-arrivalSectionTop);
+        raw=cClamp((start-sectionRect.top)/denominator);
+      }else{
+        const end=vh*.02;
+        raw=cClamp((start-sectionRect.top)/(start-end));
+      }
+
       const t=cSmooth(raw);
       costStage.style.setProperty("--cost-p",t.toFixed(4));
 
@@ -919,9 +935,25 @@
         The biscuit stays fully visible during the entire travel.
         It starts "being eaten" only after it has actually reached the mouth.
       */
-      const swallow=cSmooth(cClamp((t-.965)/.035));
-      const scale=1-(swallow*.72);
-      const opacity=1-cClamp((swallow-.70)/.30);
+      let scale=1;
+      let opacity=1;
+
+      if(phoneLite){
+        /*
+          On phone the treat stays visible at the mouth while the pug is
+          actually on screen. It fades only after the dog has almost left
+          through the top of the viewport.
+        */
+        const holdFade=cSmooth(
+          cClamp((pugRect.bottom-(vh*.06))/(vh*.22))
+        );
+        opacity=holdFade;
+        scale=.98+(holdFade*.02);
+      }else{
+        const swallow=cSmooth(cClamp((t-.965)/.035));
+        scale=1-(swallow*.72);
+        opacity=1-cClamp((swallow-.70)/.30);
+      }
 
       costTreat.style.transform=
         `translate3d(${pt.x.toFixed(2)}px,${pt.y.toFixed(2)}px,0) `+
