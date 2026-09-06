@@ -12545,3 +12545,100 @@ body.entry-consent-open{
   pointer-events:auto!important;
   -webkit-tap-highlight-color:transparent;
 }
+
+
+/* =========================================================
+   MOBILE ABOUT PATTERN V18
+   Make "СОЗДАЮ СОБЫТИЯ" feel like the desktop version:
+   wider full-bleed pattern + visible continuous motion +
+   subtle scroll-linked parallax on phones.
+   ========================================================= */
+@media(max-width:767px){
+  body.phone-lite .about-reference{
+    position:relative!important;
+    display:block!important;
+    overflow:hidden!important;
+  }
+
+  body.phone-lite .about-left{
+    position:relative!important;
+    min-height:640px!important;
+    overflow:hidden!important;
+  }
+
+  body.phone-lite .about-pattern{
+    --about-pattern-y:0px;
+    left:50%!important;
+    top:-34px!important;
+    width:192vw!important;
+    min-width:860px!important;
+    max-width:none!important;
+    height:720px!important;
+    min-height:0!important;
+    bottom:auto!important;
+    opacity:.115!important;
+    transform:translate3d(-50%,var(--about-pattern-y),0) rotate(-4.2deg)!important;
+    transform-origin:center top!important;
+    will-change:transform!important;
+  }
+
+  body.phone-lite .about-pattern-row{
+    display:block!important;
+    height:60px!important;
+    font-size:26px!important;
+    line-height:1!important;
+  }
+
+  body.phone-lite .about-pattern-row:nth-child(n+9){
+    display:none!important;
+  }
+
+  body.phone-lite .about-pattern-track{
+    display:flex!important;
+    width:max-content!important;
+    animation:aboutTickerLeft 26s linear infinite!important;
+    will-change:transform!important;
+    transform:translate3d(0,0,0)!important;
+  }
+
+  body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
+    animation:aboutTickerRight 29s linear infinite!important;
+  }
+
+  body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track{
+    animation-duration:31s!important;
+    animation-delay:-5s!important;
+  }
+
+  body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
+    animation-duration:27s!important;
+    animation-delay:-9s!important;
+  }
+
+  body.phone-lite .about-pattern-copy{
+    padding-right:30px!important;
+  }
+
+  body.phone-lite .about-photo-card{
+    top:86px!important;
+    width:min(76vw,306px)!important;
+    height:462px!important;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .about-left{
+    min-height:620px!important;
+  }
+
+  body.phone-lite .about-pattern{
+    width:205vw!important;
+    min-width:800px!important;
+    height:690px!important;
+  }
+
+  body.phone-lite .about-pattern-row{
+    height:57px!important;
+    font-size:24px!important;
+  }
+}

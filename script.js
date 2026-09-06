@@ -1319,19 +1319,19 @@
 
     if(visualIsNearViewport(aboutSection,320)){
       const p=visualSectionProgress(aboutSection);
+      const patternShift=phoneLite ? 34 : 58;
+      const photoShift=phoneLite ? -18 : -34;
 
       if(aboutPattern){
-        aboutPattern.style.setProperty("--about-pattern-y",`${(p-.5)*58}px`);
+        aboutPattern.style.setProperty("--about-pattern-y",`${(p-.5)*patternShift}px`);
       }
 
       if(aboutPhoto){
-        aboutPhoto.style.setProperty("--about-photo-y",`${(p-.5)*-34}px`);
+        aboutPhoto.style.setProperty("--about-photo-y",`${(p-.5)*photoShift}px`);
       }
     }
 
-  }
-
-    if(visualIsNearViewport(portfolioSection,360)){
+    if(!phoneLite && visualIsNearViewport(portfolioSection,360)){
       const vh=window.innerHeight || 1;
 
       portfolioImages.forEach((img,index)=>{
@@ -1346,8 +1346,8 @@
 
         img.style.setProperty("--portfolio-parallax",`${px}px`);
       });
-
     }
+  }
 
 
   function requestVisualUpdate(){
@@ -1356,12 +1356,12 @@
     requestAnimationFrame(updateVisualLayers);
   }
 
-  if(!visualReduceMotion && !phoneLite){
+  if(!visualReduceMotion){
     window.addEventListener("scroll",requestVisualUpdate,{passive:true});
     window.addEventListener("resize",requestVisualUpdate,{passive:true});
     window.addEventListener("load",requestVisualUpdate,{once:true});
     requestVisualUpdate();
-  }else if(phoneLite){
+  }else{
     if(aboutPattern) aboutPattern.style.setProperty("--about-pattern-y","0px");
     if(aboutPhoto) aboutPhoto.style.setProperty("--about-photo-y","0px");
   }
