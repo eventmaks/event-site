@@ -13761,3 +13761,120 @@ body.entry-consent-open{
     font-size:6px!important;
   }
 }
+
+
+/* =========================================================
+   MOBILE COST PUG FIX V25
+   The pug must not cover the price card on phones.
+   Desktop is unchanged.
+   ========================================================= */
+@media(max-width:767px){
+
+  /* Give the section more vertical space, so the dog can sit lower
+     without colliding with the next block. */
+  body.phone-lite .cost-stage{
+    min-height:610px!important;
+    padding:0 10px 110px!important;
+    overflow:visible!important;
+  }
+
+  body.phone-lite .cost-content-row{
+    min-height:470px!important;
+    padding-bottom:90px!important;
+  }
+
+  /* Keep the card centered and above the decorative dog. */
+  body.phone-lite .cost-card{
+    position:relative!important;
+    z-index:6!important;
+    width:min(76vw,300px)!important;
+  }
+
+  /* Main fix:
+     - smaller dog;
+     - pushed farther right;
+     - pushed lower;
+     - placed BEHIND the card, so it never covers text/button. */
+  body.phone-lite .cost-pug{
+    position:absolute!important;
+    z-index:3!important;
+    right:-14px!important;
+    bottom:-76px!important;
+    width:104px!important;
+    max-width:none!important;
+    margin:0!important;
+    pointer-events:none!important;
+  }
+
+  body.phone-lite .cost-pug img{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+  }
+
+  /* Bone still visible and allowed to travel to the mouth. */
+  body.phone-lite .cost-treat{
+    display:block!important;
+    width:28px!important;
+    z-index:12!important;
+    pointer-events:none!important;
+  }
+
+  /* A touch more breathing room under the button / note on mobile. */
+  body.phone-lite .cost-card-copy{
+    padding-bottom:18px!important;
+  }
+
+  body.phone-lite .cost-small{
+    margin-top:12px!important;
+    padding-right:32px!important;
+  }
+}
+
+@media(max-width:420px){
+  body.phone-lite .cost-stage{
+    min-height:590px!important;
+    padding-bottom:100px!important;
+  }
+
+  body.phone-lite .cost-content-row{
+    min-height:454px!important;
+    padding-bottom:84px!important;
+  }
+
+  body.phone-lite .cost-pug{
+    right:-10px!important;
+    bottom:-70px!important;
+    width:96px!important;
+  }
+
+  body.phone-lite .cost-treat{
+    width:26px!important;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .cost-stage{
+    min-height:575px!important;
+    padding-bottom:96px!important;
+  }
+
+  body.phone-lite .cost-content-row{
+    min-height:438px!important;
+    padding-bottom:80px!important;
+  }
+
+  body.phone-lite .cost-card{
+    width:min(78vw,282px)!important;
+  }
+
+  body.phone-lite .cost-pug{
+    right:-8px!important;
+    bottom:-66px!important;
+    width:90px!important;
+  }
+
+  body.phone-lite .cost-treat{
+    width:24px!important;
+  }
+}
