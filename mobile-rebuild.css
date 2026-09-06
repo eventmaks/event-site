@@ -1071,3 +1071,25 @@ body.phone-lite .cost-treat{
     width:114px!important;
   }
 }
+
+
+/* =====================================================================
+   MOBILE REBUILD V28 — Hero -> Showreel transition only
+   ===================================================================== */
+
+/* Ring follows the actual animated hole instead of staying fixed
+   in the vertical center of the phone. */
+body.phone-lite .showreel-ring{
+  left:var(--cx,50%)!important;
+  top:var(--cy,14%)!important;
+}
+
+/* Slightly shorten the paper lead-in visually without changing
+   the rest of the showreel or the next section. */
+body.phone-lite .showreel-scene{
+  background:#EAE5DF!important;
+}
+
+body.phone-lite .showreel-stage{
+  background:#EAE5DF!important;
+}

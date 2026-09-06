@@ -182,9 +182,15 @@
     const {vw,vh}=srMetrics;
     const mobile=vw<1200;
     const cxPct=mobile ? 50 : 37.5;
-    const cyStart=phoneLite ? 50 : (mobile ? 7 : 5);
+
+    /*
+      Phone transition starts higher, like the desktop scene:
+      the small circle becomes visible soon after Hero ends and then
+      travels toward the center while opening.
+    */
+    const cyStart=phoneLite ? 14 : (mobile ? 7 : 5);
     const cyEnd=phoneLite ? 50 : (mobile ? 32 : 50);
-    const cyPct=cyStart+(cyEnd-cyStart)*Math.pow(entry,1.5);
+    const cyPct=cyStart+(cyEnd-cyStart)*Math.pow(entry,1.18);
 
     const cxPx=vw*(cxPct/100);
     const cyPx=vh*(cyPct/100);
@@ -204,9 +210,14 @@
         user scrolls. Because entry is derived from scroll position, the
         same motion runs backwards when the user scrolls up.
       */
-      const g=srClamp((entry-.47)/.49);
+      /*
+        Start the reveal much earlier on phone.
+        Previously .47 meant almost half a viewport of plain paper before
+        the opening felt alive.
+      */
+      const g=srClamp((entry-.12)/.70);
       const open=srSmooth(g);
-      const radius=54+(requiredRadius-54)*open;
+      const radius=52+(requiredRadius-52)*open;
 
       srHole.setAttribute("cx",cxPx.toFixed(1));
       srHole.setAttribute("cy",cyPx.toFixed(1));
