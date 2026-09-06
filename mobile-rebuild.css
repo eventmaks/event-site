@@ -965,3 +965,109 @@ body.phone-lite .flow-bridge{
     animation:none!important;
   }
 }
+
+
+/* =====================================================================
+   MOBILE REBUILD V27 — compact team + slightly larger pug
+   ===================================================================== */
+
+/* TEAM:
+   Remove the artificial tall minimum height. The section now ends
+   naturally after the second row of people, with only a small breathing
+   zone for the moving "МОЯ КОМАНДА" marquee. */
+body.phone-lite .team-section{
+  min-height:0!important;
+  height:auto!important;
+}
+
+body.phone-lite .team-shell{
+  min-height:0!important;
+  height:auto!important;
+  padding:46px 12px 76px!important;
+}
+
+body.phone-lite .team-head h2{
+  margin-bottom:0!important;
+}
+
+body.phone-lite .team-grid{
+  gap:16px 8px!important;
+  margin-top:26px!important;
+}
+
+body.phone-lite .team-name{
+  margin-top:5px!important;
+}
+
+body.phone-lite .team-bg-pattern{
+  top:-28px!important;
+  height:calc(100% + 56px)!important;
+}
+
+body.phone-lite .team-pattern-row{
+  height:52px!important;
+  font-size:28px!important;
+}
+
+body.phone-lite .team-marquee{
+  bottom:10px!important;
+}
+
+body.phone-lite .team-marquee span{
+  font-size:42px!important;
+}
+
+/* COST / PUG:
+   Make the dog a little larger, but keep it in normal document flow
+   below/right of the card so it cannot cover the list, button or note. */
+body.phone-lite .cost-pug{
+  position:relative!important;
+  width:124px!important;
+  max-width:none!important;
+  align-self:flex-end!important;
+  margin:-8px 4px 0 0!important;
+  z-index:4!important;
+}
+
+body.phone-lite .cost-treat{
+  width:29px!important;
+}
+
+@media(max-width:390px){
+  body.phone-lite .team-shell{
+    padding:44px 10px 72px!important;
+  }
+
+  body.phone-lite .team-grid{
+    gap:14px 7px!important;
+    margin-top:24px!important;
+  }
+
+  body.phone-lite .team-pattern-row{
+    height:50px!important;
+    font-size:26px!important;
+  }
+
+  body.phone-lite .cost-pug{
+    width:118px!important;
+    margin-top:-6px!important;
+  }
+
+  body.phone-lite .cost-treat{
+    width:28px!important;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .team-shell{
+    padding-bottom:68px!important;
+  }
+
+  body.phone-lite .team-grid{
+    gap:13px 6px!important;
+  }
+
+  body.phone-lite .cost-pug{
+    width:114px!important;
+  }
+}
