@@ -1,0 +1,967 @@
+
+/* =====================================================================
+   MOBILE REBUILD V26
+   One mobile source of truth loaded after the legacy stylesheet.
+   Goal: desktop visual language + desktop motion, recomposed for phone.
+   ===================================================================== */
+
+:root{
+  --m-side:14px;
+  --m-max:430px;
+  --m-paper:#EAE5DF;
+  --m-wine:#48222D;
+  --m-blue:#BBCBD8;
+  --m-dark:#171717;
+}
+
+html{
+  width:100%!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  scroll-behavior:auto!important;
+}
+body.phone-lite{
+  width:100%!important;
+  min-width:0!important;
+  overflow-x:hidden!important;
+  overflow-y:visible!important;
+  background:var(--m-wine)!important;
+}
+
+/* No old phone rule is allowed to freeze the desktop-derived motion. */
+body.phone-lite .about-pattern-track,
+body.phone-lite .team-pattern-track,
+body.phone-lite .portfolio-word-track,
+body.phone-lite .team-marquee-track{
+  will-change:transform!important;
+}
+
+/* ---------- HERO: same composition, scaled for phone ---------- */
+body.phone-lite .hero{
+  position:relative!important;
+  width:100%!important;
+  height:100svh!important;
+  min-height:620px!important;
+  overflow:hidden!important;
+}
+body.phone-lite .canvas{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  min-height:0!important;
+  transform:none!important;
+}
+body.phone-lite .hero .title{
+  top:25px!important;
+  left:10px!important;
+  width:calc(100% - 20px)!important;
+  max-width:none!important;
+  margin:0!important;
+  font-size:clamp(38px,10.6vw,45px)!important;
+  line-height:.91!important;
+  letter-spacing:-.048em!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-align:center!important;
+}
+body.phone-lite .hero .title>span{
+  display:block!important;
+  width:100%!important;
+  white-space:nowrap!important;
+}
+body.phone-lite .hero .subtitle{
+  top:132px!important;
+  left:18px!important;
+  width:calc(100% - 36px)!important;
+  min-height:44px!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:flex-start!important;
+  font-size:12.5px!important;
+  line-height:1.22!important;
+  text-align:center!important;
+  white-space:normal!important;
+}
+body.phone-lite .hero .subtitle #typed{
+  opacity:1!important;
+  transform:none!important;
+  filter:none!important;
+  transition:none!important;
+  white-space:normal!important;
+}
+body.phone-lite .hero .portrait,
+body.phone-lite.hero-ready .hero .portrait,
+body.phone-lite.hero-opened .hero .portrait,
+body.phone-lite.hero-ready.hero-opened .hero .portrait{
+  position:absolute!important;
+  left:50%!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:-2px!important;
+  width:min(96vw,390px)!important;
+  max-width:none!important;
+  height:auto!important;
+  margin:0!important;
+  transform:translateX(-50%)!important;
+  animation:none!important;
+}
+body.phone-lite .hero .portrait img{
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  transform:none!important;
+}
+body.phone-lite.hero-opened .hero .portrait img{
+  animation:mobilePortraitBreath 8.5s ease-in-out infinite!important;
+}
+@keyframes mobilePortraitBreath{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(0,-5px,0) scale(1.012)}
+}
+body.phone-lite .hero .arrow{
+  top:180px!important;
+  right:18px!important;
+  left:auto!important;
+  width:38px!important;
+}
+
+/* ---------- SHOWREEL: keep the circular desktop mechanic ---------- */
+body.phone-lite .showreel-scene{
+  position:relative!important;
+  height:114svh!important;
+  min-height:760px!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:visible!important;
+  background:var(--m-paper)!important;
+}
+body.phone-lite .showreel-stage{
+  position:sticky!important;
+  top:0!important;
+  width:100%!important;
+  height:100svh!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  overflow:hidden!important;
+  border-radius:0!important;
+  background:var(--m-paper)!important;
+}
+body.phone-lite .showreel-video{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:50% 48%!important;
+  opacity:1!important;
+  filter:none!important;
+  transform:none!important;
+}
+body.phone-lite .showreel-mask{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  z-index:3!important;
+  opacity:1!important;
+  transform:none!important;
+  pointer-events:none!important;
+}
+body.phone-lite .showreel-choice,
+body.phone-lite .showreel-under-ui,
+body.phone-lite .showreel-arrow{display:none!important}
+body.phone-lite .showreel-ring{
+  display:block!important;
+  left:50%!important;
+  top:50%!important;
+  width:148px!important;
+  height:148px!important;
+  margin:-74px 0 0 -74px!important;
+  color:var(--m-dark)!important;
+  opacity:var(--sr-ring-opacity,1)!important;
+  transform:rotate(var(--sr-ring-rot,0deg))!important;
+  animation:none!important;
+  pointer-events:none!important;
+  z-index:6!important;
+}
+body.phone-lite .showreel-sound{
+  right:12px!important;
+  bottom:12px!important;
+  z-index:7!important;
+}
+
+/* ---------- ABOUT: full-screen moving typography wall ---------- */
+body.phone-lite .about-reference{
+  position:relative!important;
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+}
+body.phone-lite .about-left{
+  position:relative!important;
+  width:100%!important;
+  height:690px!important;
+  min-height:690px!important;
+  overflow:hidden!important;
+  background:var(--m-paper)!important;
+}
+body.phone-lite .about-pattern{
+  --about-pattern-y:0px;
+  position:absolute!important;
+  left:50%!important;
+  top:-58px!important;
+  bottom:auto!important;
+  width:190vw!important;
+  min-width:780px!important;
+  max-width:none!important;
+  height:820px!important;
+  min-height:0!important;
+  opacity:.10!important;
+  transform:translate3d(-50%,var(--about-pattern-y),0) rotate(-4.2deg)!important;
+  transform-origin:center top!important;
+  overflow:visible!important;
+}
+body.phone-lite .about-pattern-row{
+  display:block!important;
+  height:54px!important;
+  font-size:23px!important;
+  line-height:1!important;
+  overflow:visible!important;
+}
+body.phone-lite .about-pattern-row:nth-child(n+13){display:none!important}
+body.phone-lite .about-pattern-track{
+  display:flex!important;
+  width:max-content!important;
+  animation:aboutTickerLeft 21s linear infinite!important;
+  transform:none;
+}
+body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
+  animation-name:aboutTickerRight!important;
+  animation-duration:24s!important;
+}
+body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track{
+  animation-duration:27s!important;
+  animation-delay:-6s!important;
+}
+body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
+  animation-duration:22s!important;
+  animation-delay:-10s!important;
+}
+body.phone-lite .about-photo-card{
+  --about-photo-y:0px;
+  position:absolute!important;
+  z-index:5!important;
+  left:50%!important;
+  top:95px!important;
+  width:min(76vw,300px)!important;
+  max-width:none!important;
+  height:468px!important;
+  margin:0!important;
+  transform:translate3d(-50%,var(--about-photo-y),0)!important;
+}
+body.phone-lite .about-photo-card img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+}
+body.phone-lite .about-fact{
+  z-index:8!important;
+}
+body.phone-lite .about-fact-years{
+  left:-10px!important;
+  bottom:40px!important;
+}
+body.phone-lite .about-fact-events{
+  right:-8px!important;
+  top:74px!important;
+}
+body.phone-lite .about-right{
+  position:relative!important;
+  width:100%!important;
+  min-height:0!important;
+}
+body.phone-lite .about-right-text{
+  width:calc(100% - 36px)!important;
+  max-width:520px!important;
+  margin:0 auto!important;
+  padding:48px 0 62px!important;
+}
+body.phone-lite .about-right h2{
+  font-size:clamp(39px,10.8vw,46px)!important;
+  line-height:.91!important;
+}
+body.phone-lite .about-right p,
+body.phone-lite .about-right li{
+  font-size:13.5px!important;
+  line-height:1.58!important;
+}
+
+/* ---------- TEAM: desktop 3+2 composition + full moving wall ---------- */
+body.phone-lite .team-section{
+  position:relative!important;
+  width:100%!important;
+  min-height:930px!important;
+  overflow:hidden!important;
+}
+body.phone-lite .team-bg-pattern{
+  position:absolute!important;
+  z-index:0!important;
+  left:50%!important;
+  top:-40px!important;
+  width:185vw!important;
+  min-width:760px!important;
+  height:calc(100% + 90px)!important;
+  opacity:.06!important;
+  transform:translateX(-50%) rotate(-4deg)!important;
+  overflow:hidden!important;
+}
+body.phone-lite .team-pattern-row{
+  display:block!important;
+  height:60px!important;
+  font-size:31px!important;
+  line-height:1!important;
+}
+body.phone-lite .team-pattern-row:nth-child(n+15){display:none!important}
+body.phone-lite .team-pattern-track{
+  display:flex!important;
+  width:max-content!important;
+  animation:teamTickerLeft 22s linear infinite!important;
+}
+body.phone-lite .team-pattern-row:nth-child(even) .team-pattern-track{
+  animation-name:teamTickerRight!important;
+  animation-duration:25s!important;
+}
+body.phone-lite .team-pattern-row:nth-child(3n) .team-pattern-track{
+  animation-duration:28s!important;
+  animation-delay:-7s!important;
+}
+body.phone-lite .team-shell{
+  position:relative!important;
+  z-index:3!important;
+  width:100%!important;
+  min-height:0!important;
+  padding:56px 12px 110px!important;
+}
+body.phone-lite .team-head{
+  width:100%!important;
+  padding:0 4px!important;
+}
+body.phone-lite .team-head h2{
+  font-size:clamp(44px,11.8vw,51px)!important;
+  line-height:.9!important;
+}
+body.phone-lite .team-line{
+  width:210px!important;
+}
+body.phone-lite .team-grid{
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:22px 8px!important;
+  width:100%!important;
+  height:auto!important;
+  margin:34px 0 0!important;
+  padding:0!important;
+}
+body.phone-lite .team-card,
+body.phone-lite .team-card-4,
+body.phone-lite .team-card-5{
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  top:auto!important;
+  width:100%!important;
+  margin:0!important;
+}
+body.phone-lite .team-card-1{grid-column:1 / 3!important}
+body.phone-lite .team-card-2{grid-column:3 / 5!important}
+body.phone-lite .team-card-3{grid-column:5 / 7!important}
+body.phone-lite .team-card-4{grid-column:2 / 4!important}
+body.phone-lite .team-card-5{grid-column:4 / 6!important}
+body.phone-lite .team-photo-wrap,
+body.phone-lite .team-card-4 .team-photo-wrap,
+body.phone-lite .team-card-5 .team-photo-wrap{
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:3 / 4!important;
+}
+body.phone-lite .team-name{
+  margin-top:7px!important;
+  font-size:8.7px!important;
+  line-height:1.08!important;
+  text-align:left!important;
+}
+body.phone-lite .team-marquee{
+  display:block!important;
+  z-index:2!important;
+  left:0!important;
+  right:0!important;
+  bottom:20px!important;
+  opacity:.095!important;
+}
+body.phone-lite .team-marquee-track{
+  animation:teamMarquee 26s linear infinite!important;
+}
+body.phone-lite .team-marquee span{
+  font-size:46px!important;
+}
+
+/* ---------- PORTFOLIO: keep photos, restore full-width moving typography ---------- */
+body.phone-lite .portfolio-section{
+  position:relative!important;
+  width:100%!important;
+  padding:58px 0 104px!important;
+  overflow:hidden!important;
+}
+body.phone-lite .portfolio-head,
+body.phone-lite .portfolio-gallery{
+  width:calc(100% - 28px)!important;
+  max-width:540px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+body.phone-lite .portfolio-head{margin-bottom:28px!important}
+body.phone-lite .portfolio-head h2{
+  font-size:clamp(46px,12.5vw,55px)!important;
+}
+body.phone-lite .portfolio-gallery{gap:11px!important}
+body.phone-lite .portfolio-pair,
+body.phone-lite .portfolio-triptych,
+body.phone-lite .portfolio-finale{gap:11px!important}
+body.phone-lite .portfolio-wide .portfolio-img{height:245px!important}
+body.phone-lite .portfolio-pair{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+}
+body.phone-lite .portfolio-pair .portfolio-img{height:205px!important}
+body.phone-lite .portfolio-img-dark{height:245px!important}
+body.phone-lite .portfolio-triptych{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+}
+body.phone-lite .portfolio-triptych .portfolio-img{height:165px!important}
+body.phone-lite .portfolio-finale{
+  display:grid!important;
+  grid-template-columns:.9fr 1.1fr!important;
+}
+body.phone-lite .portfolio-finale-vertical .portfolio-img,
+body.phone-lite .portfolio-finale-wide .portfolio-img{height:285px!important}
+body.phone-lite .portfolio-word{
+  display:block!important;
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:22px!important;
+  width:100%!important;
+  overflow:hidden!important;
+}
+body.phone-lite .portfolio-word-track{
+  display:flex!important;
+  width:max-content!important;
+  animation:portfolioTickerLeft 24s linear infinite!important;
+}
+body.phone-lite .portfolio-word-group{
+  display:flex!important;
+  flex:0 0 auto!important;
+}
+body.phone-lite .portfolio-word span{
+  display:block!important;
+  font-size:50px!important;
+  white-space:nowrap!important;
+}
+
+/* ---------- QUIZ: desktop visual language, phone-friendly geometry ---------- */
+body.phone-lite .quiz-section{
+  padding:60px 0 72px!important;
+}
+body.phone-lite .quiz-shell{
+  width:calc(100% - 22px)!important;
+  max-width:560px!important;
+}
+body.phone-lite .quiz-head{
+  width:100%!important;
+  margin-bottom:24px!important;
+}
+body.phone-lite .quiz-head h2{
+  font-size:clamp(27px,7.7vw,33px)!important;
+  line-height:1.04!important;
+}
+body.phone-lite .quiz-card{
+  min-height:0!important;
+  border-radius:18px!important;
+}
+body.phone-lite .quiz-card-inner{
+  padding:20px 14px 18px!important;
+}
+body.phone-lite .quiz-question{
+  font-size:19px!important;
+  line-height:1.16!important;
+}
+body.phone-lite .quiz-options-gifts{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(1),
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(2){
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  grid-template-rows:144px auto!important;
+  min-width:0!important;
+  overflow:hidden!important;
+  padding:7px 7px 10px!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3){
+  grid-column:1/-1!important;
+  display:grid!important;
+  grid-template-columns:128px minmax(0,1fr)!important;
+  grid-template-rows:128px!important;
+  align-items:center!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-option-image{
+  width:100%!important;
+  height:144px!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3) .quiz-option-image{
+  width:128px!important;
+  height:128px!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift>span{
+  min-width:0!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-align:center!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3)>span{
+  text-align:left!important;
+  padding:0 12px!important;
+}
+body.phone-lite .quiz-options-list .quiz-option{
+  min-height:58px!important;
+  padding:13px 43px 13px 48px!important;
+  font-size:12.5px!important;
+}
+body.phone-lite .quiz-footer{
+  padding:12px 14px 15px!important;
+}
+
+/* ---------- BENEFITS: same reversible reveal, same visual hierarchy ---------- */
+body.phone-lite .benefits-section{
+  min-height:0!important;
+  padding:64px 0 76px!important;
+  overflow:hidden!important;
+}
+body.phone-lite .benefits-shell{
+  width:calc(100% - 28px)!important;
+}
+body.phone-lite .benefits-title{
+  width:100%!important;
+  margin:0 0 34px!important;
+  padding-right:48px!important;
+}
+body.phone-lite .benefits-title h2{
+  font-size:clamp(42px,11.6vw,50px)!important;
+}
+body.phone-lite .benefits-timeline{
+  width:100%!important;
+  padding-left:25px!important;
+}
+body.phone-lite .benefits-line{left:6px!important}
+body.phone-lite .benefit-dot{left:-24px!important}
+body.phone-lite .benefit-card{
+  min-height:0!important;
+  margin-bottom:12px!important;
+  padding:21px 19px!important;
+  opacity:calc(.075 + var(--card-p) * .925)!important;
+  transform:translateY(calc((1 - var(--card-p)) * 14px)) scale(calc(.997 + var(--card-p) * .003))!important;
+}
+body.phone-lite .benefit-card h3{
+  font-size:20px!important;
+}
+body.phone-lite .benefit-card p{
+  font-size:12.5px!important;
+  line-height:1.55!important;
+}
+body.phone-lite .benefits-ambient-word{
+  display:block!important;
+  font-size:105px!important;
+  opacity:.055!important;
+}
+body.phone-lite .benefits-title-stamp,
+body.phone-lite .benefits-side-doodle{display:block!important}
+
+/* ---------- CONTRACT: same paper/pen mechanic, scaled ---------- */
+body.phone-lite .contract-ref{
+  min-height:0!important;
+  padding:58px 0 82px!important;
+  overflow:hidden!important;
+}
+body.phone-lite .contract-ref-shell{
+  width:calc(100% - 30px)!important;
+  min-height:0!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+}
+body.phone-lite .contract-ref-visual{
+  padding:0!important;
+  transform:none!important;
+  justify-content:center!important;
+  overflow:visible!important;
+}
+body.phone-lite .contract-ref-art{
+  width:min(330px,92vw)!important;
+  max-width:100%!important;
+}
+body.phone-lite .contract-ref-copy{
+  padding:6px 0 0!important;
+  transform:none!important;
+  text-align:center!important;
+}
+body.phone-lite .contract-ref-copy h2{
+  font-size:clamp(39px,10.8vw,47px)!important;
+  line-height:.9!important;
+}
+body.phone-lite .contract-copy-kicker,
+body.phone-lite .contract-copy-sign{
+  justify-content:center!important;
+}
+body.phone-lite .contract-visual-note{
+  display:block!important;
+  transform:scale(.72)!important;
+  transform-origin:center!important;
+}
+
+/* ---------- COST: readable first, dog decorates below/right, never covers card ---------- */
+body.phone-lite .cost-section{
+  position:relative!important;
+  padding:58px 0 44px!important;
+  overflow:hidden!important;
+}
+body.phone-lite .cost-scene{
+  height:auto!important;
+  min-height:0!important;
+}
+body.phone-lite .cost-stage{
+  position:relative!important;
+  top:auto!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  padding:0 14px 0!important;
+  overflow:visible!important;
+}
+body.phone-lite .cost-title{
+  position:relative!important;
+  top:auto!important;
+  left:auto!important;
+  transform:none!important;
+  margin:0 auto 28px!important;
+}
+body.phone-lite .cost-title h2{
+  font-size:48px!important;
+}
+body.phone-lite .cost-content-row{
+  position:relative!important;
+  width:100%!important;
+  max-width:360px!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  margin:0 auto!important;
+  padding:0!important;
+}
+body.phone-lite .cost-card{
+  position:relative!important;
+  z-index:5!important;
+  width:100%!important;
+  max-width:330px!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  border-radius:18px!important;
+}
+body.phone-lite .cost-card-copy{
+  padding:27px 22px 25px!important;
+}
+body.phone-lite .cost-card li{
+  font-size:12.5px!important;
+  line-height:1.43!important;
+}
+body.phone-lite .cost-button{
+  width:100%!important;
+  min-width:0!important;
+}
+body.phone-lite .cost-small{
+  padding:0!important;
+  margin-top:12px!important;
+  text-align:center!important;
+  white-space:normal!important;
+}
+body.phone-lite .cost-pug{
+  position:relative!important;
+  z-index:4!important;
+  right:auto!important;
+  left:auto!important;
+  top:auto!important;
+  bottom:auto!important;
+  align-self:flex-end!important;
+  width:108px!important;
+  max-width:none!important;
+  margin:-18px 2px 0 0!important;
+  transform:translateY(calc((1 - var(--cost-p,1)) * 18px)) scale(calc(.98 + var(--cost-p,1) * .02))!important;
+  pointer-events:none!important;
+}
+body.phone-lite .cost-pug img{
+  width:100%!important;
+  height:auto!important;
+}
+body.phone-lite .cost-treat{
+  display:block!important;
+  visibility:visible!important;
+  width:27px!important;
+  z-index:12!important;
+  pointer-events:none!important;
+}
+
+/* ---------- REVIEWS: same horizontal carousel with subtle scroll drift ---------- */
+body.phone-lite .reviews-carousel-section{
+  padding:58px 0 72px!important;
+  overflow:hidden!important;
+}
+body.phone-lite .reviews-carousel-head{
+  width:calc(100% - 28px)!important;
+}
+body.phone-lite .reviews-head-copy h2{
+  font-size:48px!important;
+}
+body.phone-lite .reviews-viewport{
+  overflow:hidden!important;
+}
+body.phone-lite .reviews-track{
+  gap:13px!important;
+  padding-left:15px!important;
+}
+body.phone-lite .review-slide,
+body.phone-lite .review-slide:nth-child(even){
+  width:min(82vw,305px)!important;
+  flex-basis:min(82vw,305px)!important;
+  margin-top:0!important;
+  transform:translate3d(calc(var(--reviews-shift,0px) + var(--reviews-drift,0px)),var(--review-float,0px),0)!important;
+}
+body.phone-lite .review-slide-inner{
+  min-height:318px!important;
+  padding:24px 20px!important;
+}
+body.phone-lite .review-slide p{
+  font-size:12.5px!important;
+  line-height:1.55!important;
+}
+
+/* ---------- FAQ ---------- */
+body.phone-lite .faq-section{
+  padding:60px 0 72px!important;
+}
+body.phone-lite .faq-shell{
+  width:calc(100% - 28px)!important;
+  gap:30px!important;
+}
+body.phone-lite .faq-title-block{
+  position:relative!important;
+  top:auto!important;
+  padding-top:0!important;
+}
+body.phone-lite .faq-title-block h2{
+  font-size:clamp(43px,11.7vw,50px)!important;
+}
+body.phone-lite .faq-item{border-radius:28px!important}
+body.phone-lite .faq-question{
+  min-height:66px!important;
+  padding:15px 18px 15px 52px!important;
+  font-size:15px!important;
+  line-height:1.22!important;
+}
+body.phone-lite .faq-answer-inner{
+  padding-left:52px!important;
+  padding-right:20px!important;
+  font-size:12.5px!important;
+  line-height:1.55!important;
+}
+
+/* ---------- CONTACT: compact phone, clean app icons ---------- */
+body.phone-lite .contact-final{
+  min-height:0!important;
+  padding:60px 0 24px!important;
+  overflow:hidden!important;
+}
+body.phone-lite .contact-final-inner{
+  width:100%!important;
+  max-width:none!important;
+  padding:0 18px!important;
+}
+body.phone-lite .contact-final-inner h2{
+  max-width:330px!important;
+  margin:0 auto 34px!important;
+  font-size:clamp(25px,7vw,30px)!important;
+  line-height:1.16!important;
+  text-align:center!important;
+}
+body.phone-lite .contact-phone-wrap{
+  width:100%!important;
+  display:flex!important;
+  justify-content:center!important;
+}
+body.phone-lite .contact-phone{
+  width:min(286px,calc(100vw - 54px))!important;
+  height:430px!important;
+  margin:0 auto!important;
+  padding:7px!important;
+  border-width:2px!important;
+  border-radius:45px!important;
+}
+body.phone-lite .contact-phone-screen{
+  border-radius:37px!important;
+}
+body.phone-lite .contact-profile{
+  padding-top:49px!important;
+}
+body.phone-lite .contact-avatar{
+  width:58px!important;
+  height:58px!important;
+  font-size:21px!important;
+}
+body.phone-lite .contact-actions{
+  display:grid!important;
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:5px!important;
+  margin:22px 10px 0!important;
+}
+body.phone-lite .contact-actions .contact-action,
+body.phone-lite .contact-actions .contact-call,
+body.phone-lite .contact-actions .contact-wa,
+body.phone-lite .contact-actions .contact-tg,
+body.phone-lite .contact-actions .contact-mail{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  padding:0!important;
+  margin:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:none!important;
+  box-shadow:none!important;
+}
+body.phone-lite .contact-action-icon{
+  width:44px!important;
+  height:44px!important;
+  min-width:44px!important;
+  min-height:44px!important;
+  margin:0 auto 6px!important;
+  border-radius:12px!important;
+}
+body.phone-lite .contact-action span:last-child{
+  width:100%!important;
+  max-width:58px!important;
+  min-height:16px!important;
+  font-size:6.4px!important;
+  line-height:1.15!important;
+  text-align:center!important;
+}
+body.phone-lite .contact-message{
+  margin:24px 12px 0!important;
+  padding:11px 13px 12px!important;
+}
+body.phone-lite .contact-home-indicator{
+  bottom:8px!important;
+  width:90px!important;
+}
+body.phone-lite .contact-final-caption{
+  max-width:300px!important;
+  margin:17px auto 0!important;
+  text-align:center!important;
+}
+
+/* ---------- CONSENT: reliable and testable again ---------- */
+body.phone-lite .entry-consent{
+  display:grid!important;
+  place-items:center!important;
+  padding:max(14px,env(safe-area-inset-top)) 12px max(14px,env(safe-area-inset-bottom))!important;
+  box-sizing:border-box!important;
+}
+.entry-consent[hidden]{
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+body.phone-lite .entry-consent-card{
+  width:min(100%,390px)!important;
+  max-width:calc(100vw - 24px)!important;
+  max-height:calc(100svh - 28px)!important;
+  margin:0 auto!important;
+  padding:27px 20px 22px!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  border-radius:20px!important;
+}
+body.phone-lite .entry-consent-card h2{
+  max-width:calc(100% - 34px)!important;
+  font-size:clamp(29px,8.6vw,34px)!important;
+  line-height:.96!important;
+}
+body.phone-lite .entry-consent-actions{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:8px!important;
+}
+body.phone-lite .entry-consent-accept,
+body.phone-lite .entry-consent-decline{
+  width:100%!important;
+  min-height:49px!important;
+}
+
+/* ---------- FLOW BRIDGES ---------- */
+body.phone-lite .flow-bridge{
+  --bridge-p:0;
+}
+
+/* Narrow phones */
+@media(max-width:360px){
+  :root{--m-side:10px}
+  body.phone-lite .hero .title{font-size:37px!important}
+  body.phone-lite .hero .subtitle{top:130px!important;font-size:11.7px!important}
+  body.phone-lite .about-left{height:650px!important;min-height:650px!important}
+  body.phone-lite .about-pattern-row{height:51px!important;font-size:21px!important}
+  body.phone-lite .about-photo-card{width:78vw!important;height:440px!important}
+  body.phone-lite .team-name{font-size:8px!important}
+  body.phone-lite .portfolio-word span{font-size:46px!important}
+  body.phone-lite .cost-card{max-width:310px!important}
+  body.phone-lite .cost-pug{width:100px!important}
+  body.phone-lite .contact-phone{width:274px!important;height:420px!important}
+  body.phone-lite .contact-action-icon{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important}
+}
+
+/* Respect accessibility without changing layout. */
+@media(prefers-reduced-motion:reduce){
+  body.phone-lite .about-pattern-track,
+  body.phone-lite .team-pattern-track,
+  body.phone-lite .portfolio-word-track,
+  body.phone-lite .team-marquee-track,
+  body.phone-lite.hero-opened .hero .portrait img{
+    animation:none!important;
+  }
+}

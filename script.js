@@ -1057,9 +1057,9 @@
         Desktop keeps the reference-like scroll drift.
         On phones the first card must never slide under the left viewport edge.
       */
-      const driftRange=window.innerWidth<=1199
-        ? 0
-        : Math.min(135,available);
+      const driftRange=phoneLite
+        ? Math.min(28,available)
+        : (window.innerWidth<=1199 ? Math.min(58,available) : Math.min(135,available));
       const drift=-(driftRange*p);
 
       reviewsTrack.style.setProperty("--reviews-drift",`${drift.toFixed(2)}px`);
@@ -1532,7 +1532,7 @@
   const entryConsentAccept=document.getElementById("entryConsentAccept");
   const entryConsentDecline=document.getElementById("entryConsentDecline");
   const entryConsentClose=document.getElementById("entryConsentClose");
-  const ENTRY_CONSENT_KEY="eventmaks_pdn_consent_v2";
+  const ENTRY_CONSENT_KEY="eventmaks_pdn_consent_v3";
 
   function readEntryConsent(){
     try{
