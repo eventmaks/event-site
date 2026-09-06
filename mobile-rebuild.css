@@ -1093,3 +1093,152 @@ body.phone-lite .showreel-scene{
 body.phone-lite .showreel-stage{
   background:#EAE5DF!important;
 }
+
+
+/* =====================================================================
+   MOBILE REBUILD V29 — ABOUT / "СОЗДАЮ СОБЫТИЯ" ONLY
+   Denser composition, less empty paper, closer to desktop proportions.
+   ===================================================================== */
+
+body.phone-lite .about-left{
+  height:620px!important;
+  min-height:620px!important;
+}
+
+/* Denser moving wall: more visible rows, tighter vertical rhythm,
+   and slightly stronger contrast without changing the desktop palette. */
+body.phone-lite .about-pattern{
+  left:50%!important;
+  top:-48px!important;
+  width:188vw!important;
+  min-width:760px!important;
+  height:720px!important;
+  opacity:.125!important;
+  transform:translate3d(-50%,var(--about-pattern-y,0px),0) rotate(-4.2deg)!important;
+}
+
+body.phone-lite .about-pattern-row{
+  height:47px!important;
+  font-size:22px!important;
+  line-height:1!important;
+}
+
+body.phone-lite .about-pattern-row:nth-child(n+14){
+  display:none!important;
+}
+
+/* Preserve the desktop-like alternating motion on every visible row. */
+body.phone-lite .about-pattern-track{
+  animation:aboutTickerLeft 20s linear infinite!important;
+}
+
+body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
+  animation-name:aboutTickerRight!important;
+  animation-duration:23s!important;
+}
+
+body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track{
+  animation-duration:26s!important;
+  animation-delay:-6s!important;
+}
+
+body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
+  animation-duration:21s!important;
+  animation-delay:-9s!important;
+}
+
+/* Photo is a little wider and starts higher, so the mobile block feels
+   like the compact desktop composition rather than a tall poster. */
+body.phone-lite .about-photo-card{
+  top:72px!important;
+  width:min(80vw,318px)!important;
+  height:448px!important;
+}
+
+/* Keep the tape proportional to the slightly wider photo. */
+body.phone-lite .about-tape{
+  left:-18px!important;
+  top:-23px!important;
+  width:110px!important;
+  height:37px!important;
+}
+
+/* Fact stickers stay readable but sit closer to the photo edges. */
+body.phone-lite .about-fact-years{
+  left:-7px!important;
+  bottom:34px!important;
+}
+
+body.phone-lite .about-fact-events{
+  right:-6px!important;
+  top:68px!important;
+}
+
+/* Less dead space between the photo scene and the text half. */
+body.phone-lite .about-right-text{
+  padding-top:40px!important;
+  padding-bottom:52px!important;
+}
+
+body.phone-lite .about-title-line{
+  margin-bottom:21px!important;
+}
+
+body.phone-lite .about-stamp{
+  margin-bottom:18px!important;
+}
+
+/* Slightly tighter text rhythm while preserving readability. */
+body.phone-lite .about-right p,
+body.phone-lite .about-right li{
+  line-height:1.52!important;
+}
+
+body.phone-lite .about-right li{
+  margin-bottom:14px!important;
+}
+
+@media(max-width:390px){
+  body.phone-lite .about-left{
+    height:600px!important;
+    min-height:600px!important;
+  }
+
+  body.phone-lite .about-pattern-row{
+    height:45px!important;
+    font-size:21px!important;
+  }
+
+  body.phone-lite .about-photo-card{
+    top:70px!important;
+    width:min(81vw,306px)!important;
+    height:432px!important;
+  }
+
+  body.phone-lite .about-right-text{
+    padding-top:38px!important;
+    padding-bottom:48px!important;
+  }
+}
+
+@media(max-width:360px){
+  body.phone-lite .about-left{
+    height:580px!important;
+    min-height:580px!important;
+  }
+
+  body.phone-lite .about-pattern{
+    top:-42px!important;
+    min-width:720px!important;
+  }
+
+  body.phone-lite .about-pattern-row{
+    height:43px!important;
+    font-size:20px!important;
+  }
+
+  body.phone-lite .about-photo-card{
+    width:82vw!important;
+    height:416px!important;
+  }
+}
