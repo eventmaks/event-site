@@ -38,95 +38,65 @@
     setTimeout(startOnce,650);
   }
 
-  // Desktop keeps the typewriter.
-  // Phone uses a softer reference-style phrase transition:
-  // fade/slide out -> swap phrase -> fade/slide back in.
-  if(phoneLite && typed){
-    let mobilePhraseIndex=0;
-    let mobilePhraseTimer=0;
-    let heroSubtitleVisible=true;
-
-    typed.textContent=phrases[0];
-
-    const scheduleMobilePhrase=()=>{
-      window.clearTimeout(mobilePhraseTimer);
-      mobilePhraseTimer=window.setTimeout(()=>{
-        if(!heroSubtitleVisible){
-          scheduleMobilePhrase();
-          return;
-        }
-
-        typed.classList.add("is-switching");
-
-        window.setTimeout(()=>{
-          mobilePhraseIndex=(mobilePhraseIndex+1)%phrases.length;
-          typed.textContent=phrases[mobilePhraseIndex];
-
-          requestAnimationFrame(()=>{
-            requestAnimationFrame(()=>{
-              typed.classList.remove("is-switching");
-            });
-          });
-        },520);
-
-        scheduleMobilePhrase();
-      },3150);
-    };
-
-    const heroForSubtitle=document.querySelector(".hero");
-    if(heroForSubtitle && "IntersectionObserver" in window){
-      const subtitleObserver=new IntersectionObserver(entries=>{
-        heroSubtitleVisible=entries.some(entry=>entry.isIntersecting);
-      },{threshold:.04});
-      subtitleObserver.observe(heroForSubtitle);
-    }
-
-    // Let the first phrase sit for a moment after the opening reveal.
-    mobilePhraseTimer=window.setTimeout(scheduleMobilePhrase,1850);
-  }
-
-  if(typed && !phoneLite){
+  // Same typewriter mechanics on desktop and phone.
+  // Both phrases are typed, held, erased, then the next phrase is typed.
+  if(typed){
     let phraseIndex=0;
     let charIndex=0;
     let deleting=false;
+    let heroTypingVisible=true;
+    let typingTimer=0;
 
-    const TYPE_SPEED=54;
-    const DELETE_SPEED=26;
+    const TYPE_SPEED=phoneLite ? 58 : 54;
+    const DELETE_SPEED=phoneLite ? 30 : 26;
     const HOLD_AFTER_TYPED=1650;
-    const HOLD_BEFORE_NEXT=300;
+    const HOLD_BEFORE_NEXT=320;
+
+    const heroForTyping=document.querySelector(".hero");
+    if(heroForTyping && "IntersectionObserver" in window){
+      const typingObserver=new IntersectionObserver(entries=>{
+        heroTypingVisible=entries.some(entry=>entry.isIntersecting);
+      },{threshold:.03});
+      typingObserver.observe(heroForTyping);
+    }
 
     function typeLoop(){
+      if(!heroTypingVisible){
+        typingTimer=window.setTimeout(typeLoop,300);
+        return;
+      }
+
       const phrase=phrases[phraseIndex];
 
       if(!deleting){
-        charIndex++;
+        charIndex+=1;
         typed.textContent=phrase.slice(0,charIndex);
 
         if(charIndex>=phrase.length){
           deleting=true;
-          setTimeout(typeLoop,HOLD_AFTER_TYPED);
+          typingTimer=window.setTimeout(typeLoop,HOLD_AFTER_TYPED);
           return;
         }
 
-        setTimeout(typeLoop,TYPE_SPEED);
+        typingTimer=window.setTimeout(typeLoop,TYPE_SPEED);
         return;
       }
 
-      charIndex--;
+      charIndex-=1;
       typed.textContent=phrase.slice(0,Math.max(0,charIndex));
 
       if(charIndex<=0){
         deleting=false;
         phraseIndex=(phraseIndex+1)%phrases.length;
-        setTimeout(typeLoop,HOLD_BEFORE_NEXT);
+        typingTimer=window.setTimeout(typeLoop,HOLD_BEFORE_NEXT);
         return;
       }
 
-      setTimeout(typeLoop,DELETE_SPEED);
+      typingTimer=window.setTimeout(typeLoop,DELETE_SPEED);
     }
 
-    // Begin once the opening reveal starts to clear.
-    setTimeout(typeLoop,1100);
+    // Start once the opening screen has started to clear.
+    typingTimer=window.setTimeout(typeLoop,1100);
   }
 
   if(noise){
@@ -1562,7 +1532,7 @@
   const entryConsentAccept=document.getElementById("entryConsentAccept");
   const entryConsentDecline=document.getElementById("entryConsentDecline");
   const entryConsentClose=document.getElementById("entryConsentClose");
-  const ENTRY_CONSENT_KEY="eventmaks_pdn_consent_v1";
+  const ENTRY_CONSENT_KEY="eventmaks_pdn_consent_v2";
 
   function readEntryConsent(){
     try{

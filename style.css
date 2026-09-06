@@ -13075,3 +13075,169 @@ body.entry-consent-open{
   body.phone-lite .cost-card{width:min(78vw,282px)!important}
   body.phone-lite .cost-pug{width:118px!important}
 }
+
+
+/* =========================================================
+   MOBILE DESKTOP MOTION V21
+   The phone keeps the same typography mechanics as desktop.
+   ========================================================= */
+@media(max-width:767px){
+
+  /* HERO subtitle is now true typewriter text; remove the old fade/blur state. */
+  body.phone-lite .hero .subtitle #typed,
+  body.phone-lite .hero .subtitle #typed.is-switching{
+    opacity:1!important;
+    transform:none!important;
+    filter:none!important;
+    transition:none!important;
+  }
+
+  /* ABOUT — full-bleed moving wall, same alternating movement as desktop. */
+  body.phone-lite .about-left{
+    overflow:hidden!important;
+  }
+
+  body.phone-lite .about-pattern{
+    left:50%!important;
+    top:-55px!important;
+    width:178vw!important;
+    min-width:760px!important;
+    height:calc(100% + 120px)!important;
+    opacity:.105!important;
+    transform:translate3d(-50%,var(--about-pattern-y,0px),0) rotate(-4.2deg)!important;
+    transform-origin:center top!important;
+    overflow:visible!important;
+  }
+
+  body.phone-lite .about-pattern-row:nth-child(-n+16){display:block!important}
+  body.phone-lite .about-pattern-row:nth-child(n+17){display:none!important}
+
+  body.phone-lite .about-pattern-track{
+    display:flex!important;
+    width:max-content!important;
+    animation-name:aboutTickerLeft!important;
+    animation-duration:21s!important;
+    animation-timing-function:linear!important;
+    animation-iteration-count:infinite!important;
+    animation-play-state:running!important;
+    will-change:transform!important;
+  }
+
+  body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
+    animation-name:aboutTickerRight!important;
+    animation-duration:24s!important;
+  }
+  body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track{
+    animation-duration:26s!important;
+    animation-delay:-6s!important;
+  }
+  body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
+    animation-duration:22s!important;
+    animation-delay:-10s!important;
+  }
+
+  /* TEAM — typography fills the entire team section, not a narrow background strip. */
+  body.phone-lite .team-section{
+    position:relative!important;
+    overflow:hidden!important;
+  }
+
+  body.phone-lite .team-bg-pattern{
+    position:absolute!important;
+    z-index:0!important;
+    left:50%!important;
+    top:-55px!important;
+    width:190vw!important;
+    min-width:820px!important;
+    height:calc(100% + 110px)!important;
+    opacity:.065!important;
+    transform:translateX(-50%) rotate(-4deg)!important;
+    pointer-events:none!important;
+    overflow:visible!important;
+  }
+
+  body.phone-lite .team-pattern-row{
+    display:block!important;
+    height:62px!important;
+    font-size:27px!important;
+    line-height:1!important;
+    overflow:visible!important;
+  }
+  body.phone-lite .team-pattern-row:nth-child(-n+16){display:block!important}
+  body.phone-lite .team-pattern-row:nth-child(n+17){display:none!important}
+
+  body.phone-lite .team-pattern-track{
+    display:flex!important;
+    width:max-content!important;
+    animation-name:teamTickerLeft!important;
+    animation-duration:23s!important;
+    animation-timing-function:linear!important;
+    animation-iteration-count:infinite!important;
+    animation-play-state:running!important;
+    will-change:transform!important;
+  }
+  body.phone-lite .team-pattern-row:nth-child(even) .team-pattern-track{
+    animation-name:teamTickerRight!important;
+    animation-duration:26s!important;
+  }
+  body.phone-lite .team-pattern-row:nth-child(3n) .team-pattern-track{
+    animation-duration:28s!important;
+    animation-delay:-7s!important;
+  }
+
+  body.phone-lite .team-shell{
+    position:relative!important;
+    z-index:2!important;
+  }
+
+  /* PORTFOLIO — use the real desktop ticker animation name and full viewport width. */
+  body.phone-lite .portfolio-section{
+    overflow:hidden!important;
+  }
+  body.phone-lite .portfolio-word{
+    display:block!important;
+    left:50%!important;
+    right:auto!important;
+    width:100vw!important;
+    max-width:none!important;
+    transform:translateX(-50%) rotate(-2deg)!important;
+    overflow:hidden!important;
+  }
+  body.phone-lite .portfolio-word-track{
+    display:flex!important;
+    width:max-content!important;
+    animation-name:portfolioTickerLeft!important;
+    animation-duration:25s!important;
+    animation-timing-function:linear!important;
+    animation-iteration-count:infinite!important;
+    animation-play-state:running!important;
+    will-change:transform!important;
+  }
+  body.phone-lite .portfolio-word-group{
+    display:flex!important;
+    flex:0 0 auto!important;
+    gap:25px!important;
+    padding-right:25px!important;
+  }
+  body.phone-lite .portfolio-word span{
+    font-size:50px!important;
+    white-space:nowrap!important;
+  }
+
+  /* Consent must be visible when JS opens it; hidden still wins when closed. */
+  body.phone-lite .entry-consent:not([hidden]){
+    display:grid!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+  }
+}
+
+/* Desktop consent remains available too. */
+.entry-consent:not([hidden]){
+  display:grid!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
+.entry-consent[hidden]{
+  display:none!important;
+}
