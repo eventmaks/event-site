@@ -12548,97 +12548,264 @@ body.entry-consent-open{
 
 
 /* =========================================================
-   MOBILE ABOUT PATTERN V18
-   Make "СОЗДАЮ СОБЫТИЯ" feel like the desktop version:
-   wider full-bleed pattern + visible continuous motion +
-   subtle scroll-linked parallax on phones.
+   MOBILE DESKTOP PARITY V19
+   Rebuilt after a full mobile-vs-desktop audit.
+   Goal: same visual language/mechanics as desktop, recomposed for 320–430px.
    ========================================================= */
 @media(max-width:767px){
+
+  /* ---------- HERO: keep the desktop "alive" feeling ---------- */
+  body.phone-lite .hero .portrait img{
+    animation:heroParityBreath 6.6s cubic-bezier(.45,0,.55,1) infinite alternate!important;
+    transform-origin:50% 100%!important;
+    will-change:transform!important;
+  }
+
+  @keyframes heroParityBreath{
+    0%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(0,0,0) scale(1.022)}
+    100%{transform:translate3d(0,0,0) scale(1.045)}
+  }
+
+  /* ---------- ABOUT: full-screen desktop-like visual panel ---------- */
   body.phone-lite .about-reference{
-    position:relative!important;
     display:block!important;
+    width:100%!important;
     overflow:hidden!important;
   }
 
   body.phone-lite .about-left{
     position:relative!important;
-    min-height:640px!important;
+    width:100%!important;
+    min-height:100svh!important;
+    height:100svh!important;
+    max-height:880px!important;
     overflow:hidden!important;
+    background:#EAE5DF!important;
   }
 
+  /* The pattern container itself fills the phone screen.
+     Tracks are wider and move through it, exactly like desktop. */
   body.phone-lite .about-pattern{
     --about-pattern-y:0px;
-    left:50%!important;
-    top:-34px!important;
-    width:192vw!important;
-    min-width:860px!important;
-    max-width:none!important;
-    height:720px!important;
+    left:-8vw!important;
+    top:-40px!important;
+    width:116vw!important;
+    height:calc(100% + 90px)!important;
     min-height:0!important;
     bottom:auto!important;
-    opacity:.115!important;
-    transform:translate3d(-50%,var(--about-pattern-y),0) rotate(-4.2deg)!important;
+    opacity:.105!important;
+    transform:translate3d(0,var(--about-pattern-y),0) rotate(-4.2deg)!important;
     transform-origin:center top!important;
     will-change:transform!important;
   }
 
   body.phone-lite .about-pattern-row{
     display:block!important;
-    height:60px!important;
-    font-size:26px!important;
+    height:59px!important;
+    font-size:25px!important;
     line-height:1!important;
+    overflow:visible!important;
   }
 
-  body.phone-lite .about-pattern-row:nth-child(n+9){
-    display:none!important;
-  }
+  body.phone-lite .about-pattern-row:nth-child(-n+15){display:block!important}
+  body.phone-lite .about-pattern-row:nth-child(n+16){display:none!important}
 
   body.phone-lite .about-pattern-track{
     display:flex!important;
     width:max-content!important;
-    animation:aboutTickerLeft 26s linear infinite!important;
+    animation:aboutTickerLeft 23s linear infinite!important;
     will-change:transform!important;
-    transform:translate3d(0,0,0)!important;
   }
 
   body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
-    animation:aboutTickerRight 29s linear infinite!important;
+    animation-name:aboutTickerRight!important;
+    animation-duration:26s!important;
   }
 
   body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track{
-    animation-duration:31s!important;
-    animation-delay:-5s!important;
+    animation-duration:28s!important;
+    animation-delay:-6s!important;
   }
 
   body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
-    animation-duration:27s!important;
+    animation-duration:24s!important;
     animation-delay:-9s!important;
   }
 
   body.phone-lite .about-pattern-copy{
-    padding-right:30px!important;
+    padding-right:28px!important;
   }
 
+  /* Same photo/sticker composition as desktop, scaled to phone. */
   body.phone-lite .about-photo-card{
-    top:86px!important;
-    width:min(76vw,306px)!important;
-    height:462px!important;
+    top:12.5svh!important;
+    left:50%!important;
+    width:min(80vw,330px)!important;
+    height:min(65svh,525px)!important;
+    min-height:455px!important;
+    max-width:none!important;
+    transform:
+      translate3d(-50%,var(--about-photo-y,0px),0)
+      perspective(900px)
+      rotateX(var(--about-tilt-x,0deg))
+      rotateY(var(--about-tilt-y,0deg))!important;
+    box-shadow:0 18px 45px rgba(72,34,45,.13)!important;
+    will-change:transform!important;
+  }
+
+  body.phone-lite .about-photo-card img{
+    transform:scale(1.035)!important;
+  }
+
+  body.phone-lite .about-tape{
+    left:-18px!important;
+    top:-24px!important;
+    width:116px!important;
+    height:40px!important;
+  }
+
+  body.phone-lite .about-fact-years{
+    left:-8px!important;
+    bottom:38px!important;
+  }
+
+  body.phone-lite .about-fact-events{
+    right:-8px!important;
+    top:78px!important;
+  }
+
+  body.phone-lite .about-right{
+    width:100%!important;
+  }
+
+  body.phone-lite .about-right-text{
+    width:calc(100% - 38px)!important;
+    max-width:520px!important;
+    padding:52px 0 62px!important;
+  }
+
+  /* ---------- TEAM: same moving typography + scroll reveal ---------- */
+  body.phone-lite .team-section{
+    overflow:hidden!important;
+  }
+
+  body.phone-lite .team-shell{
+    padding-bottom:118px!important;
+  }
+
+  body.phone-lite .team-bg-pattern{
+    left:-8%!important;
+    width:116%!important;
+    opacity:.06!important;
+  }
+
+  body.phone-lite .team-pattern-row:nth-child(-n+10){display:block!important}
+  body.phone-lite .team-pattern-row:nth-child(n+11){display:none!important}
+
+  body.phone-lite .team-pattern-track{
+    display:flex!important;
+    width:max-content!important;
+    animation:teamTickerLeft 24s linear infinite!important;
+    will-change:transform!important;
+  }
+
+  body.phone-lite .team-pattern-row:nth-child(even) .team-pattern-track{
+    animation-name:teamTickerRight!important;
+    animation-duration:27s!important;
+  }
+
+  body.phone-lite .team-pattern-row:nth-child(3n) .team-pattern-track{
+    animation-duration:29s!important;
+    animation-delay:-7s!important;
+  }
+
+  body.phone-lite .team-card.team-reveal{
+    opacity:0!important;
+    transform:translateY(22px)!important;
+    transition:opacity .72s ease,transform .86s cubic-bezier(.22,.61,.36,1)!important;
+  }
+
+  body.phone-lite .team-card.team-reveal.is-visible{
+    opacity:1!important;
+    transform:translateY(0)!important;
+  }
+
+  body.phone-lite .team-marquee{
+    display:block!important;
+    bottom:22px!important;
+    opacity:.065!important;
+  }
+
+  body.phone-lite .team-marquee-track{
+    display:flex!important;
+    animation:teamMarquee 28s linear infinite!important;
+    will-change:transform!important;
+  }
+
+  body.phone-lite .team-marquee span{
+    font-size:44px!important;
+  }
+
+  /* ---------- REVIEWS: keep phone carousel but restore living desktop motion ---------- */
+  body.phone-lite .review-slide,
+  body.phone-lite .review-slide:nth-child(even){
+    transform:
+      translate3d(0,var(--review-float,0px),0)
+      rotate(var(--review-tilt,0deg))!important;
+    will-change:transform!important;
+  }
+
+  body.phone-lite .reviews-wave{
+    transform:translate3d(var(--reviews-wave-x,0px),0,0) scaleX(1.035)!important;
+    will-change:transform!important;
+  }
+
+  /* ---------- FAQ: restore the same scroll-linked small visual details ---------- */
+  body.phone-lite .faq-side-note{
+    display:block!important;
+    width:112px!important;
+    margin:20px 0 0 16px!important;
+    opacity:calc(.25 + var(--faq-scene-p) * .6)!important;
+    transform:translateY(calc((1 - var(--faq-scene-p)) * 8px)) rotate(-3deg)!important;
+  }
+
+  body.phone-lite .faq-side-note svg{width:100px!important}
+  body.phone-lite .faq-side-note span{font-size:9px!important}
+
+  /* ---------- CONTACT: restore desktop scroll motion on the mobile composition ---------- */
+  body.phone-lite .contact-wave{
+    transform:translate3d(var(--contact-wave-x,0px),0,0) scaleX(1.035)!important;
+    transform-origin:right center!important;
+    will-change:transform!important;
+  }
+
+  body.phone-lite .contact-phone-wrap{
+    transform:
+      translate3d(0,var(--contact-phone-y,0px),0)
+      perspective(1000px)
+      rotateX(var(--contact-tilt-x,0deg))
+      rotateY(var(--contact-tilt-y,0deg))!important;
+    will-change:transform!important;
+  }
+
+  /* ---------- SECTION BRIDGES: no more permanently finished state ---------- */
+  body.phone-lite .flow-bridge-inner,
+  body.phone-lite .flow-bridge svg,
+  body.phone-lite .flow-bridge:after{
+    will-change:transform,opacity!important;
   }
 }
 
 @media(max-width:360px){
-  body.phone-lite .about-left{
-    min-height:620px!important;
-  }
-
-  body.phone-lite .about-pattern{
-    width:205vw!important;
-    min-width:800px!important;
-    height:690px!important;
-  }
-
   body.phone-lite .about-pattern-row{
-    height:57px!important;
-    font-size:24px!important;
+    height:56px!important;
+    font-size:23px!important;
+  }
+
+  body.phone-lite .about-photo-card{
+    width:min(82vw,305px)!important;
+    height:min(63svh,490px)!important;
+    min-height:430px!important;
   }
 }

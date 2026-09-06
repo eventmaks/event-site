@@ -1142,28 +1142,18 @@
       reviewsRender();
     });
 
-    if(!phoneLite){
-      window.addEventListener("scroll",requestReviewsScrollRender,{passive:true});
-    }
+    window.addEventListener("scroll",requestReviewsScrollRender,{passive:true});
     window.addEventListener("resize",()=>{
       reviewsRender();
-      if(!phoneLite) requestReviewsScrollRender();
+      requestReviewsScrollRender();
     },{passive:true});
     window.addEventListener("load",()=>{
       reviewsRender();
-      if(!phoneLite) requestReviewsScrollRender();
+      requestReviewsScrollRender();
     },{once:true});
 
     reviewsRender();
-    if(phoneLite){
-      if(reviewsSection){
-        reviewsSection.style.setProperty("--reviews-scene-p",".55");
-        reviewsSection.style.setProperty("--reviews-wave-x","0px");
-      }
-      reviewSlides.forEach(slide=>slide.style.setProperty("--review-float","0px"));
-    }else{
-      reviewsScrollRender();
-    }
+    reviewsScrollRender();
   }
 
 
@@ -1319,18 +1309,19 @@
 
     if(visualIsNearViewport(aboutSection,320)){
       const p=visualSectionProgress(aboutSection);
-      const patternShift=phoneLite ? 34 : 58;
-      const photoShift=phoneLite ? -18 : -34;
+      const patternAmplitude=phoneLite ? 38 : 58;
+      const photoAmplitude=phoneLite ? -22 : -34;
 
       if(aboutPattern){
-        aboutPattern.style.setProperty("--about-pattern-y",`${(p-.5)*patternShift}px`);
+        aboutPattern.style.setProperty("--about-pattern-y",`${(p-.5)*patternAmplitude}px`);
       }
 
       if(aboutPhoto){
-        aboutPhoto.style.setProperty("--about-photo-y",`${(p-.5)*photoShift}px`);
+        aboutPhoto.style.setProperty("--about-photo-y",`${(p-.5)*photoAmplitude}px`);
       }
     }
 
+    /* Portfolio remains intentionally untouched on phone. */
     if(!phoneLite && visualIsNearViewport(portfolioSection,360)){
       const vh=window.innerHeight || 1;
 
@@ -1435,19 +1426,10 @@
     fcRAF=requestAnimationFrame(fcRender);
   }
 
-  if(phoneLite){
-    if(faqSectionVisual) faqSectionVisual.style.setProperty("--faq-scene-p","1");
-    if(contactSectionVisual){
-      contactSectionVisual.style.setProperty("--contact-scene-p","1");
-      contactSectionVisual.style.setProperty("--contact-wave-x","0px");
-      contactSectionVisual.style.setProperty("--contact-phone-y","0px");
-    }
-  }else{
-    window.addEventListener("scroll",requestFcRender,{passive:true});
-    window.addEventListener("resize",requestFcRender,{passive:true});
-    window.addEventListener("load",requestFcRender,{once:true});
-    requestFcRender();
-  }
+  window.addEventListener("scroll",requestFcRender,{passive:true});
+  window.addEventListener("resize",requestFcRender,{passive:true});
+  window.addEventListener("load",requestFcRender,{once:true});
+  requestFcRender();
 
   /* Real local time inside the stylized phone. */
   function updateContactPhoneTime(){
@@ -1501,7 +1483,7 @@
       const rect=bridge.getBoundingClientRect();
       const raw=(vh*.94-rect.top)/(vh*.42);
       const p=flowEase(flowClamp(raw));
-      bridge.style.setProperty("--bridge-p",p.toFixed(4));
+      bridge.style.setProperty("--bridge-p",p.toFixed(4),"important");
     });
   }
 
@@ -1511,14 +1493,10 @@
   }
 
   if(flowBridges.length){
-    if(phoneLite){
-      flowBridges.forEach(bridge=>bridge.style.setProperty("--bridge-p","1"));
-    }else{
-      window.addEventListener("scroll",requestFlowBridges,{passive:true});
-      window.addEventListener("resize",requestFlowBridges,{passive:true});
-      window.addEventListener("load",requestFlowBridges,{once:true});
-      requestFlowBridges();
-    }
+    window.addEventListener("scroll",requestFlowBridges,{passive:true});
+    window.addEventListener("resize",requestFlowBridges,{passive:true});
+    window.addEventListener("load",requestFlowBridges,{once:true});
+    requestFlowBridges();
   }
 
 
