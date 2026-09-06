@@ -12453,3 +12453,95 @@ body.entry-consent-open{
     font-size:10px!important;
   }
 }
+
+
+/* =========================================================
+   MOBILE CONSENT CLICK FIX V16
+   Explicit iPhone hit-testing and safe dismissal.
+   ========================================================= */
+.entry-consent{
+  pointer-events:auto!important;
+  touch-action:manipulation;
+}
+
+.entry-consent-backdrop{
+  z-index:0!important;
+  pointer-events:auto!important;
+  touch-action:manipulation;
+}
+
+.entry-consent-card{
+  z-index:10!important;
+  pointer-events:auto!important;
+  isolation:isolate!important;
+}
+
+.entry-consent-card:before{
+  pointer-events:none!important;
+}
+
+.entry-consent-card button,
+.entry-consent-card a,
+.entry-consent-card input,
+.entry-consent-card label{
+  position:relative;
+  z-index:20!important;
+  pointer-events:auto!important;
+}
+
+.entry-consent-accept,
+.entry-consent-decline,
+.entry-consent-close{
+  cursor:pointer!important;
+  touch-action:manipulation!important;
+  -webkit-user-select:none!important;
+  user-select:none!important;
+}
+
+@media(max-width:640px){
+  body.phone-lite .entry-consent-card{
+    /* Safari hit-test stabilization for fixed + scrollable modal. */
+    transform:translateZ(0)!important;
+    -webkit-transform:translateZ(0)!important;
+  }
+
+  body.phone-lite .entry-consent-accept,
+  body.phone-lite .entry-consent-decline{
+    position:relative!important;
+    z-index:30!important;
+  }
+
+  body.phone-lite .entry-consent-close{
+    z-index:40!important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE CONSENT REAL FIX V17
+   Root cause: display:grid!important could override hidden state.
+   ========================================================= */
+
+/* Hidden must ALWAYS win, including iPhone Safari. */
+.entry-consent[hidden]{
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+
+/* When open, all interactive layers remain above the backdrop. */
+.entry-consent:not([hidden]){
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
+
+.entry-consent:not([hidden]) .entry-consent-card{
+  pointer-events:auto!important;
+}
+
+.entry-consent:not([hidden]) .entry-consent-accept,
+.entry-consent:not([hidden]) .entry-consent-decline,
+.entry-consent:not([hidden]) .entry-consent-close{
+  pointer-events:auto!important;
+  -webkit-tap-highlight-color:transparent;
+}

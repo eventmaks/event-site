@@ -1579,6 +1579,8 @@
      Shows on first visit. Consent is voluntary.
      ======================================================== */
   const entryConsent=document.getElementById("entryConsent");
+  const entryConsentBackdrop=entryConsent?.querySelector(".entry-consent-backdrop");
+  const entryConsentCard=entryConsent?.querySelector(".entry-consent-card");
   const entryConsentAccept=document.getElementById("entryConsentAccept");
   const entryConsentDecline=document.getElementById("entryConsentDecline");
   const entryConsentClose=document.getElementById("entryConsentClose");
@@ -1600,8 +1602,14 @@
 
   function openEntryConsent(){
     if(!entryConsent) return;
+
+    /* Remove the hard close fallback before showing again. */
+    entryConsent.style.removeProperty("display");
     entryConsent.hidden=false;
+    entryConsent.setAttribute("aria-hidden","false");
+
     document.body.classList.add("entry-consent-open");
+
     window.setTimeout(()=>{
       entryConsentAccept?.focus();
     },40);
@@ -1609,7 +1617,17 @@
 
   function closeEntryConsent(){
     if(!entryConsent) return;
+
+    /*
+      Do not rely only on the HTML hidden attribute.
+      A previous mobile rule used display:grid!important and could visually
+      override the hidden state in Safari. Force the modal off-screen
+      synchronously, then keep hidden as the semantic state.
+    */
     entryConsent.hidden=true;
+    entryConsent.setAttribute("aria-hidden","true");
+    entryConsent.style.setProperty("display","none","important");
+
     document.body.classList.remove("entry-consent-open");
   }
 
@@ -1635,24 +1653,68 @@
       syncQuizConsentFromEntry();
     }
 
-    entryConsentAccept?.addEventListener("click",()=>{
-      writeEntryConsent("accepted");
-      syncQuizConsentFromEntry(true);
-      closeEntryConsent();
-    });
+    let entryConsentActionLocked=false;
 
-    const declineEntryConsent=()=>{
-      writeEntryConsent("declined");
-      syncQuizConsentFromEntry(false);
+    const finishEntryConsent=accepted=>{
+      if(entryConsentActionLocked) return;
+      entryConsentActionLocked=true;
+
+      writeEntryConsent(accepted ? "accepted" : "declined");
+      syncQuizConsentFromEntry(accepted);
       closeEntryConsent();
+
+      window.setTimeout(()=>{
+        entryConsentActionLocked=false;
+      },250);
     };
 
-    entryConsentDecline?.addEventListener("click",declineEntryConsent);
-    entryConsentClose?.addEventListener("click",declineEntryConsent);
+    /*
+      iPhone Safari can occasionally swallow a synthetic click inside a
+      scrollable fixed dialog. Bind both pointer/touch activation and click.
+      The lock above prevents the same tap from firing twice.
+    */
+    const bindEntryAction=(element,handler)=>{
+      if(!element) return;
+
+      const activate=event=>{
+        if(event){
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        handler();
+      };
+
+      element.addEventListener("click",activate);
+
+      if("PointerEvent" in window){
+        element.addEventListener("pointerup",event=>{
+          if(event.pointerType==="touch" || event.pointerType==="pen"){
+            activate(event);
+          }
+        });
+      }else{
+        element.addEventListener("touchend",activate,{passive:false});
+      }
+    };
+
+    bindEntryAction(entryConsentAccept,()=>finishEntryConsent(true));
+    bindEntryAction(entryConsentDecline,()=>finishEntryConsent(false));
+    bindEntryAction(entryConsentClose,()=>finishEntryConsent(false));
+
+    /*
+      Tapping the dark backdrop is also a safe way to dismiss the voluntary
+      consent window, so the user can never become trapped in the modal.
+    */
+    bindEntryAction(entryConsentBackdrop,()=>finishEntryConsent(false));
+
+    if(entryConsentCard){
+      entryConsentCard.addEventListener("pointerup",event=>event.stopPropagation());
+      entryConsentCard.addEventListener("click",event=>event.stopPropagation());
+    }
 
     entryConsent.addEventListener("keydown",event=>{
       if(event.key==="Escape"){
-        declineEntryConsent();
+        finishEntryConsent(false);
       }
     });
   }
