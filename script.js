@@ -1257,7 +1257,78 @@
      ======================================================== */
   const visualReduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const aboutSection=document.getElementById("about");
+
   const aboutPattern=document.querySelector(".about-pattern");
+
+  /* =========================================================
+     MOBILE ABOUT TICKER V31
+     JS-driven so iPhone Safari cannot freeze/override it via legacy CSS.
+     ========================================================= */
+  if(phoneLite && aboutPattern){
+    const mobileAboutTracks=[...aboutPattern.querySelectorAll(".about-pattern-track")];
+    let mobileAboutVisible=true;
+    let mobileAboutRaf=0;
+    let mobileAboutStart=performance.now();
+
+    const renderMobileAboutTicker=now=>{
+      mobileAboutRaf=0;
+      if(!mobileAboutVisible) return;
+
+      const elapsed=(now-mobileAboutStart)/1000;
+
+      mobileAboutTracks.forEach((track,index)=>{
+        const firstCopy=track.querySelector(".about-pattern-copy");
+        if(!firstCopy) return;
+
+        /*
+          Distance equals one repeated copy, so the loop is seamless.
+          Every second line moves in the opposite direction.
+        */
+        const loopWidth=firstCopy.getBoundingClientRect().width;
+        if(!loopWidth) return;
+
+        const speed=26 + (index%4)*4; // px/sec, visible but not rushed
+        const distance=(elapsed*speed)%loopWidth;
+        const reverse=index%2===1;
+
+        const x=reverse
+          ? -loopWidth + distance
+          : -distance;
+
+        track.style.setProperty("transform",`translate3d(${x.toFixed(2)}px,0,0)`,"important");
+        track.style.setProperty("-webkit-transform",`translate3d(${x.toFixed(2)}px,0,0)`,"important");
+      });
+
+      mobileAboutRaf=requestAnimationFrame(renderMobileAboutTicker);
+    };
+
+    const startMobileAboutTicker=()=>{
+      if(mobileAboutRaf || !mobileAboutVisible) return;
+      mobileAboutRaf=requestAnimationFrame(renderMobileAboutTicker);
+    };
+
+    if("IntersectionObserver" in window){
+      const mobileAboutObserver=new IntersectionObserver(entries=>{
+        mobileAboutVisible=entries.some(entry=>entry.isIntersecting);
+        if(mobileAboutVisible){
+          startMobileAboutTicker();
+        }else if(mobileAboutRaf){
+          cancelAnimationFrame(mobileAboutRaf);
+          mobileAboutRaf=0;
+        }
+      },{rootMargin:"120px 0px 120px 0px",threshold:0});
+      mobileAboutObserver.observe(aboutPattern);
+    }
+
+    window.addEventListener("pageshow",()=>{
+      mobileAboutStart=performance.now();
+      mobileAboutVisible=true;
+      startMobileAboutTicker();
+    },{passive:true});
+
+    startMobileAboutTicker();
+  }
+
   const aboutPhoto=document.getElementById("aboutPhotoCard");
   const teamSection=document.getElementById("team");
   const teamRows=[...document.querySelectorAll(".team-bg-pattern > div")];
@@ -1543,7 +1614,7 @@
   const entryConsentAccept=document.getElementById("entryConsentAccept");
   const entryConsentDecline=document.getElementById("entryConsentDecline");
   const entryConsentClose=document.getElementById("entryConsentClose");
-  const ENTRY_CONSENT_KEY="eventmaks_pdn_consent_v3";
+  const ENTRY_CONSENT_KEY="eventmaks_cookie_notice_v4";
 
   function readEntryConsent(){
     try{
@@ -1562,12 +1633,12 @@
   function openEntryConsent(){
     if(!entryConsent) return;
 
-    /* Remove the hard close fallback before showing again. */
     entryConsent.style.removeProperty("display");
     entryConsent.hidden=false;
     entryConsent.setAttribute("aria-hidden","false");
 
-    document.body.classList.add("entry-consent-open");
+    /* Banner mode: do not lock the page scroll. */
+    document.body.classList.remove("entry-consent-open");
 
     window.setTimeout(()=>{
       entryConsentAccept?.focus();
