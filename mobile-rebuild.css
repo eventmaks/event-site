@@ -1242,3 +1242,77 @@ body.phone-lite .about-right li{
     height:416px!important;
   }
 }
+
+
+/* =====================================================================
+   MOBILE REBUILD V30 — FORCE VISIBLE ABOUT MOTION
+   ===================================================================== */
+
+/* Dedicated mobile keyframes so Safari cannot inherit/freeze any
+   legacy animation state from style.css. */
+@-webkit-keyframes mobileAboutLeft{
+  from{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+  to{-webkit-transform:translate3d(-50%,0,0);transform:translate3d(-50%,0,0)}
+}
+@keyframes mobileAboutLeft{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-50%,0,0)}
+}
+
+@-webkit-keyframes mobileAboutRight{
+  from{-webkit-transform:translate3d(-50%,0,0);transform:translate3d(-50%,0,0)}
+  to{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+}
+@keyframes mobileAboutRight{
+  from{transform:translate3d(-50%,0,0)}
+  to{transform:translate3d(0,0,0)}
+}
+
+/* All visible rows move. Speeds are intentionally faster than before
+   so the movement is clearly noticeable on a phone. */
+body.phone-lite .about-pattern-row .about-pattern-track{
+  -webkit-animation:mobileAboutLeft 12s linear infinite!important;
+  animation:mobileAboutLeft 12s linear infinite!important;
+  -webkit-animation-play-state:running!important;
+  animation-play-state:running!important;
+  will-change:transform!important;
+  backface-visibility:hidden!important;
+  -webkit-backface-visibility:hidden!important;
+}
+
+body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
+  -webkit-animation-name:mobileAboutRight!important;
+  animation-name:mobileAboutRight!important;
+  -webkit-animation-duration:14s!important;
+  animation-duration:14s!important;
+}
+
+body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track{
+  -webkit-animation-duration:16s!important;
+  animation-duration:16s!important;
+  -webkit-animation-delay:-5s!important;
+  animation-delay:-5s!important;
+}
+
+body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
+  -webkit-animation-duration:11s!important;
+  animation-duration:11s!important;
+  -webkit-animation-delay:-7s!important;
+  animation-delay:-7s!important;
+}
+
+/* User explicitly requested this decorative movement on mobile,
+   so keep it active even if iOS reports reduced-motion. */
+@media(prefers-reduced-motion:reduce){
+  body.phone-lite .about-pattern-row .about-pattern-track{
+    -webkit-animation:mobileAboutLeft 12s linear infinite!important;
+    animation:mobileAboutLeft 12s linear infinite!important;
+  }
+
+  body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
+    -webkit-animation-name:mobileAboutRight!important;
+    animation-name:mobileAboutRight!important;
+    -webkit-animation-duration:14s!important;
+    animation-duration:14s!important;
+  }
+}
