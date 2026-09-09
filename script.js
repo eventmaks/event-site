@@ -1020,6 +1020,8 @@
     let cCurrent=0;
     let cTarget=0;
     let cProgressReady=false;
+    let cScrollActive=false;
+    let cScrollStopTimer=0;
 
     function cubic(t,p0,p1,p2,p3){
       const u=1-t;
@@ -1234,7 +1236,10 @@
         `translate3d(${pt.x.toFixed(2)}px,${pt.y.toFixed(2)}px,0) `+
         `translate(-12%,-50%) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
 
-      costTreat.style.opacity=String(opacity);
+      // V59 — the treat exists visually only while the page is actually moving.
+      // Scroll events keep it visible; once scrolling stops, it disappears.
+      costTreat.style.opacity=cScrollActive ? String(opacity) : "0";
+      costTreat.style.visibility=cScrollActive ? "visible" : "hidden";
 
       if(Math.abs(cTarget-cCurrent) > 0.0007){
         cRAF=requestAnimationFrame(cRender);
@@ -1246,8 +1251,22 @@
       cRAF=requestAnimationFrame(cRender);
     }
 
-    costTreat.style.visibility="visible";
-    window.addEventListener("scroll",cRequest,{passive:true});
+    function cOnScroll(){
+      cScrollActive=true;
+      clearTimeout(cScrollStopTimer);
+      cRequest();
+
+      // A short debounce means trackpad / touch inertia still counts as movement.
+      cScrollStopTimer=setTimeout(()=>{
+        cScrollActive=false;
+        costTreat.style.opacity="0";
+        costTreat.style.visibility="hidden";
+      },110);
+    }
+
+    costTreat.style.opacity="0";
+    costTreat.style.visibility="hidden";
+    window.addEventListener("scroll",cOnScroll,{passive:true});
     window.addEventListener("resize",cRequest,{passive:true});
     window.addEventListener("load",cRequest,{once:true});
     cRender();
