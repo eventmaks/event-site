@@ -1,0 +1,7 @@
+COST TREAT V56
+
+Changes:
+- Treat movement slowed down much more than V55.
+- Movement now stays longer on the horizontal route before dropping.
+- Final descent and mouth entry remain smooth and clean.
+- Cache bust updated to v56.
