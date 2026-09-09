@@ -10190,3 +10190,10 @@ body.entry-consent-open{
     width:40px!important;
   }
 }
+
+/* V61 — desktop only: lower pug to match reference */
+@media(min-width:1200px){
+  .cost-pug{
+    margin:0 -28px -52px 0!important;
+  }
+}

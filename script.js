@@ -1021,7 +1021,9 @@
     let cTarget=0;
     let cProgressReady=false;
     let cScrollActive=false;
-    let cScrollStopTimer=0;
+    let cMotionRAF=0;
+    let cLastScrollY=window.scrollY || window.pageYOffset || 0;
+    let cLastMoveTime=0;
 
     function cubic(t,p0,p1,p2,p3){
       const u=1-t;
@@ -1251,17 +1253,46 @@
       cRAF=requestAnimationFrame(cRender);
     }
 
-    function cOnScroll(){
-      cScrollActive=true;
-      clearTimeout(cScrollStopTimer);
-      cRequest();
+    /*
+      V60 — DESKTOP VISIBILITY FOLLOWS REAL PAGE MOTION
+      A fixed 110ms debounce was too short for desktop wheel / trackpad use:
+      the treat could flash for a frame and disappear before it was readable.
+      Instead, keep watching the actual scroll position. The treat remains
+      visible while the page is still physically moving (including inertia),
+      and hides only after the page has genuinely settled.
+    */
+    function cWatchMotion(now){
+      const y=window.scrollY || window.pageYOffset || 0;
+      if(Math.abs(y-cLastScrollY)>.15){
+        cLastScrollY=y;
+        cLastMoveTime=now;
+        if(!cScrollActive){
+          cScrollActive=true;
+        }
+        cRequest();
+      }
 
-      // A short debounce means trackpad / touch inertia still counts as movement.
-      cScrollStopTimer=setTimeout(()=>{
+      const settleDelay=phoneLite ? 150 : 230;
+      if(cScrollActive && now-cLastMoveTime>settleDelay){
         cScrollActive=false;
         costTreat.style.opacity="0";
         costTreat.style.visibility="hidden";
-      },110);
+        cMotionRAF=0;
+        return;
+      }
+
+      cMotionRAF=requestAnimationFrame(cWatchMotion);
+    }
+
+    function cOnScroll(){
+      const now=performance.now();
+      cScrollActive=true;
+      cLastMoveTime=now;
+      cLastScrollY=window.scrollY || window.pageYOffset || 0;
+      cRequest();
+      if(!cMotionRAF){
+        cMotionRAF=requestAnimationFrame(cWatchMotion);
+      }
     }
 
     costTreat.style.opacity="0";
