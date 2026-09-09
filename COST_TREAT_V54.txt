@@ -1,0 +1,8 @@
+COST TREAT V54
+
+Changes:
+- Treat animation is made noticeably slower than V53.
+- Horizontal travel takes longer.
+- Drop to the dog happens later.
+- Treat still disappears at the mouth as if eaten.
+- Cache bust updated to v54.

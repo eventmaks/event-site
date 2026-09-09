@@ -1071,11 +1071,11 @@
       }
 
       /*
-        V53 — EVEN SLOWER TREAT TIMING
-        Slow the motion down more so the treat reads clearly,
+        V54 — MUCH SLOWER TREAT TIMING
+        Slow the motion down substantially so the treat feels much calmer,
         especially on mobile, while still completing within the section.
       */
-      const t=Math.pow(cSmooth(raw),1.42);
+      const t=Math.pow(cSmooth(raw),1.85);
       costStage.style.setProperty("--cost-p",t.toFixed(4));
 
       /*
@@ -1171,22 +1171,22 @@
       let pt;
       let angle=0;
 
-      if(t<=.74){
-        const q=cSmooth(cClamp(t/.74));
+      if(t<=.80){
+        const q=cSmooth(cClamp(t/.80));
         pt={
           x:lerp(startPoint.x,cornerPoint.x,q),
           y:horizontalY
         };
         angle=0;
-      }else if(t<=.94){
-        const q=cSmooth(cClamp((t-.74)/.20));
+      }else if(t<=.975){
+        const q=cSmooth(cClamp((t-.80)/.175));
         pt={
           x:cornerX,
           y:lerp(cornerPoint.y,dropPoint.y,q)
         };
         angle=0;
       }else{
-        const q=cSmooth(cClamp((t-.94)/.06));
+        const q=cSmooth(cClamp((t-.975)/.025));
         pt={
           x:lerp(dropPoint.x,mouth.x,q),
           y:lerp(dropPoint.y,mouth.y,q)
@@ -1195,13 +1195,13 @@
       }
 
       /*
-        V53 — EATEN AT THE MOUTH
+        V54 — EATEN AT THE MOUTH
         The treat remains visible during the route, then shrinks and fades
         right as it reaches Muksik, so it feels like he ate it.
       */
       let scale=1;
       let opacity=1;
-      const swallow=cSmooth(cClamp((t-.94)/.06));
+      const swallow=cSmooth(cClamp((t-.975)/.025));
       scale=1-(swallow*.88);
       opacity=1-swallow;
 
