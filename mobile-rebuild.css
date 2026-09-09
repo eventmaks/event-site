@@ -793,7 +793,7 @@ body.phone-lite .cost-title {
   top: auto!important;
   left: auto!important;
   transform: none!important;
-  margin: 0 auto 28px!important;
+  margin: 0 auto 18px!important;
 }
 body.phone-lite .cost-title h2 {
   font-size: clamp(38px, 11.3vw, 48px)!important;
@@ -801,7 +801,7 @@ body.phone-lite .cost-title h2 {
 body.phone-lite .cost-content-row {
   position: relative!important;
   width: 100%!important;
-  max-width: 360px!important;
+  max-width: 336px!important;
   min-height: 0!important;
   display: flex!important;
   flex-direction: column!important;
@@ -816,28 +816,34 @@ body.phone-lite .cost-card {
   margin: 0 auto!important;
   border-radius: 18px!important;
   width: 100%!important;
-  max-width: 380px!important;
+  max-width: 332px!important;
   transform: none!important;
 }
 body.phone-lite .cost-card-copy {
-  padding: 24px 20px!important;
+  padding: 20px 18px 18px!important;
 }
 body.phone-lite .cost-card li {
-  font-size: 15px!important;
-  line-height: 1.45!important;
+  font-size: 14px!important;
+  line-height: 1.38!important;
+  margin-bottom: 6px!important;
 }
 body.phone-lite .cost-button {
   width: 100%!important;
   min-width: 0!important;
+  min-height: 40px!important;
+  height: 40px!important;
+  margin-top: 16px!important;
+  font-size: 10px!important;
+  padding: 0 16px!important;
 }
 body.phone-lite .cost-small {
   padding: 0!important;
   text-align: center!important;
   white-space: normal!important;
-  font-size: 12px!important;
-  line-height: 1.4!important;
+  font-size: 11px!important;
+  line-height: 1.35!important;
   padding-right: 0!important;
-  margin-top: 12px!important;
+  margin-top: 10px!important;
 }
 body.phone-lite .cost-pug {
   left: auto!important;
@@ -847,10 +853,10 @@ body.phone-lite .cost-pug {
   max-width: none!important;
   align-self: flex-end!important;
   z-index: 4!important;
-  width: clamp(125px, 34vw, 145px)!important;
+  width: clamp(118px, 32vw, 136px)!important;
   right: auto!important;
   bottom: auto!important;
-  margin: -6px 0 0!important;
+  margin: -4px 2px 0 0!important;
   transform: none!important;
 }
 body.phone-lite .cost-pug img {
@@ -862,7 +868,7 @@ body.phone-lite .cost-treat {
   visibility: visible!important;
   z-index: 12!important;
   pointer-events: none!important;
-  width: 28px!important;
+  width: 24px!important;
 }
 
 /* Reviews */
@@ -1336,18 +1342,18 @@ body.phone-lite .calc.is-mobile-context-hidden{
   display:grid!important;
   position:fixed!important;
   z-index:90000!important;
-  right:max(12px,env(safe-area-inset-right))!important;
+  right:max(10px,env(safe-area-inset-right))!important;
   left:auto!important;
-  bottom:calc(78px + env(safe-area-inset-bottom))!important;
-  width:68px!important;
-  height:68px!important;
+  bottom:calc(74px + env(safe-area-inset-bottom))!important;
+  width:60px!important;
+  height:60px!important;
   opacity:1!important;
   visibility:visible!important;
   pointer-events:auto!important;
   border-radius:50%!important;
-  font-size:7.2px!important;
-  line-height:1.08!important;
-  box-shadow:0 10px 24px rgba(72,34,45,.22)!important;
+  font-size:6.3px!important;
+  line-height:1.06!important;
+  box-shadow:0 10px 22px rgba(72,34,45,.20)!important;
   animation:mobileCalcFloatV41 3.2s ease-in-out infinite!important;
 }
 
@@ -1371,10 +1377,10 @@ body.phone-lite .calc i{
 @media(max-width:360px){
   body.phone-lite .calc,
   body.phone-lite .calc.is-mobile-context-hidden{
-    width:62px!important;
-    height:62px!important;
-    bottom:calc(72px + env(safe-area-inset-bottom))!important;
-    font-size:6.7px!important;
+    width:56px!important;
+    height:56px!important;
+    bottom:calc(70px + env(safe-area-inset-bottom))!important;
+    font-size:6px!important;
   }
 
   body.phone-lite .entry-consent.entry-consent--banner .entry-consent-card{

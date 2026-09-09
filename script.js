@@ -1063,12 +1063,27 @@
         y:(pugRect.top-stageRect.top)+(pugRect.height*.338)
       };
 
-      // On phones the treat travels below the price card, clear of its text and CTA.
+      /*
+        MOBILE V45:
+        Make the treat clearly travel INTO Muksik's mouth like the reference coin.
+        The card is smaller, so the path can now sit near its right side instead of
+        hiding below the whole block.
+      */
       if(phoneLite){
-        const belowCard=cardRect.bottom-stageRect.top+20;
-        Object.assign(p0,{x:cardRect.left-stageRect.left+cardRect.width*.18,y:belowCard});
-        Object.assign(p1,{x:cardRect.left-stageRect.left+cardRect.width*.45,y:belowCard+12});
-        Object.assign(p2,{x:pugRect.left-stageRect.left-12,y:Math.max(belowCard,p3.y-30)});
+        const gapTop=(cardRect.top-stageRect.top)-6;
+        const arcY=(cardRect.top-stageRect.top)+(cardRect.height*.18);
+        Object.assign(p0,{
+          x:cardRect.left-stageRect.left + cardRect.width*.54,
+          y:gapTop
+        });
+        Object.assign(p1,{
+          x:cardRect.right-stageRect.left + 18,
+          y:gapTop + 4
+        });
+        Object.assign(p2,{
+          x:pugRect.left-stageRect.left - 14,
+          y:Math.max(arcY,p3.y-22)
+        });
       }
 
       const pt=cubic(t,p0,p1,p2,p3);
@@ -1095,10 +1110,10 @@
           through the top of the viewport.
         */
         const holdFade=cSmooth(
-          cClamp((pugRect.bottom-(vh*.06))/(vh*.22))
+          cClamp((pugRect.bottom-(vh*.02))/(vh*.30))
         );
-        opacity=holdFade;
-        scale=.98+(holdFade*.02);
+        opacity=.15 + (holdFade*.85);
+        scale=.96 + (holdFade*.04);
       }else{
         const swallow=cSmooth(cClamp((t-.965)/.035));
         scale=1-(swallow*.72);
