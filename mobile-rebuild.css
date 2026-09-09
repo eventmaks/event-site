@@ -1443,7 +1443,7 @@ body.phone-lite .ios-launch-app-label{
   font-weight:600;
   white-space:nowrap;
   opacity:1;
-  transition:opacity .34s ease,transform .72s cubic-bezier(.22,.72,.18,1);
+  transition:opacity .8s ease,transform 1.35s cubic-bezier(.22,.72,.12,1);
 }
 
 body.phone-lite .ios-launch-app-dot{
@@ -1469,8 +1469,8 @@ body.phone-lite .ios-launch-side{
   opacity:.72;
   box-shadow:0 12px 34px rgba(0,0,0,.28);
   transition:
-    transform .84s cubic-bezier(.2,.75,.2,1),
-    opacity .56s ease;
+    transform 1.52s cubic-bezier(.22,.72,.12,1),
+    opacity 1.05s ease;
 }
 
 body.phone-lite .ios-launch-side-left{
@@ -1533,9 +1533,9 @@ body.phone-lite .ios-launch-card{
   transform-origin:50% 50%;
   will-change:transform,border-radius,box-shadow;
   transition:
-    transform .86s cubic-bezier(.18,.82,.18,1),
-    border-radius .68s cubic-bezier(.2,.7,.2,1),
-    box-shadow .6s ease;
+    transform 1.62s cubic-bezier(.22,.72,.12,1),
+    border-radius 1.42s cubic-bezier(.22,.72,.12,1),
+    box-shadow 1.18s ease;
 }
 
 body.phone-lite .ios-launch-preview{
@@ -1629,15 +1629,15 @@ body.phone-lite .ios-launch.ios-launch-run .ios-launch-card{
 
 body.phone-lite .ios-launch.ios-launch-run .ios-launch-preview{
   inset:0;
-  transition:inset .72s cubic-bezier(.18,.82,.18,1);
+  transition:inset 1.48s cubic-bezier(.22,.72,.12,1);
 }
 
 body.phone-lite .ios-launch.ios-launch-run .ios-launch-browser{
   transform:translateY(110%);
   opacity:0;
   transition:
-    transform .68s cubic-bezier(.18,.82,.18,1),
-    opacity .24s ease .38s;
+    transform 1.35s cubic-bezier(.22,.72,.12,1),
+    opacity .34s ease 1.00s;
 }
 
 body.phone-lite .ios-launch.ios-launch-run .ios-launch-side-left{

@@ -75,11 +75,14 @@
       body.classList.add("hero-ready");
       if(noise) noise.classList.add("visible");
 
-      requestAnimationFrame(()=>{
+      /* V44: keep the app-switcher state visible first, then open slowly. */
+      window.setTimeout(()=>{
         requestAnimationFrame(()=>{
-          launch.classList.add("ios-launch-run");
+          requestAnimationFrame(()=>{
+            launch.classList.add("ios-launch-run");
+          });
         });
-      });
+      },420);
 
       iosLaunchTimer=window.setTimeout(()=>{
         launch.classList.add("ios-launch-finish");
@@ -88,8 +91,8 @@
           document.body.classList.remove("ios-launch-active");
           iosLaunchDone=true;
           resolve();
-        },90);
-      },920);
+        },120);
+      },2170);
     });
   }
 
