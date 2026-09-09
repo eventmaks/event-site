@@ -937,23 +937,23 @@
         The bone now uses the same four-point cubic trajectory.
       */
       /*
-        Keep the whole first half of the trajectory BELOW the "СТОИМОСТЬ"
-        heading. The biscuit now starts in the clean gap immediately above
-        the white card, so it never touches the title.
+        The treat starts ON the price card: it should read as a reward that
+        leaves the "Стоимость" block and travels to the pug, not as a
+        decorative object already sitting beside the dog.
       */
       const p0={
-        x:(cardRect.left-stageRect.left)+(cardRect.width*.08),
-        y:(cardRect.top-stageRect.top)-22
+        x:(cardRect.left-stageRect.left)+(cardRect.width*.72),
+        y:(cardRect.top-stageRect.top)+(cardRect.height*.48)
       };
 
       const p1={
-        x:(cardRect.left-stageRect.left)+(cardRect.width*(phoneLite ? .58 : .66)),
-        y:(cardRect.top-stageRect.top)-(phoneLite ? 20 : 34)
+        x:(cardRect.right-stageRect.left)+(phoneLite ? 26 : 54),
+        y:(cardRect.top-stageRect.top)+(cardRect.height*.34)
       };
 
       const p2={
-        x:(cardRect.right-stageRect.left)+(phoneLite ? 20 : 64),
-        y:(cardRect.top-stageRect.top)+(cardRect.height*(phoneLite ? .20 : .14))
+        x:(pugRect.left-stageRect.left)-(phoneLite ? 12 : 30),
+        y:(pugRect.top-stageRect.top)+(pugRect.height*.18)
       };
 
       /*
@@ -964,14 +964,6 @@
         x:(pugRect.left-stageRect.left)+(pugRect.width*.415),
         y:(pugRect.top-stageRect.top)+(pugRect.height*.338)
       };
-
-      // On phones the treat travels below the price card, clear of its text and CTA.
-      if(phoneLite){
-        const belowCard=cardRect.bottom-stageRect.top+20;
-        Object.assign(p0,{x:cardRect.left-stageRect.left+cardRect.width*.18,y:belowCard});
-        Object.assign(p1,{x:cardRect.left-stageRect.left+cardRect.width*.45,y:belowCard+12});
-        Object.assign(p2,{x:pugRect.left-stageRect.left-12,y:Math.max(belowCard,p3.y-30)});
-      }
 
       const pt=cubic(t,p0,p1,p2,p3);
       const dir=tangent(t,p0,p1,p2,p3);
@@ -984,28 +976,12 @@
       const angle=cClamp(pathAngle,-18,22)*.35;
 
       /*
-        The biscuit stays fully visible during the entire travel.
-        It starts "being eaten" only after it has actually reached the mouth.
+        The snack is visible throughout the flight. Only at the very end it
+        shrinks and disappears in the mouth; scrolling back reverses this.
       */
-      let scale=1;
-      let opacity=1;
-
-      if(phoneLite){
-        /*
-          On phone the treat stays visible at the mouth while the pug is
-          actually on screen. It fades only after the dog has almost left
-          through the top of the viewport.
-        */
-        const holdFade=cSmooth(
-          cClamp((pugRect.bottom-(vh*.06))/(vh*.22))
-        );
-        opacity=holdFade;
-        scale=.98+(holdFade*.02);
-      }else{
-        const swallow=cSmooth(cClamp((t-.965)/.035));
-        scale=1-(swallow*.72);
-        opacity=1-cClamp((swallow-.70)/.30);
-      }
+      const swallow=cSmooth(cClamp((t-.84)/.16));
+      const scale=1-(swallow*.82);
+      const opacity=1-swallow;
 
       costTreat.style.transform=
         `translate3d(${pt.x.toFixed(2)}px,${pt.y.toFixed(2)}px,0) `+
