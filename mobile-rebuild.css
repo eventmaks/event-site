@@ -30,132 +30,96 @@ body.phone-lite .noise {
   opacity: .045!important;
 }
 
-/* Hero */
-body.phone-lite .hero {
-  position: relative!important;
-  width: 100%!important;
-  overflow: hidden!important;
-  min-height: 600px!important;
-  height: min(90svh, 760px)!important;
+/* ---------- HERO: same composition, scaled for phone ---------- */
+body.phone-lite .hero{
+  position:relative!important;
+  width:100%!important;
+  height:100svh!important;
+  min-height:620px!important;
+  overflow:hidden!important;
 }
-body.phone-lite .canvas {
-  position: absolute!important;
-  inset: 0!important;
-  width: 100%!important;
-  max-width: none!important;
-  height: 100%!important;
-  min-height: 0!important;
-  transform: none!important;
+body.phone-lite .canvas{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  min-height:0!important;
+  transform:none!important;
 }
-body.phone-lite .hero .title {
-  max-width: none!important;
-  margin: 0!important;
-  white-space: normal!important;
-  overflow: visible!important;
-  text-align: center!important;
-  top: max(26px, env(safe-area-inset-top))!important;
-  left: 16px!important;
-  width: calc(100% - 32px)!important;
-  font-size: clamp(31px, 9.7vw, 52px)!important;
-  letter-spacing: -.04em!important;
-  line-height: .98!important;
+body.phone-lite .hero .title{
+  top:25px!important;
+  left:10px!important;
+  width:calc(100% - 20px)!important;
+  max-width:none!important;
+  margin:0!important;
+  font-size:clamp(38px,10.6vw,45px)!important;
+  line-height:.91!important;
+  letter-spacing:-.048em!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-align:center!important;
 }
-body.phone-lite .hero .title>span {
-  display: block!important;
-  width: 100%!important;
-  white-space: nowrap!important;
+body.phone-lite .hero .title>span{
+  display:block!important;
+  width:100%!important;
+  white-space:nowrap!important;
 }
-body.phone-lite .hero .subtitle {
-  left: 18px!important;
-  width: calc(100% - 36px)!important;
-  justify-content: center!important;
-  align-items: flex-start!important;
-  text-align: center!important;
-  white-space: normal!important;
-  top: clamp(118px, 31vw, 166px)!important;
-  font-size: clamp(12px, 3.25vw, 16px)!important;
-  min-height: 48px!important;
-  line-height: 1.45!important;
-  display: block!important;
+body.phone-lite .hero .subtitle{
+  top:132px!important;
+  left:18px!important;
+  width:calc(100% - 36px)!important;
+  min-height:44px!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:flex-start!important;
+  font-size:12.5px!important;
+  line-height:1.22!important;
+  text-align:center!important;
+  white-space:normal!important;
 }
-body.phone-lite .hero .subtitle #typed {
-  opacity: 1!important;
-  transform: none!important;
-  filter: none!important;
-  transition: none!important;
-  white-space: normal!important;
+body.phone-lite .hero .subtitle #typed{
+  opacity:1!important;
+  transform:none!important;
+  filter:none!important;
+  transition:none!important;
+  white-space:normal!important;
 }
-body.phone-lite .hero .portrait {
-  position: absolute!important;
-  left: 50%!important;
-  right: auto!important;
-  top: auto!important;
-  bottom: -2px!important;
-  max-width: none!important;
-  height: auto!important;
-  margin: 0!important;
-  transform: translateX(-50%)!important;
-  animation: none!important;
-  width: min(96vw, 440px)!important;
+body.phone-lite .hero .portrait,
+body.phone-lite.hero-ready .hero .portrait,
+body.phone-lite.hero-opened .hero .portrait,
+body.phone-lite.hero-ready.hero-opened .hero .portrait{
+  position:absolute!important;
+  left:50%!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:-2px!important;
+  width:min(96vw,390px)!important;
+  max-width:none!important;
+  height:auto!important;
+  margin:0!important;
+  transform:translateX(-50%)!important;
+  animation:none!important;
 }
-body.phone-lite.hero-ready .hero .portrait {
-  position: absolute!important;
-  left: 50%!important;
-  right: auto!important;
-  top: auto!important;
-  bottom: -2px!important;
-  max-width: none!important;
-  height: auto!important;
-  margin: 0!important;
-  transform: translateX(-50%)!important;
-  animation: none!important;
-  width: min(96vw, 440px)!important;
+body.phone-lite .hero .portrait img{
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  transform:none!important;
 }
-body.phone-lite.hero-opened .hero .portrait {
-  position: absolute!important;
-  left: 50%!important;
-  right: auto!important;
-  top: auto!important;
-  bottom: -2px!important;
-  max-width: none!important;
-  height: auto!important;
-  margin: 0!important;
-  transform: translateX(-50%)!important;
-  animation: none!important;
-  width: min(96vw, 440px)!important;
+body.phone-lite.hero-opened .hero .portrait img{
+  animation:mobilePortraitBreath 8.5s ease-in-out infinite!important;
 }
-body.phone-lite.hero-ready.hero-opened .hero .portrait {
-  position: absolute!important;
-  left: 50%!important;
-  right: auto!important;
-  top: auto!important;
-  bottom: -2px!important;
-  max-width: none!important;
-  height: auto!important;
-  margin: 0!important;
-  transform: translateX(-50%)!important;
-  animation: none!important;
-  width: min(96vw, 440px)!important;
+@keyframes mobilePortraitBreath{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(0,-5px,0) scale(1.012)}
 }
-body.phone-lite .hero .portrait img {
-  width: 100%!important;
-  height: auto!important;
-  object-fit: contain!important;
-  object-position: center bottom!important;
-  transform: none!important;
-}
-body.phone-lite.hero-opened .hero .portrait img {
-  animation: mobilePortraitBreath 8.5s ease-in-out infinite!important;
-}
-body.phone-lite .hero .arrow {
-  right: 18px!important;
-  left: auto!important;
-  top: clamp(184px, 47vw, 224px)!important;
-  width: 34px!important;
-}
-body.phone-lite .typing-caret {
-  display: inline!important;
-  animation: blink .8s steps(1,end) infinite!important;
+body.phone-lite .hero .arrow{
+  top:180px!important;
+  right:18px!important;
+  left:auto!important;
+  width:38px!important;
 }
 
 /* Showreel */
