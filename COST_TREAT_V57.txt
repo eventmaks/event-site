@@ -1,0 +1,8 @@
+COST TREAT V57
+
+Changes:
+- Treat movement is now much smoother and slower than V56.
+- Added a soft follow / lag effect so movement glides instead of reacting too abruptly to scroll.
+- Horizontal movement lasts longer before the drop.
+- Final mouth entry remains subtle and the treat disappears exactly at the mouth.
+- Cache bust updated to v57.

@@ -1017,6 +1017,9 @@
     const cSmooth=t=>t*t*(3-2*t);
 
     let cRAF=0;
+    let cCurrent=0;
+    let cTarget=0;
+    let cProgressReady=false;
 
     function cubic(t,p0,p1,p2,p3){
       const u=1-t;
@@ -1071,11 +1074,22 @@
       }
 
       /*
-        V56 — ULTRA SLOW + EXTRA SMOOTH TREAT TIMING
-        Slow the motion down much more and keep the easing extra smooth so
-        the treat glides gently on both desktop and mobile.
+        V57 — ULTRA SLOW + PHYSICALLY SMOOTH FOLLOW TIMING
+        Do not jump directly to the scroll position.
+        Instead, let the treat ease toward the target progress so the motion
+        feels slower, softer, and more continuous on every frame.
       */
-      const t=Math.pow(cSmooth(raw),3.8);
+      cTarget=raw;
+      if(!cProgressReady){
+        cCurrent=cTarget;
+        cProgressReady=true;
+      }
+
+      const follow=phoneLite ? 0.045 : 0.055;
+      cCurrent += (cTarget-cCurrent)*follow;
+      if(Math.abs(cTarget-cCurrent) < 0.0007) cCurrent=cTarget;
+
+      const t=Math.pow(cSmooth(cCurrent),4.9);
       costStage.style.setProperty("--cost-p",t.toFixed(4));
 
       /*
@@ -1171,22 +1185,22 @@
       let pt;
       let angle=0;
 
-      if(t<=.94){
-        const q=cSmooth(cClamp(t/.94));
+      if(t<=.965){
+        const q=cSmooth(cClamp(t/.965));
         pt={
           x:lerp(startPoint.x,cornerPoint.x,q),
           y:horizontalY
         };
         angle=0;
-      }else if(t<=.998){
-        const q=cSmooth(cClamp((t-.94)/.058));
+      }else if(t<=.999){
+        const q=cSmooth(cClamp((t-.965)/.034));
         pt={
           x:cornerX,
           y:lerp(cornerPoint.y,dropPoint.y,q)
         };
         angle=0;
       }else{
-        const q=cSmooth(cClamp((t-.998)/.002));
+        const q=cSmooth(cClamp((t-.999)/.001));
         pt={
           x:lerp(dropPoint.x,mouth.x,q),
           y:lerp(dropPoint.y,mouth.y,q)
@@ -1195,13 +1209,13 @@
       }
 
       /*
-        V56 — EATEN AT THE MOUTH
-        The treat remains visible during the route, then shrinks and fades
-        right as it reaches Muksik, so it feels like he ate it.
+        V57 — EATEN AT THE MOUTH
+        The treat stays visible almost until contact, then softly disappears
+        at the mouth so the dog appears to eat it.
       */
       let scale=1;
       let opacity=1;
-      const swallow=cSmooth(cClamp((t-.998)/.002));
+      const swallow=cSmooth(cClamp((t-.999)/.001));
       scale=1-(swallow*.88);
       opacity=1-swallow;
 
@@ -1210,6 +1224,10 @@
         `translate(-12%,-50%) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
 
       costTreat.style.opacity=String(opacity);
+
+      if(Math.abs(cTarget-cCurrent) > 0.0007){
+        cRAF=requestAnimationFrame(cRender);
+      }
     }
 
     function cRequest(){
