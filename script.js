@@ -924,8 +924,16 @@
         raw=cClamp((start-sectionRect.top)/(start-end));
       }
 
-      const t=cSmooth(raw);
-      costStage.style.setProperty("--cost-p",t.toFixed(4));
+      /*
+        Scroll phases:
+        0–80%  — full-size flight;
+        80–95% — final approach with a slight scale-down;
+        95–100% — hold at the mouth and fade out.
+      */
+      const travel=cSmooth(cClamp(raw/.95));
+      const approach=cSmooth(cClamp((raw-.80)/.15));
+      const swallow=cSmooth(cClamp((raw-.95)/.05));
+      costStage.style.setProperty("--cost-p",travel.toFixed(4));
 
       /*
         REFERENCE GEOMETRY:
@@ -965,8 +973,8 @@
         y:(pugRect.top-stageRect.top)+(pugRect.height*.338)
       };
 
-      const pt=cubic(t,p0,p1,p2,p3);
-      const dir=tangent(t,p0,p1,p2,p3);
+      const pt=cubic(travel,p0,p1,p2,p3);
+      const dir=tangent(travel,p0,p1,p2,p3);
 
       /*
         The coin in the reference remains visually calm.
@@ -979,8 +987,7 @@
         The snack is visible throughout the flight. Only at the very end it
         shrinks and disappears in the mouth; scrolling back reverses this.
       */
-      const swallow=cSmooth(cClamp((t-.84)/.16));
-      const scale=1-(swallow*.82);
+      const scale=1-(approach*.16)-(swallow*.68);
       const opacity=1-swallow;
 
       costTreat.style.transform=
@@ -996,9 +1003,11 @@
     }
 
     costTreat.style.visibility="visible";
+    costTreat.style.opacity="1";
     window.addEventListener("scroll",cRequest,{passive:true});
     window.addEventListener("resize",cRequest,{passive:true});
     window.addEventListener("load",cRequest,{once:true});
+    costPug.querySelector("img")?.addEventListener("load",cRequest,{once:true});
     cRender();
   }
 
