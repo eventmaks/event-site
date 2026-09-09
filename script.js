@@ -1070,7 +1070,12 @@
         raw=cClamp((start-sectionRect.top)/(start-end));
       }
 
-      const t=cSmooth(raw);
+      /*
+        V52 — SLOWER TREAT TIMING
+        Make the treat noticeably calmer on both desktop and mobile,
+        while still finishing at the mouth when the section completes.
+      */
+      const t=Math.pow(cSmooth(raw),1.22);
       costStage.style.setProperty("--cost-p",t.toFixed(4));
 
       /*
@@ -1166,22 +1171,22 @@
       let pt;
       let angle=0;
 
-      if(t<=.58){
-        const q=cSmooth(cClamp(t/.58));
+      if(t<=.66){
+        const q=cSmooth(cClamp(t/.66));
         pt={
           x:lerp(startPoint.x,cornerPoint.x,q),
           y:horizontalY
         };
         angle=0;
-      }else if(t<=.84){
-        const q=cSmooth(cClamp((t-.58)/.26));
+      }else if(t<=.90){
+        const q=cSmooth(cClamp((t-.66)/.24));
         pt={
           x:cornerX,
           y:lerp(cornerPoint.y,dropPoint.y,q)
         };
         angle=0;
       }else{
-        const q=cSmooth(cClamp((t-.84)/.16));
+        const q=cSmooth(cClamp((t-.90)/.10));
         pt={
           x:lerp(dropPoint.x,mouth.x,q),
           y:lerp(dropPoint.y,mouth.y,q)

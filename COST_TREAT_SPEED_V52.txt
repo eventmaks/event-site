@@ -1,0 +1,11 @@
+COST TREAT SPEED V52
+
+Changes made for BOTH desktop and mobile:
+- Treat movement slowed down.
+- Horizontal travel now lasts longer.
+- Vertical drop also lasts longer.
+- Treat size increased slightly.
+- Cache-busting updated to v=52.
+
+Desktop treat width: 38px
+Mobile treat width: 26px

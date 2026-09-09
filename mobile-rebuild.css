@@ -1823,3 +1823,12 @@ body.phone-lite .cost-treat{
   width:22px!important;
   z-index:14!important;
 }
+
+
+/* ========================================================
+   COST TREAT SIZE / SPEED V52 — MOBILE
+   Slightly larger treat.
+   ======================================================== */
+body.phone-lite .cost-treat{
+  width:26px!important;
+}

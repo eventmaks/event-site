@@ -10165,3 +10165,14 @@ body.entry-consent-open{
     z-index:12!important;
   }
 }
+
+
+/* ========================================================
+   COST TREAT SIZE / SPEED V52 — DESKTOP
+   Slightly larger treat.
+   ======================================================== */
+@media(min-width:1200px){
+  .cost-treat{
+    width:38px!important;
+  }
+}
