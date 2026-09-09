@@ -11278,15 +11278,23 @@ body.entry-consent-open{
 
 
 /* =========================================================
-   COOKIE + MOBILE POLISH V40
-   Small cookie notice, bottom-left.
+   COOKIE FIX V41
+   Small bottom-left banner. No page blocking.
    ========================================================= */
 .entry-consent.entry-consent--banner{
   left:16px!important;
   right:auto!important;
   bottom:16px!important;
+  top:auto!important;
   width:auto!important;
   justify-content:flex-start!important;
+  align-items:flex-end!important;
+  padding:0!important;
+  pointer-events:none!important;
+}
+
+.entry-consent.entry-consent--banner .entry-consent-backdrop{
+  display:none!important;
 }
 
 .entry-consent.entry-consent--banner .entry-consent-card{
@@ -11295,14 +11303,19 @@ body.entry-consent-open{
   border-radius:12px!important;
   background:rgba(20,20,24,.78)!important;
   box-shadow:0 10px 24px rgba(0,0,0,.14)!important;
+  backdrop-filter:blur(8px)!important;
+  -webkit-backdrop-filter:blur(8px)!important;
+  pointer-events:auto!important;
 }
 
 .entry-consent.entry-consent--banner .entry-consent-card h2{
   margin:0 22px 4px 0!important;
   font-size:10px!important;
+  line-height:1.1!important;
 }
 
 .entry-consent.entry-consent--banner .entry-consent-card p{
+  margin:0!important;
   font-size:9px!important;
   line-height:1.32!important;
 }
@@ -11334,4 +11347,8 @@ body.entry-consent-open{
   width:20px!important;
   height:20px!important;
   font-size:14px!important;
+}
+
+body.entry-consent-open{
+  overflow:auto!important;
 }

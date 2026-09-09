@@ -1622,8 +1622,6 @@
   /* ========================================================
      MOBILE PASS V1 — floating calculator context visibility
      ======================================================== */
-  /* MOBILE ALWAYS-VISIBLE CALC V40:
-     phones keep the calculator button visible while scrolling. */
   const mobileCalcButton=document.querySelector(".calc");
   const mobileCalcSections=[
     document.getElementById("about"),
@@ -1683,7 +1681,7 @@
   const entryConsentAccept=document.getElementById("entryConsentAccept");
   const entryConsentDecline=document.getElementById("entryConsentDecline");
   const entryConsentClose=document.getElementById("entryConsentClose");
-  const ENTRY_CONSENT_KEY="eventmaks_cookie_notice_v5";
+  const ENTRY_CONSENT_KEY="eventmaks_cookie_notice_v6";
 
   function readEntryConsent(){
     try{
@@ -1794,7 +1792,20 @@
       }
     };
 
-    bindEntryAction(entryConsentAccept,()=>finishEntryConsent(true));
+    /*
+      Accept uses CLICK only. On iPhone Safari, closing a fixed banner on
+      pointerup/touchend can let the following synthetic click hit a link
+      underneath ("ghost click"). Keeping acceptance on the final click
+      prevents any underlying link from opening.
+    */
+    if(entryConsentAccept){
+      entryConsentAccept.addEventListener("click",event=>{
+        event.preventDefault();
+        event.stopPropagation();
+        finishEntryConsent(true);
+      });
+    }
+
     bindEntryAction(entryConsentDecline,()=>finishEntryConsent(false));
     bindEntryAction(entryConsentClose,()=>finishEntryConsent(false));
 
