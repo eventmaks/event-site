@@ -10183,10 +10183,10 @@ body.entry-consent-open{
    Larger treat on desktop and mobile.
    ======================================================== */
 .cost-treat{
-  width:42px!important;
+  width:52px!important;
 }
 @media(max-width:1199px){
   .cost-treat{
-    width:32px!important;
+    width:40px!important;
   }
 }

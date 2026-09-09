@@ -1,0 +1,8 @@
+COST TREAT V55
+
+Changes:
+- Treat is significantly slower and smoother than V54.
+- Longer horizontal glide before the drop.
+- Treat image is larger on desktop and mobile.
+- Treat still disappears at the mouth so it feels eaten.
+- Cache bust updated to v55.
