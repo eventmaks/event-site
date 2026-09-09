@@ -1,1387 +1,1255 @@
+/* Phone layout: single component rule sets. Desktop and tablet remain in style.css.
+   Important declarations bridge the existing desktop cascade; do not add version layers. */
 
-/* =====================================================================
-   MOBILE REBUILD V26
-   One mobile source of truth loaded after the legacy stylesheet.
-   Goal: desktop visual language + desktop motion, recomposed for phone.
-   ===================================================================== */
-
-:root{
-  --m-side:14px;
-  --m-max:430px;
-  --m-paper:#EAE5DF;
-  --m-wine:#48222D;
-  --m-blue:#BBCBD8;
-  --m-dark:#171717;
+/* Global */
+:root {
+  --m-side: 14px;
+  --m-max: 430px;
+  --m-paper: #EAE5DF;
+  --m-wine: #48222D;
+  --m-blue: #BBCBD8;
+  --m-dark: #171717;
 }
-
-html{
-  width:100%!important;
-  overflow-x:hidden!important;
-  overflow-y:auto!important;
-  scroll-behavior:auto!important;
+html {
+  width: 100%!important;
+  overflow-y: auto!important;
+  scroll-behavior: auto!important;
+  overflow-x: clip!important;
 }
-body.phone-lite{
-  width:100%!important;
-  min-width:0!important;
-  overflow-x:hidden!important;
-  overflow-y:visible!important;
-  background:var(--m-wine)!important;
+body.phone-lite {
+  width: 100%!important;
+  min-width: 0!important;
+  overflow-y: visible!important;
+  background: var(--m-wine)!important;
+  overflow-x: clip!important;
 }
-
-/* No old phone rule is allowed to freeze the desktop-derived motion. */
-body.phone-lite .about-pattern-track,
-body.phone-lite .team-pattern-track,
-body.phone-lite .portfolio-word-track,
-body.phone-lite .team-marquee-track{
-  will-change:transform!important;
+body.phone-lite .calc {
+  display: none!important;
+}
+body.phone-lite .noise {
+  opacity: .045!important;
 }
 
-/* ---------- HERO: same composition, scaled for phone ---------- */
-body.phone-lite .hero{
-  position:relative!important;
-  width:100%!important;
-  height:100svh!important;
-  min-height:620px!important;
-  overflow:hidden!important;
+/* Hero */
+body.phone-lite .hero {
+  position: relative!important;
+  width: 100%!important;
+  overflow: hidden!important;
+  min-height: 600px!important;
+  height: min(90svh, 760px)!important;
 }
-body.phone-lite .canvas{
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  max-width:none!important;
-  height:100%!important;
-  min-height:0!important;
-  transform:none!important;
+body.phone-lite .canvas {
+  position: absolute!important;
+  inset: 0!important;
+  width: 100%!important;
+  max-width: none!important;
+  height: 100%!important;
+  min-height: 0!important;
+  transform: none!important;
 }
-body.phone-lite .hero .title{
-  top:25px!important;
-  left:10px!important;
-  width:calc(100% - 20px)!important;
-  max-width:none!important;
-  margin:0!important;
-  font-size:clamp(38px,10.6vw,45px)!important;
-  line-height:.91!important;
-  letter-spacing:-.048em!important;
-  white-space:normal!important;
-  overflow:visible!important;
-  text-align:center!important;
+body.phone-lite .hero .title {
+  max-width: none!important;
+  margin: 0!important;
+  white-space: normal!important;
+  overflow: visible!important;
+  text-align: center!important;
+  top: max(26px, env(safe-area-inset-top))!important;
+  left: 16px!important;
+  width: calc(100% - 32px)!important;
+  font-size: clamp(31px, 9.7vw, 52px)!important;
+  letter-spacing: -.04em!important;
+  line-height: .98!important;
 }
-body.phone-lite .hero .title>span{
-  display:block!important;
-  width:100%!important;
-  white-space:nowrap!important;
+body.phone-lite .hero .title>span {
+  display: block!important;
+  width: 100%!important;
+  white-space: nowrap!important;
 }
-body.phone-lite .hero .subtitle{
-  top:132px!important;
-  left:18px!important;
-  width:calc(100% - 36px)!important;
-  min-height:44px!important;
-  display:flex!important;
-  justify-content:center!important;
-  align-items:flex-start!important;
-  font-size:12.5px!important;
-  line-height:1.22!important;
-  text-align:center!important;
-  white-space:normal!important;
+body.phone-lite .hero .subtitle {
+  left: 18px!important;
+  width: calc(100% - 36px)!important;
+  justify-content: center!important;
+  align-items: flex-start!important;
+  text-align: center!important;
+  white-space: normal!important;
+  top: clamp(118px, 31vw, 166px)!important;
+  font-size: clamp(12px, 3.25vw, 16px)!important;
+  min-height: 48px!important;
+  line-height: 1.45!important;
+  display: block!important;
 }
-body.phone-lite .hero .subtitle #typed{
-  opacity:1!important;
-  transform:none!important;
-  filter:none!important;
-  transition:none!important;
-  white-space:normal!important;
+body.phone-lite .hero .subtitle #typed {
+  opacity: 1!important;
+  transform: none!important;
+  filter: none!important;
+  transition: none!important;
+  white-space: normal!important;
 }
-body.phone-lite .hero .portrait,
-body.phone-lite.hero-ready .hero .portrait,
-body.phone-lite.hero-opened .hero .portrait,
-body.phone-lite.hero-ready.hero-opened .hero .portrait{
-  position:absolute!important;
-  left:50%!important;
-  right:auto!important;
-  top:auto!important;
-  bottom:-2px!important;
-  width:min(96vw,390px)!important;
-  max-width:none!important;
-  height:auto!important;
-  margin:0!important;
-  transform:translateX(-50%)!important;
-  animation:none!important;
+body.phone-lite .hero .portrait {
+  position: absolute!important;
+  left: 50%!important;
+  right: auto!important;
+  top: auto!important;
+  bottom: -2px!important;
+  max-width: none!important;
+  height: auto!important;
+  margin: 0!important;
+  transform: translateX(-50%)!important;
+  animation: none!important;
+  width: min(96vw, 440px)!important;
 }
-body.phone-lite .hero .portrait img{
-  width:100%!important;
-  height:auto!important;
-  object-fit:contain!important;
-  object-position:center bottom!important;
-  transform:none!important;
+body.phone-lite.hero-ready .hero .portrait {
+  position: absolute!important;
+  left: 50%!important;
+  right: auto!important;
+  top: auto!important;
+  bottom: -2px!important;
+  max-width: none!important;
+  height: auto!important;
+  margin: 0!important;
+  transform: translateX(-50%)!important;
+  animation: none!important;
+  width: min(96vw, 440px)!important;
 }
-body.phone-lite.hero-opened .hero .portrait img{
-  animation:mobilePortraitBreath 8.5s ease-in-out infinite!important;
+body.phone-lite.hero-opened .hero .portrait {
+  position: absolute!important;
+  left: 50%!important;
+  right: auto!important;
+  top: auto!important;
+  bottom: -2px!important;
+  max-width: none!important;
+  height: auto!important;
+  margin: 0!important;
+  transform: translateX(-50%)!important;
+  animation: none!important;
+  width: min(96vw, 440px)!important;
+}
+body.phone-lite.hero-ready.hero-opened .hero .portrait {
+  position: absolute!important;
+  left: 50%!important;
+  right: auto!important;
+  top: auto!important;
+  bottom: -2px!important;
+  max-width: none!important;
+  height: auto!important;
+  margin: 0!important;
+  transform: translateX(-50%)!important;
+  animation: none!important;
+  width: min(96vw, 440px)!important;
+}
+body.phone-lite .hero .portrait img {
+  width: 100%!important;
+  height: auto!important;
+  object-fit: contain!important;
+  object-position: center bottom!important;
+  transform: none!important;
+}
+body.phone-lite.hero-opened .hero .portrait img {
+  animation: mobilePortraitBreath 8.5s ease-in-out infinite!important;
+}
+body.phone-lite .hero .arrow {
+  right: 18px!important;
+  left: auto!important;
+  top: clamp(184px, 47vw, 224px)!important;
+  width: 34px!important;
+}
+body.phone-lite .typing-caret {
+  display: inline!important;
+  animation: blink .8s steps(1,end) infinite!important;
+}
+
+/* Showreel */
+body.phone-lite .showreel-scene {
+  position: relative!important;
+  padding: 0!important;
+  margin: 0!important;
+  overflow: visible!important;
+  background: #EAE5DF!important;
+  height: 112svh!important;
+  min-height: 0!important;
+}
+body.phone-lite .showreel-stage {
+  position: sticky!important;
+  top: 0!important;
+  width: 100%!important;
+  height: 100svh!important;
+  min-height: 0!important;
+  max-height: none!important;
+  margin: 0!important;
+  overflow: hidden!important;
+  border-radius: 0!important;
+  background: #EAE5DF!important;
+  box-shadow: none!important;
+}
+body.phone-lite .showreel-video {
+  position: absolute!important;
+  inset: 0!important;
+  width: 100%!important;
+  height: 100%!important;
+  object-fit: cover!important;
+  object-position: 50% 48%!important;
+  opacity: 1!important;
+  filter: none!important;
+  transform: none!important;
+}
+body.phone-lite .showreel-mask {
+  display: block!important;
+  position: absolute!important;
+  inset: 0!important;
+  width: 100%!important;
+  height: 100%!important;
+  z-index: 3!important;
+  opacity: 1!important;
+  transform: none!important;
+  pointer-events: none!important;
+}
+body.phone-lite .showreel-choice {
+  display: none!important;
+}
+body.phone-lite .showreel-under-ui {
+  display: none!important;
+}
+body.phone-lite .showreel-arrow {
+  display: none!important;
+}
+body.phone-lite .showreel-ring {
+  display: block!important;
+  width: 148px!important;
+  height: 148px!important;
+  margin: -74px 0 0 -74px!important;
+  color: var(--m-dark)!important;
+  opacity: var(--sr-ring-opacity,1)!important;
+  transform: rotate(var(--sr-ring-rot,0deg))!important;
+  animation: none!important;
+  pointer-events: none!important;
+  z-index: 6!important;
+  left: var(--cx,50%)!important;
+  top: var(--cy,14%)!important;
+}
+body.phone-lite .showreel-sound {
+  right: 12px!important;
+  z-index: 7!important;
+  bottom: max(16px, env(safe-area-inset-bottom))!important;
+  min-height: 44px!important;
+  font-size: 11px!important;
+  background: rgba(23,23,23,.7)!important;
+}
+
+/* About */
+body.phone-lite .about-pattern-track {
+  display: flex!important;
+  width: max-content!important;
+  transform: none;
+  animation: none!important;
+  transition: none!important;
+  will-change: transform!important;
+}
+body.phone-lite .about-reference {
+  position: relative!important;
+  display: block!important;
+  width: 100%!important;
+  height: auto!important;
+  min-height: 0!important;
+  margin: 0!important;
+  overflow: hidden!important;
+}
+body.phone-lite .about-left {
+  position: relative!important;
+  width: 100%!important;
+  overflow: hidden!important;
+  background: var(--m-paper)!important;
+  height: clamp(500px, 142vw, 610px)!important;
+  min-height: 0!important;
+}
+body.phone-lite .about-pattern {
+  --about-pattern-y: 0px;
+  position: absolute!important;
+  bottom: auto!important;
+  max-width: none!important;
+  min-height: 0!important;
+  transform-origin: center top!important;
+  overflow: visible!important;
+  left: 50%!important;
+  width: 188vw!important;
+  transform: translate3d(-50%,var(--about-pattern-y,0px),0) rotate(-4.2deg)!important;
+  top: -32px!important;
+  height: calc(100% + 96px)!important;
+  min-width: 760px!important;
+  opacity: .13!important;
+}
+body.phone-lite .about-pattern-row {
+  overflow: visible!important;
+  line-height: 1!important;
+  display: block!important;
+  height: 42px!important;
+  font-size: 22px!important;
+}
+body.phone-lite .about-photo-card {
+  --about-photo-y: 0px;
+  position: absolute!important;
+  z-index: 5!important;
+  left: 50%!important;
+  max-width: none!important;
+  margin: 0!important;
+  transform: translate3d(-50%,var(--about-photo-y),0)!important;
+  top: 58px!important;
+  width: min(80vw, 330px)!important;
+  height: calc(100% - 116px)!important;
+}
+body.phone-lite .about-photo-card img {
+  width: 100%!important;
+  height: 100%!important;
+  object-fit: cover!important;
+}
+body.phone-lite .about-fact {
+  z-index: 8!important;
+}
+body.phone-lite .about-fact-years {
+  left: -7px!important;
+  bottom: 34px!important;
+}
+body.phone-lite .about-fact-events {
+  right: -6px!important;
+  top: 68px!important;
+}
+body.phone-lite .about-right {
+  position: relative!important;
+  width: 100%!important;
+  min-height: 0!important;
+}
+body.phone-lite .about-right-text {
+  max-width: 520px!important;
+  margin: 0 auto!important;
+  padding-top: 40px!important;
+  padding-bottom: 52px!important;
+  width: calc(100% - 40px)!important;
+  padding: 40px 0 46px!important;
+}
+body.phone-lite .about-right h2 {
+  line-height: .91!important;
+  font-size: clamp(33px, 9.8vw, 46px)!important;
+}
+body.phone-lite .about-right p {
+  font-size: 16px!important;
+  line-height: 1.55!important;
+}
+body.phone-lite .about-right li {
+  margin-bottom: 14px!important;
+  font-size: 16px!important;
+  line-height: 1.55!important;
+}
+body.phone-lite .about-tape {
+  left: -18px!important;
+  top: -23px!important;
+  width: 110px!important;
+  height: 37px!important;
+}
+body.phone-lite .about-title-line {
+  margin-bottom: 21px!important;
+}
+body.phone-lite .about-stamp {
+  margin-bottom: 18px!important;
+}
+body.phone-lite .about-pattern-row:nth-child(n+18) {
+  display: none!important;
+}
+
+/* Team */
+body.phone-lite .team-marquee-track {
+  will-change: transform!important;
+  animation: teamMarquee 26s linear infinite!important;
+}
+body.phone-lite .team-section {
+  position: relative!important;
+  width: 100%!important;
+  overflow: hidden!important;
+  min-height: 0!important;
+  height: auto!important;
+}
+body.phone-lite .team-shell {
+  position: relative!important;
+  z-index: 3!important;
+  width: 100%!important;
+  min-height: 0!important;
+  height: auto!important;
+  padding: 46px 14px 96px!important;
+}
+body.phone-lite .team-head {
+  width: 100%!important;
+  padding: 0 4px!important;
+}
+body.phone-lite .team-head h2 {
+  font-size: clamp(44px,11.8vw,51px)!important;
+  line-height: .9!important;
+  margin-bottom: 0!important;
+}
+body.phone-lite .team-line {
+  width: 210px!important;
+}
+body.phone-lite .team-grid {
+  position: relative!important;
+  display: grid!important;
+  width: 100%!important;
+  height: auto!important;
+  padding: 0!important;
+  margin-top: 26px!important;
+  grid-template-columns: repeat(3,minmax(0,1fr))!important;
+  gap: 22px 10px!important;
+  margin: 26px 0 0!important;
+}
+body.phone-lite .team-card {
+  position: relative!important;
+  left: auto!important;
+  right: auto!important;
+  top: auto!important;
+  width: 100%!important;
+  margin: 0!important;
+}
+body.phone-lite .team-card-4 {
+  position: relative!important;
+  left: auto!important;
+  right: auto!important;
+  top: auto!important;
+  width: 100%!important;
+  margin: 0!important;
+  grid-column: auto!important;
+}
+body.phone-lite .team-card-5 {
+  position: relative!important;
+  left: auto!important;
+  right: auto!important;
+  top: auto!important;
+  width: 100%!important;
+  margin: 0!important;
+  grid-column: auto!important;
+}
+body.phone-lite .team-card-1 {
+  grid-column: auto!important;
+}
+body.phone-lite .team-card-2 {
+  grid-column: auto!important;
+}
+body.phone-lite .team-card-3 {
+  grid-column: auto!important;
+}
+body.phone-lite .team-photo-wrap {
+  width: 100%!important;
+  height: auto!important;
+  aspect-ratio: 3 / 4!important;
+}
+body.phone-lite .team-card-4 .team-photo-wrap {
+  width: 100%!important;
+  height: auto!important;
+  aspect-ratio: 3 / 4!important;
+}
+body.phone-lite .team-card-5 .team-photo-wrap {
+  width: 100%!important;
+  height: auto!important;
+  aspect-ratio: 3 / 4!important;
+}
+body.phone-lite .team-name {
+  text-align: left!important;
+  font-size: clamp(11px, 2.9vw, 14px)!important;
+  line-height: 1.22!important;
+  letter-spacing: -.025em!important;
+  min-height: 2.44em!important;
+  overflow-wrap: anywhere!important;
+  margin-top: 8px!important;
+}
+body.phone-lite .team-marquee {
+  z-index: 2!important;
+  left: 0!important;
+  right: 0!important;
+  display: block!important;
+  bottom: 24px!important;
+  height: 52px!important;
+  opacity: .14!important;
+}
+body.phone-lite .team-marquee span {
+  font-size: 42px!important;
+  line-height: 1.2!important;
+  padding-right: 30px!important;
+}
+body.phone-lite .team-card-6 {
+  position: relative!important;
+  left: auto!important;
+  right: auto!important;
+  top: auto!important;
+  width: 100%!important;
+  margin: 0!important;
+  grid-column: auto!important;
+}
+body.phone-lite .team-card-6 .team-photo-wrap {
+  width: 100%!important;
+  height: auto!important;
+  aspect-ratio: 3 / 4!important;
+}
+body.phone-lite .team-card-6 img {
+  object-position: center 40%!important;
+}
+body.phone-lite .team-card-6 .team-name {
+  font-size: clamp(11px, 2.9vw, 14px)!important;
+  line-height: 1.22!important;
+}
+body.phone-lite .team-bg-pattern {
+  display: none!important;
+}
+body.phone-lite .team-card:nth-child(even) {
+  width: 100%!important;
+  margin: 0!important;
+}
+
+/* Portfolio */
+body.phone-lite .portfolio-word-track {
+  will-change: transform!important;
+  display: flex!important;
+  width: max-content!important;
+  animation: portfolioTickerLeft 24s linear infinite!important;
+}
+body.phone-lite .portfolio-section {
+  position: relative!important;
+  width: 100%!important;
+  overflow: hidden!important;
+  padding: 48px 0 98px!important;
+}
+body.phone-lite .portfolio-head {
+  width: calc(100% - 28px)!important;
+  max-width: 540px!important;
+  margin-left: auto!important;
+  margin-right: auto!important;
+  margin-bottom: 28px!important;
+}
+body.phone-lite .portfolio-gallery {
+  width: calc(100% - 28px)!important;
+  max-width: 540px!important;
+  margin-left: auto!important;
+  margin-right: auto!important;
+  gap: 11px!important;
+}
+body.phone-lite .portfolio-head h2 {
+  font-size: clamp(38px, 11.2vw, 55px)!important;
+}
+body.phone-lite .portfolio-pair {
+  gap: 11px!important;
+  display: grid!important;
+  grid-template-columns: 1fr 1fr!important;
+}
+body.phone-lite .portfolio-triptych {
+  gap: 11px!important;
+  display: grid!important;
+  grid-template-columns: repeat(3,1fr)!important;
+}
+body.phone-lite .portfolio-finale {
+  gap: 11px!important;
+  display: grid!important;
+  grid-template-columns: .9fr 1.1fr!important;
+}
+body.phone-lite .portfolio-wide .portfolio-img {
+  height: clamp(205px, 62vw, 300px)!important;
+}
+body.phone-lite .portfolio-pair .portfolio-img {
+  height: clamp(174px, 52vw, 260px)!important;
+}
+body.phone-lite .portfolio-img-dark {
+  height: clamp(205px, 62vw, 300px)!important;
+}
+body.phone-lite .portfolio-triptych .portfolio-img {
+  height: clamp(136px, 41vw, 210px)!important;
+}
+body.phone-lite .portfolio-finale-vertical .portfolio-img {
+  height: 285px!important;
+}
+body.phone-lite .portfolio-finale-wide .portfolio-img {
+  height: 285px!important;
+}
+body.phone-lite .portfolio-word {
+  display: block!important;
+  position: absolute!important;
+  left: 0!important;
+  right: 0!important;
+  width: 100%!important;
+  overflow: hidden!important;
+  bottom: 22px!important;
+  height: 60px!important;
+  line-height: 1.2!important;
+  transform: none!important;
+  opacity: .25!important;
+}
+body.phone-lite .portfolio-word-group {
+  display: flex!important;
+  flex: 0 0 auto!important;
+  gap: 30px!important;
+  padding-right: 30px!important;
+}
+body.phone-lite .portfolio-word span {
+  display: block!important;
+  white-space: nowrap!important;
+  font-size: clamp(40px, 12vw, 56px)!important;
+  line-height: 1.15!important;
+}
+
+/* Quiz */
+body.phone-lite .quiz-section {
+  padding: 48px 0 56px!important;
+}
+body.phone-lite .quiz-shell {
+  width: calc(100% - 22px)!important;
+  max-width: 560px!important;
+}
+body.phone-lite .quiz-head {
+  width: 100%!important;
+  margin-bottom: 24px!important;
+}
+body.phone-lite .quiz-head h2 {
+  font-size: clamp(27px,7.7vw,33px)!important;
+  line-height: 1.04!important;
+}
+body.phone-lite .quiz-card {
+  min-height: 0!important;
+  border-radius: 18px!important;
+}
+body.phone-lite .quiz-card-inner {
+  padding: 20px 14px 18px!important;
+}
+body.phone-lite .quiz-question {
+  font-size: 19px!important;
+  line-height: 1.16!important;
+}
+body.phone-lite .quiz-options-gifts {
+  align-items: stretch!important;
+  display: grid!important;
+  grid-template-columns: 1fr 1fr!important;
+  gap: 10px!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(1) {
+  display: grid!important;
+  grid-template-columns: 1fr!important;
+  min-width: 0!important;
+  overflow: hidden!important;
+  padding: 7px 7px 10px!important;
+  grid-template-rows: min(35vw, 156px) auto!important;
+  align-items: stretch!important;
+  height: 100%!important;
+  align-self: stretch!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(2) {
+  display: grid!important;
+  grid-template-columns: 1fr!important;
+  min-width: 0!important;
+  overflow: hidden!important;
+  padding: 7px 7px 10px!important;
+  grid-template-rows: min(35vw, 156px) auto!important;
+  align-items: stretch!important;
+  height: 100%!important;
+  align-self: stretch!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3) {
+  grid-column: 1/-1!important;
+  display: grid!important;
+  align-items: center!important;
+  grid-template-columns: 88px minmax(0,1fr)!important;
+  grid-template-rows: 88px!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-option-image {
+  width: 100%!important;
+  height: min(35vw, 156px)!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3) .quiz-option-image {
+  width: 88px!important;
+  height: 88px!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift>span {
+  min-width: 0!important;
+  white-space: normal!important;
+  overflow-wrap: normal!important;
+  word-break: normal!important;
+  text-align: center!important;
+}
+body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3)>span {
+  text-align: left!important;
+  padding: 0 12px!important;
+}
+body.phone-lite .quiz-options-list .quiz-option {
+  min-height: 58px!important;
+  padding: 13px 43px 13px 48px!important;
+  font-size: 14px!important;
+  line-height: 1.45!important;
+}
+body.phone-lite .quiz-footer {
+  padding: 12px 14px 15px!important;
+}
+body.phone-lite .quiz-gift > span {
+  font-size: 14px!important;
+  line-height: 1.35!important;
+  padding: 12px 2px 4px!important;
+  min-height: 0!important;
+  white-space: normal!important;
+  overflow-wrap: anywhere!important;
+}
+body.phone-lite .quiz-input {
+  font-size: 16px!important;
+  min-width: 0!important;
+  width: 100%!important;
+  height: 52px!important;
+}
+body.phone-lite .quiz-submit {
+  min-height: 48px!important;
+  font-size: 14px!important;
+}
+body.phone-lite .quiz-next {
+  min-height: 48px!important;
+  font-size: 12px!important;
+}
+body.phone-lite .quiz-consent {
+  font-size: 12px!important;
+  line-height: 1.5!important;
+}
+
+/* Benefits */
+body.phone-lite .benefits-section {
+  min-height: 0!important;
+  overflow: hidden!important;
+  padding: 48px 0 48px!important;
+}
+body.phone-lite .benefits-shell {
+  width: calc(100% - 28px)!important;
+}
+body.phone-lite .benefits-title {
+  width: 100%!important;
+  padding-right: 48px!important;
+  margin: 0 0 24px!important;
+}
+body.phone-lite .benefits-title h2 {
+  font-size: clamp(42px,11.6vw,50px)!important;
+}
+body.phone-lite .benefits-timeline {
+  width: 100%!important;
+  padding-left: 25px!important;
+}
+body.phone-lite .benefits-line {
+  left: 6px!important;
+}
+body.phone-lite .benefit-dot {
+  left: -24px!important;
+}
+body.phone-lite .benefit-card {
+  min-height: 0!important;
+  margin-bottom: 12px!important;
+  padding: 21px 19px!important;
+  opacity: calc(.075 + var(--card-p) * .925)!important;
+  transform: translateY(calc((1 - var(--card-p)) * 14px)) scale(calc(.997 + var(--card-p) * .003))!important;
+}
+body.phone-lite .benefit-card h3 {
+  font-size: 20px!important;
+}
+body.phone-lite .benefit-card p {
+  font-size: 16px!important;
+  line-height: 1.5!important;
+}
+body.phone-lite .benefits-ambient-word {
+  display: block!important;
+  font-size: 105px!important;
+  opacity: .055!important;
+}
+body.phone-lite .benefits-title-stamp {
+  display: block!important;
+}
+body.phone-lite .benefits-side-doodle {
+  display: block!important;
+}
+
+/* Contract */
+body.phone-lite .contract-ref {
+  min-height: 0!important;
+  overflow: hidden!important;
+  padding: 42px 0 76px!important;
+}
+body.phone-lite .contract-ref-shell {
+  width: calc(100% - 30px)!important;
+  min-height: 0!important;
+  display: grid!important;
+  grid-template-columns: 1fr!important;
+  gap: 14px!important;
+}
+body.phone-lite .contract-ref-visual {
+  padding: 0!important;
+  transform: none!important;
+  justify-content: center!important;
+  overflow: visible!important;
+}
+body.phone-lite .contract-ref-art {
+  width: min(330px,92vw)!important;
+  max-width: 100%!important;
+}
+body.phone-lite .contract-ref-copy {
+  padding: 6px 0 0!important;
+  transform: none!important;
+  text-align: center!important;
+}
+body.phone-lite .contract-ref-copy h2 {
+  line-height: .9!important;
+  font-size: clamp(34px, 10vw, 47px)!important;
+}
+body.phone-lite .contract-copy-kicker {
+  justify-content: center!important;
+}
+body.phone-lite .contract-copy-sign {
+  justify-content: center!important;
+}
+body.phone-lite .contract-visual-note {
+  display: block!important;
+  transform: scale(.72)!important;
+  transform-origin: center!important;
+}
+
+/* Cost */
+body.phone-lite .cost-section {
+  position: relative!important;
+  overflow: hidden!important;
+  padding: 44px 0 36px!important;
+}
+body.phone-lite .cost-scene {
+  height: auto!important;
+  min-height: 0!important;
+}
+body.phone-lite .cost-stage {
+  position: relative!important;
+  top: auto!important;
+  width: 100%!important;
+  height: auto!important;
+  min-height: 0!important;
+  display: flex!important;
+  flex-direction: column!important;
+  align-items: center!important;
+  padding: 0 14px 0!important;
+  overflow: visible!important;
+}
+body.phone-lite .cost-title {
+  position: relative!important;
+  top: auto!important;
+  left: auto!important;
+  transform: none!important;
+  margin: 0 auto 28px!important;
+}
+body.phone-lite .cost-title h2 {
+  font-size: clamp(38px, 11.3vw, 48px)!important;
+}
+body.phone-lite .cost-content-row {
+  position: relative!important;
+  width: 100%!important;
+  max-width: 360px!important;
+  min-height: 0!important;
+  display: flex!important;
+  flex-direction: column!important;
+  align-items: center!important;
+  margin: 0 auto!important;
+  padding: 0!important;
+}
+body.phone-lite .cost-card {
+  position: relative!important;
+  z-index: 5!important;
+  min-height: 0!important;
+  margin: 0 auto!important;
+  border-radius: 18px!important;
+  width: 100%!important;
+  max-width: 380px!important;
+  transform: none!important;
+}
+body.phone-lite .cost-card-copy {
+  padding: 24px 20px!important;
+}
+body.phone-lite .cost-card li {
+  font-size: 15px!important;
+  line-height: 1.45!important;
+}
+body.phone-lite .cost-button {
+  width: 100%!important;
+  min-width: 0!important;
+}
+body.phone-lite .cost-small {
+  padding: 0!important;
+  text-align: center!important;
+  white-space: normal!important;
+  font-size: 12px!important;
+  line-height: 1.4!important;
+  padding-right: 0!important;
+  margin-top: 12px!important;
+}
+body.phone-lite .cost-pug {
+  left: auto!important;
+  top: auto!important;
+  pointer-events: none!important;
+  position: relative!important;
+  max-width: none!important;
+  align-self: flex-end!important;
+  z-index: 4!important;
+  width: clamp(125px, 34vw, 145px)!important;
+  right: auto!important;
+  bottom: auto!important;
+  margin: -6px 0 0!important;
+  transform: none!important;
+}
+body.phone-lite .cost-pug img {
+  width: 100%!important;
+  height: auto!important;
+}
+body.phone-lite .cost-treat {
+  display: block!important;
+  visibility: visible!important;
+  z-index: 12!important;
+  pointer-events: none!important;
+  width: 28px!important;
+}
+
+/* Reviews */
+body.phone-lite .reviews-carousel-section {
+  overflow: hidden!important;
+  padding: 44px 0 48px!important;
+}
+body.phone-lite .reviews-carousel-head {
+  width: calc(100% - 28px)!important;
+}
+body.phone-lite .reviews-head-copy h2 {
+  font-size: clamp(34px, 10.6vw, 48px)!important;
+}
+body.phone-lite .reviews-viewport {
+  overflow: hidden!important;
+  overflow-x: auto!important;
+  overflow-y: hidden!important;
+  scroll-snap-type: x mandatory!important;
+  scroll-padding-left: 14px!important;
+  scrollbar-width: none!important;
+  overscroll-behavior-x: contain!important;
+  -webkit-overflow-scrolling: touch!important;
+}
+body.phone-lite .reviews-track {
+  padding-left: 15px!important;
+  gap: 12px!important;
+  padding: 0 14px!important;
+  transform: none!important;
+}
+body.phone-lite .review-slide {
+  margin-top: 0!important;
+  width: calc((100vw - 26px) / 1.18)!important;
+  flex-basis: calc((100vw - 26px) / 1.18)!important;
+  transform: none!important;
+  scroll-snap-align: start!important;
+  scroll-snap-stop: always!important;
+}
+body.phone-lite .review-slide:nth-child(even) {
+  margin-top: 0!important;
+  width: calc((100vw - 26px) / 1.18)!important;
+  flex-basis: calc((100vw - 26px) / 1.18)!important;
+  transform: none!important;
+  scroll-snap-align: start!important;
+  scroll-snap-stop: always!important;
+}
+body.phone-lite .review-slide-inner {
+  height: 100%!important;
+  min-height: 0!important;
+  padding: 24px 20px!important;
+}
+body.phone-lite .review-slide p {
+  font-size: 16px!important;
+  line-height: 1.5!important;
+}
+body.phone-lite .reviews-viewport::-webkit-scrollbar {
+  display: none!important;
+}
+body.phone-lite .reviews-arrow {
+  width: 44px!important;
+  height: 44px!important;
+}
+
+/* FAQ */
+body.phone-lite .faq-section {
+  padding: 44px 0 48px!important;
+}
+body.phone-lite .faq-shell {
+  width: calc(100% - 28px)!important;
+  gap: 30px!important;
+}
+body.phone-lite .faq-title-block {
+  position: relative!important;
+  top: auto!important;
+  padding-top: 0!important;
+}
+body.phone-lite .faq-title-block h2 {
+  font-size: clamp(43px,11.7vw,50px)!important;
+}
+body.phone-lite .faq-item {
+  border-radius: 28px!important;
+}
+body.phone-lite .faq-question {
+  line-height: 1.22!important;
+  min-height: 64px!important;
+  font-size: 16px!important;
+  padding: 15px 18px 15px 44px!important;
+  gap: 12px!important;
+}
+body.phone-lite .faq-answer-inner {
+  font-size: 16px!important;
+  line-height: 1.5!important;
+  padding-left: 48px!important;
+  padding-right: 18px!important;
+}
+body.phone-lite .faq-item::before {
+  left: 16px!important;
+  top: 25px!important;
+  font-size: 11px!important;
+}
+body.phone-lite .faq-plus {
+  flex-shrink: 0!important;
+}
+
+/* Contact */
+body.phone-lite .contact-final {
+  min-height: 0!important;
+  overflow: hidden!important;
+  padding: 48px 0 24px!important;
+}
+body.phone-lite .contact-final-inner {
+  width: 100%!important;
+  max-width: none!important;
+  padding: 0 18px!important;
+}
+body.phone-lite .contact-final-inner h2 {
+  max-width: 330px!important;
+  margin: 0 auto 34px!important;
+  font-size: clamp(25px,7vw,30px)!important;
+  line-height: 1.16!important;
+  text-align: center!important;
+}
+body.phone-lite .contact-phone-wrap {
+  width: 100%!important;
+  display: flex!important;
+  justify-content: center!important;
+}
+body.phone-lite .contact-phone {
+  margin: 0 auto!important;
+  padding: 7px!important;
+  border-width: 2px!important;
+  border-radius: 45px!important;
+  width: min(290px, calc(100vw - 32px))!important;
+  height: 460px!important;
+}
+body.phone-lite .contact-phone-screen {
+  border-radius: 37px!important;
+}
+body.phone-lite .contact-profile {
+  padding-top: 49px!important;
+}
+body.phone-lite .contact-avatar {
+  width: 58px!important;
+  height: 58px!important;
+  font-size: 21px!important;
+}
+body.phone-lite .contact-actions {
+  display: grid!important;
+  grid-template-columns: repeat(4,1fr)!important;
+  gap: 5px!important;
+  margin: 22px 10px 0!important;
+}
+body.phone-lite .contact-actions .contact-action {
+  display: flex!important;
+  flex-direction: column!important;
+  align-items: center!important;
+  width: 100%!important;
+  min-width: 0!important;
+  max-width: none!important;
+  padding: 0!important;
+  margin: 0!important;
+  background: transparent!important;
+  background-image: none!important;
+  border: none!important;
+  box-shadow: none!important;
+}
+body.phone-lite .contact-actions .contact-call {
+  display: flex!important;
+  flex-direction: column!important;
+  align-items: center!important;
+  width: 100%!important;
+  min-width: 0!important;
+  max-width: none!important;
+  padding: 0!important;
+  margin: 0!important;
+  background: transparent!important;
+  background-image: none!important;
+  border: none!important;
+  box-shadow: none!important;
+}
+body.phone-lite .contact-actions .contact-wa {
+  display: flex!important;
+  flex-direction: column!important;
+  align-items: center!important;
+  width: 100%!important;
+  min-width: 0!important;
+  max-width: none!important;
+  padding: 0!important;
+  margin: 0!important;
+  background: transparent!important;
+  background-image: none!important;
+  border: none!important;
+  box-shadow: none!important;
+}
+body.phone-lite .contact-actions .contact-tg {
+  display: flex!important;
+  flex-direction: column!important;
+  align-items: center!important;
+  width: 100%!important;
+  min-width: 0!important;
+  max-width: none!important;
+  padding: 0!important;
+  margin: 0!important;
+  background: transparent!important;
+  background-image: none!important;
+  border: none!important;
+  box-shadow: none!important;
+}
+body.phone-lite .contact-actions .contact-mail {
+  display: flex!important;
+  flex-direction: column!important;
+  align-items: center!important;
+  width: 100%!important;
+  min-width: 0!important;
+  max-width: none!important;
+  padding: 0!important;
+  margin: 0!important;
+  background: transparent!important;
+  background-image: none!important;
+  border: none!important;
+  box-shadow: none!important;
+}
+body.phone-lite .contact-action-icon {
+  width: 44px!important;
+  height: 44px!important;
+  min-width: 44px!important;
+  min-height: 44px!important;
+  margin: 0 auto 6px!important;
+  border-radius: 12px!important;
+}
+body.phone-lite .contact-action span:last-child {
+  width: 100%!important;
+  line-height: 1.15!important;
+  text-align: center!important;
+  font-size: 10px!important;
+  max-width: none!important;
+  min-height: 18px!important;
+}
+body.phone-lite .contact-message {
+  margin: 24px 12px 0!important;
+  padding: 11px 13px 12px!important;
+}
+body.phone-lite .contact-home-indicator {
+  bottom: 8px!important;
+  width: 90px!important;
+}
+body.phone-lite .contact-final-caption {
+  max-width: 300px!important;
+  text-align: center!important;
+  display: flex!important;
+  flex-direction: column!important;
+  gap: 10px!important;
+  margin: 24px auto 32px!important;
+  font-size: 14px!important;
+  line-height: 1.5!important;
+  overflow-wrap: anywhere!important;
+  color: rgba(23,23,23,.72)!important;
+}
+body.phone-lite .contact-caption-divider {
+  display: none!important;
+}
+body.phone-lite .contact-final-caption a {
+  color: inherit!important;
+  text-decoration: none!important;
+}
+body.phone-lite .site-footer {
+  padding: 22px 20px max(22px, env(safe-area-inset-bottom))!important;
+  gap: 12px!important;
+}
+body.phone-lite .site-footer-legal {
+  display: flex!important;
+  flex-direction: column!important;
+  gap: 12px!important;
+  margin-top: 8px!important;
+  font-size: 12px!important;
+  line-height: 1.5!important;
+}
+
+body.phone-lite .site-footer-legal a {
+  font-size: 12px!important;
+  line-height: 1.5!important;
+  min-height: 44px!important;
+  display: flex!important;
+  align-items: center!important;
+  justify-content: center!important;
+}
+body.phone-lite .contact-number {
+  font-size: 12px!important;
+}
+body.phone-lite .contact-message p {
+  font-size: 12px!important;
+  line-height: 1.45!important;
+}
+body.phone-lite .contact-message > span {
+  font-size: 10px!important;
+}
+/* Cookie */
+body.phone-lite .entry-consent.entry-consent--banner {
+  right: max(8px, env(safe-area-inset-right))!important;
+  bottom: max(8px, env(safe-area-inset-bottom))!important;
+}
+body.phone-lite .entry-consent.entry-consent--banner .entry-consent-card {
+  width: min(272px, calc(100vw - 16px))!important;
+  padding: 12px!important;
+  border-radius: 13px!important;
+}
+body.phone-lite .entry-consent.entry-consent--banner .entry-consent-card p {
+  font-size: 11px!important;
+  line-height: 1.4!important;
+}
+body.phone-lite .entry-consent.entry-consent--banner .entry-consent-actions {
+  margin-top: 8px!important;
+  gap: 8px!important;
+}
+body.phone-lite .entry-consent.entry-consent--banner .entry-consent-accept {
+  min-height: 40px!important;
+  font-size: 11px!important;
+}
+body.phone-lite .entry-consent.entry-consent--banner .entry-consent-decline {
+  min-height: 40px!important;
+  font-size: 11px!important;
+}
+body.phone-lite .entry-consent.entry-consent--banner .entry-consent-close {
+  width: 32px!important;
+  height: 32px!important;
+  top: 0!important;
+  right: 0!important;
+}
+body.phone-lite .entry-consent.entry-consent--banner[hidden] {
+  display: none!important;
+}
+
+/* Transitions */
+body.phone-lite .flow-bridge {
+  --bridge-p: 0;
+  height: 36px!important;
 }
 @keyframes mobilePortraitBreath{
   0%,100%{transform:translate3d(0,0,0) scale(1)}
   50%{transform:translate3d(0,-5px,0) scale(1.012)}
 }
-body.phone-lite .hero .arrow{
-  top:180px!important;
-  right:18px!important;
-  left:auto!important;
-  width:38px!important;
-}
 
-/* ---------- SHOWREEL: keep the circular desktop mechanic ---------- */
-body.phone-lite .showreel-scene{
-  position:relative!important;
-  height:114svh!important;
-  min-height:760px!important;
-  padding:0!important;
-  margin:0!important;
-  overflow:visible!important;
-  background:var(--m-paper)!important;
-}
-body.phone-lite .showreel-stage{
-  position:sticky!important;
-  top:0!important;
-  width:100%!important;
-  height:100svh!important;
-  min-height:0!important;
-  max-height:none!important;
-  margin:0!important;
-  overflow:hidden!important;
-  border-radius:0!important;
-  background:var(--m-paper)!important;
-}
-body.phone-lite .showreel-video{
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  height:100%!important;
-  object-fit:cover!important;
-  object-position:50% 48%!important;
-  opacity:1!important;
-  filter:none!important;
-  transform:none!important;
-}
-body.phone-lite .showreel-mask{
-  display:block!important;
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  height:100%!important;
-  z-index:3!important;
-  opacity:1!important;
-  transform:none!important;
-  pointer-events:none!important;
-}
-body.phone-lite .showreel-choice,
-body.phone-lite .showreel-under-ui,
-body.phone-lite .showreel-arrow{display:none!important}
-body.phone-lite .showreel-ring{
-  display:block!important;
-  left:50%!important;
-  top:50%!important;
-  width:148px!important;
-  height:148px!important;
-  margin:-74px 0 0 -74px!important;
-  color:var(--m-dark)!important;
-  opacity:var(--sr-ring-opacity,1)!important;
-  transform:rotate(var(--sr-ring-rot,0deg))!important;
-  animation:none!important;
-  pointer-events:none!important;
-  z-index:6!important;
-}
-body.phone-lite .showreel-sound{
-  right:12px!important;
-  bottom:12px!important;
-  z-index:7!important;
-}
-
-/* ---------- ABOUT: full-screen moving typography wall ---------- */
-body.phone-lite .about-reference{
-  position:relative!important;
-  display:block!important;
-  width:100%!important;
-  height:auto!important;
-  min-height:0!important;
-  margin:0!important;
-  overflow:hidden!important;
-}
-body.phone-lite .about-left{
-  position:relative!important;
-  width:100%!important;
-  height:690px!important;
-  min-height:690px!important;
-  overflow:hidden!important;
-  background:var(--m-paper)!important;
-}
-body.phone-lite .about-pattern{
-  --about-pattern-y:0px;
-  position:absolute!important;
-  left:50%!important;
-  top:-58px!important;
-  bottom:auto!important;
-  width:190vw!important;
-  min-width:780px!important;
-  max-width:none!important;
-  height:820px!important;
-  min-height:0!important;
-  opacity:.10!important;
-  transform:translate3d(-50%,var(--about-pattern-y),0) rotate(-4.2deg)!important;
-  transform-origin:center top!important;
-  overflow:visible!important;
-}
-body.phone-lite .about-pattern-row{
-  display:block!important;
-  height:54px!important;
-  font-size:23px!important;
-  line-height:1!important;
-  overflow:visible!important;
-}
-body.phone-lite .about-pattern-row:nth-child(n+13){display:none!important}
-body.phone-lite .about-pattern-track{
-  display:flex!important;
-  width:max-content!important;
-  animation:aboutTickerLeft 21s linear infinite!important;
-  transform:none;
-}
-body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
-  animation-name:aboutTickerRight!important;
-  animation-duration:24s!important;
-}
-body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track{
-  animation-duration:27s!important;
-  animation-delay:-6s!important;
-}
-body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
-  animation-duration:22s!important;
-  animation-delay:-10s!important;
-}
-body.phone-lite .about-photo-card{
-  --about-photo-y:0px;
-  position:absolute!important;
-  z-index:5!important;
-  left:50%!important;
-  top:95px!important;
-  width:min(76vw,300px)!important;
-  max-width:none!important;
-  height:468px!important;
-  margin:0!important;
-  transform:translate3d(-50%,var(--about-photo-y),0)!important;
-}
-body.phone-lite .about-photo-card img{
-  width:100%!important;
-  height:100%!important;
-  object-fit:cover!important;
-}
-body.phone-lite .about-fact{
-  z-index:8!important;
-}
-body.phone-lite .about-fact-years{
-  left:-10px!important;
-  bottom:40px!important;
-}
-body.phone-lite .about-fact-events{
-  right:-8px!important;
-  top:74px!important;
-}
-body.phone-lite .about-right{
-  position:relative!important;
-  width:100%!important;
-  min-height:0!important;
-}
-body.phone-lite .about-right-text{
-  width:calc(100% - 36px)!important;
-  max-width:520px!important;
-  margin:0 auto!important;
-  padding:48px 0 62px!important;
-}
-body.phone-lite .about-right h2{
-  font-size:clamp(39px,10.8vw,46px)!important;
-  line-height:.91!important;
-}
-body.phone-lite .about-right p,
-body.phone-lite .about-right li{
-  font-size:13.5px!important;
-  line-height:1.58!important;
-}
-
-/* ---------- TEAM: desktop 3+2 composition + full moving wall ---------- */
-body.phone-lite .team-section{
-  position:relative!important;
-  width:100%!important;
-  min-height:930px!important;
-  overflow:hidden!important;
-}
-body.phone-lite .team-bg-pattern{
-  position:absolute!important;
-  z-index:0!important;
-  left:50%!important;
-  top:-40px!important;
-  width:185vw!important;
-  min-width:760px!important;
-  height:calc(100% + 90px)!important;
-  opacity:.06!important;
-  transform:translateX(-50%) rotate(-4deg)!important;
-  overflow:hidden!important;
-}
-body.phone-lite .team-pattern-row{
-  display:block!important;
-  height:60px!important;
-  font-size:31px!important;
-  line-height:1!important;
-}
-body.phone-lite .team-pattern-row:nth-child(n+15){display:none!important}
-body.phone-lite .team-pattern-track{
-  display:flex!important;
-  width:max-content!important;
-  animation:teamTickerLeft 22s linear infinite!important;
-}
-body.phone-lite .team-pattern-row:nth-child(even) .team-pattern-track{
-  animation-name:teamTickerRight!important;
-  animation-duration:25s!important;
-}
-body.phone-lite .team-pattern-row:nth-child(3n) .team-pattern-track{
-  animation-duration:28s!important;
-  animation-delay:-7s!important;
-}
-body.phone-lite .team-shell{
-  position:relative!important;
-  z-index:3!important;
-  width:100%!important;
-  min-height:0!important;
-  padding:56px 12px 110px!important;
-}
-body.phone-lite .team-head{
-  width:100%!important;
-  padding:0 4px!important;
-}
-body.phone-lite .team-head h2{
-  font-size:clamp(44px,11.8vw,51px)!important;
-  line-height:.9!important;
-}
-body.phone-lite .team-line{
-  width:210px!important;
-}
-body.phone-lite .team-grid{
-  position:relative!important;
-  display:grid!important;
-  grid-template-columns:repeat(6,minmax(0,1fr))!important;
-  gap:22px 8px!important;
-  width:100%!important;
-  height:auto!important;
-  margin:34px 0 0!important;
-  padding:0!important;
-}
-body.phone-lite .team-card,
-body.phone-lite .team-card-4,
-body.phone-lite .team-card-5{
-  position:relative!important;
-  left:auto!important;
-  right:auto!important;
-  top:auto!important;
-  width:100%!important;
-  margin:0!important;
-}
-body.phone-lite .team-card-1{grid-column:1 / 3!important}
-body.phone-lite .team-card-2{grid-column:3 / 5!important}
-body.phone-lite .team-card-3{grid-column:5 / 7!important}
-body.phone-lite .team-card-4{grid-column:2 / 4!important}
-body.phone-lite .team-card-5{grid-column:4 / 6!important}
-body.phone-lite .team-photo-wrap,
-body.phone-lite .team-card-4 .team-photo-wrap,
-body.phone-lite .team-card-5 .team-photo-wrap{
-  width:100%!important;
-  height:auto!important;
-  aspect-ratio:3 / 4!important;
-}
-body.phone-lite .team-name{
-  margin-top:7px!important;
-  font-size:8.7px!important;
-  line-height:1.08!important;
-  text-align:left!important;
-}
-body.phone-lite .team-marquee{
-  display:block!important;
-  z-index:2!important;
-  left:0!important;
-  right:0!important;
-  bottom:20px!important;
-  opacity:.095!important;
-}
-body.phone-lite .team-marquee-track{
-  animation:teamMarquee 26s linear infinite!important;
-}
-body.phone-lite .team-marquee span{
-  font-size:46px!important;
-}
-
-/* ---------- PORTFOLIO: keep photos, restore full-width moving typography ---------- */
-body.phone-lite .portfolio-section{
-  position:relative!important;
-  width:100%!important;
-  padding:58px 0 104px!important;
-  overflow:hidden!important;
-}
-body.phone-lite .portfolio-head,
-body.phone-lite .portfolio-gallery{
-  width:calc(100% - 28px)!important;
-  max-width:540px!important;
-  margin-left:auto!important;
-  margin-right:auto!important;
-}
-body.phone-lite .portfolio-head{margin-bottom:28px!important}
-body.phone-lite .portfolio-head h2{
-  font-size:clamp(46px,12.5vw,55px)!important;
-}
-body.phone-lite .portfolio-gallery{gap:11px!important}
-body.phone-lite .portfolio-pair,
-body.phone-lite .portfolio-triptych,
-body.phone-lite .portfolio-finale{gap:11px!important}
-body.phone-lite .portfolio-wide .portfolio-img{height:245px!important}
-body.phone-lite .portfolio-pair{
-  display:grid!important;
-  grid-template-columns:1fr 1fr!important;
-}
-body.phone-lite .portfolio-pair .portfolio-img{height:205px!important}
-body.phone-lite .portfolio-img-dark{height:245px!important}
-body.phone-lite .portfolio-triptych{
-  display:grid!important;
-  grid-template-columns:repeat(3,1fr)!important;
-}
-body.phone-lite .portfolio-triptych .portfolio-img{height:165px!important}
-body.phone-lite .portfolio-finale{
-  display:grid!important;
-  grid-template-columns:.9fr 1.1fr!important;
-}
-body.phone-lite .portfolio-finale-vertical .portfolio-img,
-body.phone-lite .portfolio-finale-wide .portfolio-img{height:285px!important}
-body.phone-lite .portfolio-word{
-  display:block!important;
-  position:absolute!important;
-  left:0!important;
-  right:0!important;
-  bottom:22px!important;
-  width:100%!important;
-  overflow:hidden!important;
-}
-body.phone-lite .portfolio-word-track{
-  display:flex!important;
-  width:max-content!important;
-  animation:portfolioTickerLeft 24s linear infinite!important;
-}
-body.phone-lite .portfolio-word-group{
-  display:flex!important;
-  flex:0 0 auto!important;
-}
-body.phone-lite .portfolio-word span{
-  display:block!important;
-  font-size:50px!important;
-  white-space:nowrap!important;
-}
-
-/* ---------- QUIZ: desktop visual language, phone-friendly geometry ---------- */
-body.phone-lite .quiz-section{
-  padding:60px 0 72px!important;
-}
-body.phone-lite .quiz-shell{
-  width:calc(100% - 22px)!important;
-  max-width:560px!important;
-}
-body.phone-lite .quiz-head{
-  width:100%!important;
-  margin-bottom:24px!important;
-}
-body.phone-lite .quiz-head h2{
-  font-size:clamp(27px,7.7vw,33px)!important;
-  line-height:1.04!important;
-}
-body.phone-lite .quiz-card{
-  min-height:0!important;
-  border-radius:18px!important;
-}
-body.phone-lite .quiz-card-inner{
-  padding:20px 14px 18px!important;
-}
-body.phone-lite .quiz-question{
-  font-size:19px!important;
-  line-height:1.16!important;
-}
-body.phone-lite .quiz-options-gifts{
-  display:grid!important;
-  grid-template-columns:1fr 1fr!important;
-  gap:10px!important;
-}
-body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(1),
-body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(2){
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  grid-template-rows:144px auto!important;
-  min-width:0!important;
-  overflow:hidden!important;
-  padding:7px 7px 10px!important;
-}
-body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3){
-  grid-column:1/-1!important;
-  display:grid!important;
-  grid-template-columns:128px minmax(0,1fr)!important;
-  grid-template-rows:128px!important;
-  align-items:center!important;
-}
-body.phone-lite .quiz-options-gifts .quiz-option-image{
-  width:100%!important;
-  height:144px!important;
-}
-body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3) .quiz-option-image{
-  width:128px!important;
-  height:128px!important;
-}
-body.phone-lite .quiz-options-gifts .quiz-gift>span{
-  min-width:0!important;
-  white-space:normal!important;
-  overflow-wrap:normal!important;
-  word-break:normal!important;
-  text-align:center!important;
-}
-body.phone-lite .quiz-options-gifts .quiz-gift:nth-child(3)>span{
-  text-align:left!important;
-  padding:0 12px!important;
-}
-body.phone-lite .quiz-options-list .quiz-option{
-  min-height:58px!important;
-  padding:13px 43px 13px 48px!important;
-  font-size:12.5px!important;
-}
-body.phone-lite .quiz-footer{
-  padding:12px 14px 15px!important;
-}
-
-/* ---------- BENEFITS: same reversible reveal, same visual hierarchy ---------- */
-body.phone-lite .benefits-section{
-  min-height:0!important;
-  padding:64px 0 76px!important;
-  overflow:hidden!important;
-}
-body.phone-lite .benefits-shell{
-  width:calc(100% - 28px)!important;
-}
-body.phone-lite .benefits-title{
-  width:100%!important;
-  margin:0 0 34px!important;
-  padding-right:48px!important;
-}
-body.phone-lite .benefits-title h2{
-  font-size:clamp(42px,11.6vw,50px)!important;
-}
-body.phone-lite .benefits-timeline{
-  width:100%!important;
-  padding-left:25px!important;
-}
-body.phone-lite .benefits-line{left:6px!important}
-body.phone-lite .benefit-dot{left:-24px!important}
-body.phone-lite .benefit-card{
-  min-height:0!important;
-  margin-bottom:12px!important;
-  padding:21px 19px!important;
-  opacity:calc(.075 + var(--card-p) * .925)!important;
-  transform:translateY(calc((1 - var(--card-p)) * 14px)) scale(calc(.997 + var(--card-p) * .003))!important;
-}
-body.phone-lite .benefit-card h3{
-  font-size:20px!important;
-}
-body.phone-lite .benefit-card p{
-  font-size:12.5px!important;
-  line-height:1.55!important;
-}
-body.phone-lite .benefits-ambient-word{
-  display:block!important;
-  font-size:105px!important;
-  opacity:.055!important;
-}
-body.phone-lite .benefits-title-stamp,
-body.phone-lite .benefits-side-doodle{display:block!important}
-
-/* ---------- CONTRACT: same paper/pen mechanic, scaled ---------- */
-body.phone-lite .contract-ref{
-  min-height:0!important;
-  padding:58px 0 82px!important;
-  overflow:hidden!important;
-}
-body.phone-lite .contract-ref-shell{
-  width:calc(100% - 30px)!important;
-  min-height:0!important;
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  gap:14px!important;
-}
-body.phone-lite .contract-ref-visual{
-  padding:0!important;
-  transform:none!important;
-  justify-content:center!important;
-  overflow:visible!important;
-}
-body.phone-lite .contract-ref-art{
-  width:min(330px,92vw)!important;
-  max-width:100%!important;
-}
-body.phone-lite .contract-ref-copy{
-  padding:6px 0 0!important;
-  transform:none!important;
-  text-align:center!important;
-}
-body.phone-lite .contract-ref-copy h2{
-  font-size:clamp(39px,10.8vw,47px)!important;
-  line-height:.9!important;
-}
-body.phone-lite .contract-copy-kicker,
-body.phone-lite .contract-copy-sign{
-  justify-content:center!important;
-}
-body.phone-lite .contract-visual-note{
-  display:block!important;
-  transform:scale(.72)!important;
-  transform-origin:center!important;
-}
-
-/* ---------- COST: readable first, dog decorates below/right, never covers card ---------- */
-body.phone-lite .cost-section{
-  position:relative!important;
-  padding:58px 0 44px!important;
-  overflow:hidden!important;
-}
-body.phone-lite .cost-scene{
-  height:auto!important;
-  min-height:0!important;
-}
-body.phone-lite .cost-stage{
-  position:relative!important;
-  top:auto!important;
-  width:100%!important;
-  height:auto!important;
-  min-height:0!important;
-  display:flex!important;
-  flex-direction:column!important;
-  align-items:center!important;
-  padding:0 14px 0!important;
-  overflow:visible!important;
-}
-body.phone-lite .cost-title{
-  position:relative!important;
-  top:auto!important;
-  left:auto!important;
-  transform:none!important;
-  margin:0 auto 28px!important;
-}
-body.phone-lite .cost-title h2{
-  font-size:48px!important;
-}
-body.phone-lite .cost-content-row{
-  position:relative!important;
-  width:100%!important;
-  max-width:360px!important;
-  min-height:0!important;
-  display:flex!important;
-  flex-direction:column!important;
-  align-items:center!important;
-  margin:0 auto!important;
-  padding:0!important;
-}
-body.phone-lite .cost-card{
-  position:relative!important;
-  z-index:5!important;
-  width:100%!important;
-  max-width:330px!important;
-  min-height:0!important;
-  margin:0 auto!important;
-  border-radius:18px!important;
-}
-body.phone-lite .cost-card-copy{
-  padding:27px 22px 25px!important;
-}
-body.phone-lite .cost-card li{
-  font-size:12.5px!important;
-  line-height:1.43!important;
-}
-body.phone-lite .cost-button{
-  width:100%!important;
-  min-width:0!important;
-}
-body.phone-lite .cost-small{
-  padding:0!important;
-  margin-top:12px!important;
-  text-align:center!important;
-  white-space:normal!important;
-}
-body.phone-lite .cost-pug{
-  position:relative!important;
-  z-index:4!important;
-  right:auto!important;
-  left:auto!important;
-  top:auto!important;
-  bottom:auto!important;
-  align-self:flex-end!important;
-  width:108px!important;
-  max-width:none!important;
-  margin:-18px 2px 0 0!important;
-  transform:translateY(calc((1 - var(--cost-p,1)) * 18px)) scale(calc(.98 + var(--cost-p,1) * .02))!important;
-  pointer-events:none!important;
-}
-body.phone-lite .cost-pug img{
-  width:100%!important;
-  height:auto!important;
-}
-body.phone-lite .cost-treat{
-  display:block!important;
-  visibility:visible!important;
-  width:27px!important;
-  z-index:12!important;
-  pointer-events:none!important;
-}
-
-/* ---------- REVIEWS: same horizontal carousel with subtle scroll drift ---------- */
-body.phone-lite .reviews-carousel-section{
-  padding:58px 0 72px!important;
-  overflow:hidden!important;
-}
-body.phone-lite .reviews-carousel-head{
-  width:calc(100% - 28px)!important;
-}
-body.phone-lite .reviews-head-copy h2{
-  font-size:48px!important;
-}
-body.phone-lite .reviews-viewport{
-  overflow:hidden!important;
-}
-body.phone-lite .reviews-track{
-  gap:13px!important;
-  padding-left:15px!important;
-}
-body.phone-lite .review-slide,
-body.phone-lite .review-slide:nth-child(even){
-  width:min(82vw,305px)!important;
-  flex-basis:min(82vw,305px)!important;
-  margin-top:0!important;
-  transform:translate3d(calc(var(--reviews-shift,0px) + var(--reviews-drift,0px)),var(--review-float,0px),0)!important;
-}
-body.phone-lite .review-slide-inner{
-  min-height:318px!important;
-  padding:24px 20px!important;
-}
-body.phone-lite .review-slide p{
-  font-size:12.5px!important;
-  line-height:1.55!important;
-}
-
-/* ---------- FAQ ---------- */
-body.phone-lite .faq-section{
-  padding:60px 0 72px!important;
-}
-body.phone-lite .faq-shell{
-  width:calc(100% - 28px)!important;
-  gap:30px!important;
-}
-body.phone-lite .faq-title-block{
-  position:relative!important;
-  top:auto!important;
-  padding-top:0!important;
-}
-body.phone-lite .faq-title-block h2{
-  font-size:clamp(43px,11.7vw,50px)!important;
-}
-body.phone-lite .faq-item{border-radius:28px!important}
-body.phone-lite .faq-question{
-  min-height:66px!important;
-  padding:15px 18px 15px 52px!important;
-  font-size:15px!important;
-  line-height:1.22!important;
-}
-body.phone-lite .faq-answer-inner{
-  padding-left:52px!important;
-  padding-right:20px!important;
-  font-size:12.5px!important;
-  line-height:1.55!important;
-}
-
-/* ---------- CONTACT: compact phone, clean app icons ---------- */
-body.phone-lite .contact-final{
-  min-height:0!important;
-  padding:60px 0 24px!important;
-  overflow:hidden!important;
-}
-body.phone-lite .contact-final-inner{
-  width:100%!important;
-  max-width:none!important;
-  padding:0 18px!important;
-}
-body.phone-lite .contact-final-inner h2{
-  max-width:330px!important;
-  margin:0 auto 34px!important;
-  font-size:clamp(25px,7vw,30px)!important;
-  line-height:1.16!important;
-  text-align:center!important;
-}
-body.phone-lite .contact-phone-wrap{
-  width:100%!important;
-  display:flex!important;
-  justify-content:center!important;
-}
-body.phone-lite .contact-phone{
-  width:min(286px,calc(100vw - 54px))!important;
-  height:430px!important;
-  margin:0 auto!important;
-  padding:7px!important;
-  border-width:2px!important;
-  border-radius:45px!important;
-}
-body.phone-lite .contact-phone-screen{
-  border-radius:37px!important;
-}
-body.phone-lite .contact-profile{
-  padding-top:49px!important;
-}
-body.phone-lite .contact-avatar{
-  width:58px!important;
-  height:58px!important;
-  font-size:21px!important;
-}
-body.phone-lite .contact-actions{
-  display:grid!important;
-  grid-template-columns:repeat(4,1fr)!important;
-  gap:5px!important;
-  margin:22px 10px 0!important;
-}
-body.phone-lite .contact-actions .contact-action,
-body.phone-lite .contact-actions .contact-call,
-body.phone-lite .contact-actions .contact-wa,
-body.phone-lite .contact-actions .contact-tg,
-body.phone-lite .contact-actions .contact-mail{
-  display:flex!important;
-  flex-direction:column!important;
-  align-items:center!important;
-  width:100%!important;
-  min-width:0!important;
-  max-width:none!important;
-  padding:0!important;
-  margin:0!important;
-  background:transparent!important;
-  background-image:none!important;
-  border:none!important;
-  box-shadow:none!important;
-}
-body.phone-lite .contact-action-icon{
-  width:44px!important;
-  height:44px!important;
-  min-width:44px!important;
-  min-height:44px!important;
-  margin:0 auto 6px!important;
-  border-radius:12px!important;
-}
-body.phone-lite .contact-action span:last-child{
-  width:100%!important;
-  max-width:58px!important;
-  min-height:16px!important;
-  font-size:6.4px!important;
-  line-height:1.15!important;
-  text-align:center!important;
-}
-body.phone-lite .contact-message{
-  margin:24px 12px 0!important;
-  padding:11px 13px 12px!important;
-}
-body.phone-lite .contact-home-indicator{
-  bottom:8px!important;
-  width:90px!important;
-}
-body.phone-lite .contact-final-caption{
-  max-width:300px!important;
-  margin:17px auto 0!important;
-  text-align:center!important;
-}
-
-/* ---------- CONSENT: reliable and testable again ---------- */
-body.phone-lite .entry-consent{
-  display:grid!important;
-  place-items:center!important;
-  padding:max(14px,env(safe-area-inset-top)) 12px max(14px,env(safe-area-inset-bottom))!important;
-  box-sizing:border-box!important;
-}
-.entry-consent[hidden]{
-  display:none!important;
-  visibility:hidden!important;
-  pointer-events:none!important;
-}
-body.phone-lite .entry-consent-card{
-  width:min(100%,390px)!important;
-  max-width:calc(100vw - 24px)!important;
-  max-height:calc(100svh - 28px)!important;
-  margin:0 auto!important;
-  padding:27px 20px 22px!important;
-  overflow-x:hidden!important;
-  overflow-y:auto!important;
-  border-radius:20px!important;
-}
-body.phone-lite .entry-consent-card h2{
-  max-width:calc(100% - 34px)!important;
-  font-size:clamp(29px,8.6vw,34px)!important;
-  line-height:.96!important;
-}
-body.phone-lite .entry-consent-actions{
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  gap:8px!important;
-}
-body.phone-lite .entry-consent-accept,
-body.phone-lite .entry-consent-decline{
-  width:100%!important;
-  min-height:49px!important;
-}
-
-/* ---------- FLOW BRIDGES ---------- */
-body.phone-lite .flow-bridge{
-  --bridge-p:0;
-}
-
-/* Narrow phones */
-@media(max-width:360px){
-  :root{--m-side:10px}
-  body.phone-lite .hero .title{font-size:37px!important}
-  body.phone-lite .hero .subtitle{top:130px!important;font-size:11.7px!important}
-  body.phone-lite .about-left{height:650px!important;min-height:650px!important}
-  body.phone-lite .about-pattern-row{height:51px!important;font-size:21px!important}
-  body.phone-lite .about-photo-card{width:78vw!important;height:440px!important}
-  body.phone-lite .team-name{font-size:8px!important}
-  body.phone-lite .portfolio-word span{font-size:46px!important}
-  body.phone-lite .cost-card{max-width:310px!important}
-  body.phone-lite .cost-pug{width:100px!important}
-  body.phone-lite .contact-phone{width:274px!important;height:420px!important}
-  body.phone-lite .contact-action-icon{width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important}
-}
-
-/* Respect accessibility without changing layout. */
-@media(prefers-reduced-motion:reduce){
+@media (prefers-reduced-motion: reduce) {
   body.phone-lite .about-pattern-track,
-  body.phone-lite .team-pattern-track,
   body.phone-lite .portfolio-word-track,
   body.phone-lite .team-marquee-track,
-  body.phone-lite.hero-opened .hero .portrait img{
-    animation:none!important;
-  }
+  body.phone-lite.hero-opened .hero .portrait img { animation: none!important; }
 }
 
-
-/* =====================================================================
-   MOBILE REBUILD V27 — compact team + slightly larger pug
-   ===================================================================== */
-
-/* TEAM:
-   Remove the artificial tall minimum height. The section now ends
-   naturally after the second row of people, with only a small breathing
-   zone for the moving "МОЯ КОМАНДА" marquee. */
-body.phone-lite .team-section{
-  min-height:0!important;
-  height:auto!important;
-}
-
-body.phone-lite .team-shell{
-  min-height:0!important;
-  height:auto!important;
-  padding:46px 12px 76px!important;
-}
-
-body.phone-lite .team-head h2{
-  margin-bottom:0!important;
-}
-
-body.phone-lite .team-grid{
-  gap:16px 8px!important;
-  margin-top:26px!important;
-}
-
-body.phone-lite .team-name{
-  margin-top:5px!important;
-}
-
-body.phone-lite .team-bg-pattern{
-  top:-28px!important;
-  height:calc(100% + 56px)!important;
-}
-
-body.phone-lite .team-pattern-row{
-  height:52px!important;
-  font-size:28px!important;
-}
-
-body.phone-lite .team-marquee{
-  bottom:10px!important;
-}
-
-body.phone-lite .team-marquee span{
-  font-size:42px!important;
-}
-
-/* COST / PUG:
-   Make the dog a little larger, but keep it in normal document flow
-   below/right of the card so it cannot cover the list, button or note. */
-body.phone-lite .cost-pug{
-  position:relative!important;
-  width:124px!important;
-  max-width:none!important;
-  align-self:flex-end!important;
-  margin:-8px 4px 0 0!important;
-  z-index:4!important;
-}
-
-body.phone-lite .cost-treat{
-  width:29px!important;
-}
-
-@media(max-width:390px){
-  body.phone-lite .team-shell{
-    padding:44px 10px 72px!important;
-  }
-
-  body.phone-lite .team-grid{
-    gap:14px 7px!important;
-    margin-top:24px!important;
-  }
-
-  body.phone-lite .team-pattern-row{
-    height:50px!important;
-    font-size:26px!important;
-  }
-
-  body.phone-lite .cost-pug{
-    width:118px!important;
-    margin-top:-6px!important;
-  }
-
-  body.phone-lite .cost-treat{
-    width:28px!important;
-  }
-}
-
-@media(max-width:360px){
-  body.phone-lite .team-shell{
-    padding-bottom:68px!important;
-  }
-
-  body.phone-lite .team-grid{
-    gap:13px 6px!important;
-  }
-
-  body.phone-lite .cost-pug{
-    width:114px!important;
-  }
-}
-
-
-/* =====================================================================
-   MOBILE REBUILD V28 — Hero -> Showreel transition only
-   ===================================================================== */
-
-/* Ring follows the actual animated hole instead of staying fixed
-   in the vertical center of the phone. */
-body.phone-lite .showreel-ring{
-  left:var(--cx,50%)!important;
-  top:var(--cy,14%)!important;
-}
-
-/* Slightly shorten the paper lead-in visually without changing
-   the rest of the showreel or the next section. */
-body.phone-lite .showreel-scene{
-  background:#EAE5DF!important;
-}
-
-body.phone-lite .showreel-stage{
-  background:#EAE5DF!important;
-}
-
-
-/* =====================================================================
-   MOBILE REBUILD V29 — ABOUT / "СОЗДАЮ СОБЫТИЯ" ONLY
-   Denser composition, less empty paper, closer to desktop proportions.
-   ===================================================================== */
-
-body.phone-lite .about-left{
-  height:620px!important;
-  min-height:620px!important;
-}
-
-/* Denser moving wall: more visible rows, tighter vertical rhythm,
-   and slightly stronger contrast without changing the desktop palette. */
-body.phone-lite .about-pattern{
-  left:50%!important;
-  top:-48px!important;
-  width:188vw!important;
-  min-width:760px!important;
-  height:720px!important;
-  opacity:.125!important;
-  transform:translate3d(-50%,var(--about-pattern-y,0px),0) rotate(-4.2deg)!important;
-}
-
-body.phone-lite .about-pattern-row{
-  height:47px!important;
-  font-size:22px!important;
-  line-height:1!important;
-}
-
-body.phone-lite .about-pattern-row:nth-child(n+14){
-  display:none!important;
-}
-
-/* Preserve the desktop-like alternating motion on every visible row. */
-body.phone-lite .about-pattern-track{
-  animation:aboutTickerLeft 20s linear infinite!important;
-}
-
-body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
-  animation-name:aboutTickerRight!important;
-  animation-duration:23s!important;
-}
-
-body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track{
-  animation-duration:26s!important;
-  animation-delay:-6s!important;
-}
-
-body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
-  animation-duration:21s!important;
-  animation-delay:-9s!important;
-}
-
-/* Photo is a little wider and starts higher, so the mobile block feels
-   like the compact desktop composition rather than a tall poster. */
-body.phone-lite .about-photo-card{
-  top:72px!important;
-  width:min(80vw,318px)!important;
-  height:448px!important;
-}
-
-/* Keep the tape proportional to the slightly wider photo. */
-body.phone-lite .about-tape{
-  left:-18px!important;
-  top:-23px!important;
-  width:110px!important;
-  height:37px!important;
-}
-
-/* Fact stickers stay readable but sit closer to the photo edges. */
-body.phone-lite .about-fact-years{
-  left:-7px!important;
-  bottom:34px!important;
-}
-
-body.phone-lite .about-fact-events{
-  right:-6px!important;
-  top:68px!important;
-}
-
-/* Less dead space between the photo scene and the text half. */
-body.phone-lite .about-right-text{
-  padding-top:40px!important;
-  padding-bottom:52px!important;
-}
-
-body.phone-lite .about-title-line{
-  margin-bottom:21px!important;
-}
-
-body.phone-lite .about-stamp{
-  margin-bottom:18px!important;
-}
-
-/* Slightly tighter text rhythm while preserving readability. */
-body.phone-lite .about-right p,
-body.phone-lite .about-right li{
-  line-height:1.52!important;
-}
-
-body.phone-lite .about-right li{
-  margin-bottom:14px!important;
-}
-
-@media(max-width:390px){
-  body.phone-lite .about-left{
-    height:600px!important;
-    min-height:600px!important;
-  }
-
-  body.phone-lite .about-pattern-row{
-    height:45px!important;
-    font-size:21px!important;
-  }
-
-  body.phone-lite .about-photo-card{
-    top:70px!important;
-    width:min(81vw,306px)!important;
-    height:432px!important;
-  }
-
-  body.phone-lite .about-right-text{
-    padding-top:38px!important;
-    padding-bottom:48px!important;
-  }
-}
-
-@media(max-width:360px){
-  body.phone-lite .about-left{
-    height:580px!important;
-    min-height:580px!important;
-  }
-
-  body.phone-lite .about-pattern{
-    top:-42px!important;
-    min-width:720px!important;
-  }
-
-  body.phone-lite .about-pattern-row{
-    height:43px!important;
-    font-size:20px!important;
-  }
-
-  body.phone-lite .about-photo-card{
-    width:82vw!important;
-    height:416px!important;
-  }
-}
-
-
-/* =====================================================================
-   MOBILE REBUILD V30 — FORCE VISIBLE ABOUT MOTION
-   ===================================================================== */
-
-/* Dedicated mobile keyframes so Safari cannot inherit/freeze any
-   legacy animation state from style.css. */
-@-webkit-keyframes mobileAboutLeft{
-  from{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
-  to{-webkit-transform:translate3d(-50%,0,0);transform:translate3d(-50%,0,0)}
-}
-@keyframes mobileAboutLeft{
-  from{transform:translate3d(0,0,0)}
-  to{transform:translate3d(-50%,0,0)}
-}
-
-@-webkit-keyframes mobileAboutRight{
-  from{-webkit-transform:translate3d(-50%,0,0);transform:translate3d(-50%,0,0)}
-  to{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
-}
-@keyframes mobileAboutRight{
-  from{transform:translate3d(-50%,0,0)}
-  to{transform:translate3d(0,0,0)}
-}
-
-/* All visible rows move. Speeds are intentionally faster than before
-   so the movement is clearly noticeable on a phone. */
-body.phone-lite .about-pattern-row .about-pattern-track{
-  -webkit-animation:mobileAboutLeft 12s linear infinite!important;
-  animation:mobileAboutLeft 12s linear infinite!important;
-  -webkit-animation-play-state:running!important;
-  animation-play-state:running!important;
-  will-change:transform!important;
-  backface-visibility:hidden!important;
-  -webkit-backface-visibility:hidden!important;
-}
-
-body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
-  -webkit-animation-name:mobileAboutRight!important;
-  animation-name:mobileAboutRight!important;
-  -webkit-animation-duration:14s!important;
-  animation-duration:14s!important;
-}
-
-body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track{
-  -webkit-animation-duration:16s!important;
-  animation-duration:16s!important;
-  -webkit-animation-delay:-5s!important;
-  animation-delay:-5s!important;
-}
-
-body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
-  -webkit-animation-duration:11s!important;
-  animation-duration:11s!important;
-  -webkit-animation-delay:-7s!important;
-  animation-delay:-7s!important;
-}
-
-/* User explicitly requested this decorative movement on mobile,
-   so keep it active even if iOS reports reduced-motion. */
-@media(prefers-reduced-motion:reduce){
-  body.phone-lite .about-pattern-row .about-pattern-track{
-    -webkit-animation:mobileAboutLeft 12s linear infinite!important;
-    animation:mobileAboutLeft 12s linear infinite!important;
-  }
-
-  body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track{
-    -webkit-animation-name:mobileAboutRight!important;
-    animation-name:mobileAboutRight!important;
-    -webkit-animation-duration:14s!important;
-    animation-duration:14s!important;
-  }
-}
-
-
-/* =====================================================================
-   MOBILE REBUILD V31 — ABOUT TICKER JS OWNS TRANSFORM
-   ===================================================================== */
-body.phone-lite .about-pattern-row .about-pattern-track,
-body.phone-lite .about-pattern-row:nth-child(even) .about-pattern-track,
-body.phone-lite .about-pattern-row:nth-child(3n) .about-pattern-track,
-body.phone-lite .about-pattern-row:nth-child(4n) .about-pattern-track{
-  -webkit-animation:none!important;
-  animation:none!important;
-  transition:none!important;
-  will-change:transform!important;
-}
-
-
-/* =====================================================================
-   TEAM V32 — six members on mobile, 3 + 3
-   ===================================================================== */
-body.phone-lite .team-card-6{
-  position:relative!important;
-  left:auto!important;
-  right:auto!important;
-  top:auto!important;
-  width:100%!important;
-  margin:0!important;
-}
-
-body.phone-lite .team-card-4{grid-column:1 / 3!important}
-body.phone-lite .team-card-5{grid-column:3 / 5!important}
-body.phone-lite .team-card-6{grid-column:5 / 7!important}
-
-body.phone-lite .team-card-6 .team-photo-wrap{
-  width:100%!important;
-  height:auto!important;
-  aspect-ratio:3 / 4!important;
-}
-
-body.phone-lite .team-card-6 img{
-  object-position:center 40%!important;
-}
-
-body.phone-lite .team-card-6 .team-name{
-  font-size:8.2px!important;
-  line-height:1.08!important;
-}
-
-/* With an even 3+3 layout, the section stays compact. */
-body.phone-lite .team-grid{
-  gap:16px 8px!important;
-}
-
-@media(max-width:390px){
-  body.phone-lite .team-grid{
-    gap:14px 7px!important;
-  }
-  body.phone-lite .team-card-6 .team-name{
-    font-size:7.8px!important;
-  }
-}
-
-
-/* TEAM CLEAN V36 — same rule on phones */
-body.phone-lite .team-bg-pattern{
-  display:none!important;
-}
-body.phone-lite .team-marquee{
-  display:block!important;
+/* Offscreen motion consumes no animation frames. */
+body.phone-lite .motion-paused .team-marquee-track,
+body.phone-lite .motion-paused .portfolio-word-track,
+body.phone-lite.hero-opened .hero.motion-paused .portrait img {
+  animation-play-state: paused!important;
 }

@@ -2,8 +2,25 @@
   const body=document.body;
   const noise=document.querySelector(".noise");
   const typed=document.getElementById("typed");
-  const phoneLite=window.matchMedia("(max-width: 767px)").matches;
-  if(phoneLite) body.classList.add("phone-lite");
+  const phoneQuery=window.matchMedia("(max-width: 767px)");
+  let phoneLite=phoneQuery.matches;
+  body.classList.toggle("phone-lite",phoneLite);
+  phoneQuery.addEventListener("change",event=>{
+    phoneLite=event.matches;
+    body.classList.toggle("phone-lite",phoneLite);
+  });
+  // Quiz steps, fonts, and orientation can move later scroll scenes.
+  const refreshLayout=[];
+  let layoutFrame=0;
+  if("ResizeObserver" in window){
+    new ResizeObserver(()=>{
+      if(layoutFrame) return;
+      layoutFrame=requestAnimationFrame(()=>{
+        layoutFrame=0;
+        refreshLayout.forEach(refresh=>refresh());
+      });
+    }).observe(body);
+  }
 
   const phrases=[
     "ОРГАНИЗАТОР - КООРДИНАТОР МЕРОПРИЯТИЙ",
@@ -158,7 +175,7 @@
     if(!srScene) return;
 
     const vw=window.innerWidth;
-    const vh=window.innerHeight;
+    const vh=phoneLite ? srStage.clientHeight : window.innerHeight;
     srMetrics={
       vw,
       vh,
@@ -342,6 +359,7 @@
     srRequest();
   }
 
+  refreshLayout.push(srResize);
   srRefreshMetrics();
   if(phoneLite){
     if(srVideo){
@@ -693,6 +711,7 @@
       bRequest();
     }
 
+    refreshLayout.push(bResize);
     bRefresh();
 
     /* Same reversible reveal on desktop and phone:
@@ -826,6 +845,7 @@
       crRequest();
     }
 
+    refreshLayout.push(crResize);
     crRefresh();
 
     crPlacePen(0);
@@ -875,6 +895,7 @@
 
       const vh=window.innerHeight;
       const sectionRect=costSection.getBoundingClientRect();
+      if(phoneLite && (sectionRect.bottom < -80 || sectionRect.top > vh+160)) return;
       const stageRect=costStage.getBoundingClientRect();
       const pugRect=costPug.getBoundingClientRect();
       const cardRect=costCard.getBoundingClientRect();
@@ -943,6 +964,14 @@
         x:(pugRect.left-stageRect.left)+(pugRect.width*.415),
         y:(pugRect.top-stageRect.top)+(pugRect.height*.338)
       };
+
+      // On phones the treat travels below the price card, clear of its text and CTA.
+      if(phoneLite){
+        const belowCard=cardRect.bottom-stageRect.top+20;
+        Object.assign(p0,{x:cardRect.left-stageRect.left+cardRect.width*.18,y:belowCard});
+        Object.assign(p1,{x:cardRect.left-stageRect.left+cardRect.width*.45,y:belowCard+12});
+        Object.assign(p2,{x:pugRect.left-stageRect.left-12,y:Math.max(belowCard,p3.y-30)});
+      }
 
       const pt=cubic(t,p0,p1,p2,p3);
       const dir=tangent(t,p0,p1,p2,p3);
@@ -1055,6 +1084,7 @@
     function reviewsScrollRender(){
       reviewsRAF=0;
 
+      if(phoneLite) return;
       const {max}=reviewsMetrics();
       const p=reviewsSceneProgress();
 
@@ -1101,7 +1131,12 @@
       const target=Math.min(max,reviewsIndex*step);
       reviewsBaseTarget=target;
 
-      reviewsTrack.style.setProperty("--reviews-shift",`${-target}px`);
+      if(phoneLite){
+        reviewsViewport.scrollTo({left:target,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+      }else{
+        reviewsViewport.scrollLeft=0;
+        reviewsTrack.style.setProperty("--reviews-shift",`${-target}px`);
+      }
 
       reviewsPrev.disabled=reviewsIndex===0;
       reviewsPrev.style.opacity=reviewsIndex===0?".38":"1";
@@ -1112,6 +1147,16 @@
 
       requestReviewsScrollRender();
     }
+
+    reviewsViewport.addEventListener("scroll",()=>{
+      if(!phoneLite) return;
+      const {step,max}=reviewsMetrics();
+      reviewsIndex=Math.round(reviewsViewport.scrollLeft/step);
+      reviewsPrev.disabled=reviewsViewport.scrollLeft<2;
+      reviewsNext.disabled=reviewsViewport.scrollLeft>=max-2;
+      reviewsPrev.style.opacity=reviewsPrev.disabled ? ".38" : "1";
+      reviewsNext.style.opacity=reviewsNext.disabled ? ".38" : "1";
+    },{passive:true});
 
     reviewsPrev.addEventListener("click",()=>{
       reviewsIndex=Math.max(0,reviewsIndex-1);
@@ -1264,15 +1309,22 @@
      MOBILE ABOUT TICKER V31
      JS-driven so iPhone Safari cannot freeze/override it via legacy CSS.
      ========================================================= */
-  if(phoneLite && aboutPattern){
+  if(aboutPattern && !visualReduceMotion){
     const mobileAboutTracks=[...aboutPattern.querySelectorAll(".about-pattern-track")];
     let mobileAboutVisible=true;
     let mobileAboutRaf=0;
     let mobileAboutStart=performance.now();
+    let mobileAboutWidths=[];
+    const measureAboutTracks=()=>{
+      mobileAboutWidths=mobileAboutTracks.map(track=>track.querySelector(".about-pattern-copy")?.getBoundingClientRect().width || 0);
+    };
+    measureAboutTracks();
+    window.addEventListener("resize",measureAboutTracks,{passive:true});
+    document.fonts?.ready.then(measureAboutTracks);
 
     const renderMobileAboutTicker=now=>{
       mobileAboutRaf=0;
-      if(!mobileAboutVisible) return;
+      if(!mobileAboutVisible || !phoneLite || document.hidden) return;
 
       const elapsed=(now-mobileAboutStart)/1000;
 
@@ -1284,7 +1336,7 @@
           Distance equals one repeated copy, so the loop is seamless.
           Every second line moves in the opposite direction.
         */
-        const loopWidth=firstCopy.getBoundingClientRect().width;
+        const loopWidth=mobileAboutWidths[index];
         if(!loopWidth) return;
 
         const speed=26 + (index%4)*4; // px/sec, visible but not rushed
@@ -1303,7 +1355,7 @@
     };
 
     const startMobileAboutTicker=()=>{
-      if(mobileAboutRaf || !mobileAboutVisible) return;
+      if(mobileAboutRaf || !mobileAboutVisible || !phoneLite || document.hidden) return;
       mobileAboutRaf=requestAnimationFrame(renderMobileAboutTicker);
     };
 
@@ -1326,6 +1378,14 @@
       startMobileAboutTicker();
     },{passive:true});
 
+    phoneQuery.addEventListener("change",()=>{
+      if(phoneLite) startMobileAboutTicker();
+      else mobileAboutTracks.forEach(track=>{
+        track.style.removeProperty("transform");
+        track.style.removeProperty("-webkit-transform");
+      });
+    });
+    document.addEventListener("visibilitychange",startMobileAboutTicker);
     startMobileAboutTicker();
   }
 
@@ -1407,6 +1467,13 @@
   }else{
     if(aboutPattern) aboutPattern.style.setProperty("--about-pattern-y","0px");
     if(aboutPhoto) aboutPhoto.style.setProperty("--about-photo-y","0px");
+  }
+
+  if("IntersectionObserver" in window){
+    const decorativeObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>entry.target.classList.toggle("motion-paused",!entry.isIntersecting));
+    },{rootMargin:"100px"});
+    document.querySelectorAll(".hero,.team-section,.portfolio-section").forEach(el=>decorativeObserver.observe(el));
   }
 
   /* Small 3D response only on desktop pointer devices. */
@@ -1640,9 +1707,7 @@
     /* Banner mode: do not lock the page scroll. */
     document.body.classList.remove("entry-consent-open");
 
-    window.setTimeout(()=>{
-      entryConsentAccept?.focus();
-    },40);
+
   }
 
   function closeEntryConsent(){
