@@ -11275,3 +11275,63 @@ body.entry-consent-open{
 }
 
 
+
+
+/* =========================================================
+   COOKIE + MOBILE POLISH V40
+   Small cookie notice, bottom-left.
+   ========================================================= */
+.entry-consent.entry-consent--banner{
+  left:16px!important;
+  right:auto!important;
+  bottom:16px!important;
+  width:auto!important;
+  justify-content:flex-start!important;
+}
+
+.entry-consent.entry-consent--banner .entry-consent-card{
+  width:min(286px,calc(100vw - 24px))!important;
+  padding:10px 10px 9px!important;
+  border-radius:12px!important;
+  background:rgba(20,20,24,.78)!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.14)!important;
+}
+
+.entry-consent.entry-consent--banner .entry-consent-card h2{
+  margin:0 22px 4px 0!important;
+  font-size:10px!important;
+}
+
+.entry-consent.entry-consent--banner .entry-consent-card p{
+  font-size:9px!important;
+  line-height:1.32!important;
+}
+
+.entry-consent.entry-consent--banner .entry-consent-actions{
+  grid-template-columns:1fr auto!important;
+  gap:6px!important;
+  margin-top:8px!important;
+}
+
+.entry-consent.entry-consent--banner .entry-consent-accept,
+.entry-consent.entry-consent--banner .entry-consent-decline{
+  min-height:32px!important;
+  font-size:8.5px!important;
+}
+
+.entry-consent.entry-consent--banner .entry-consent-accept{
+  padding:0 11px!important;
+}
+
+.entry-consent.entry-consent--banner .entry-consent-decline{
+  min-width:54px!important;
+  padding:0 9px!important;
+}
+
+.entry-consent.entry-consent--banner .entry-consent-close{
+  top:6px!important;
+  right:6px!important;
+  width:20px!important;
+  height:20px!important;
+  font-size:14px!important;
+}
