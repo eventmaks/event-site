@@ -1006,7 +1006,7 @@ body.phone-lite .faq-plus {
 body.phone-lite .contact-final {
   min-height: 0!important;
   overflow: hidden!important;
-  padding: 48px 0 24px!important;
+  padding: 28px 0 12px!important;
 }
 body.phone-lite .contact-final-inner {
   width: 100%!important;
@@ -1015,10 +1015,13 @@ body.phone-lite .contact-final-inner {
 }
 body.phone-lite .contact-final-inner h2 {
   max-width: 330px!important;
-  margin: 0 auto 34px!important;
-  font-size: clamp(25px,7vw,30px)!important;
-  line-height: 1.16!important;
+  margin: 0 auto 16px!important;
+  font-size: clamp(23px,6.5vw,27px)!important;
+  line-height: 1.12!important;
   text-align: center!important;
+}
+body.phone-lite .contact-final-kicker {
+  margin-bottom: 8px!important;
 }
 body.phone-lite .contact-phone-wrap {
   width: 100%!important;
@@ -1027,28 +1030,32 @@ body.phone-lite .contact-phone-wrap {
 }
 body.phone-lite .contact-phone {
   margin: 0 auto!important;
-  padding: 7px!important;
+  padding: 6px!important;
   border-width: 2px!important;
-  border-radius: 45px!important;
-  width: min(290px, calc(100vw - 32px))!important;
-  height: 460px!important;
+  border-radius: 39px!important;
+  width: min(260px, calc(100vw - 32px))!important;
+  height: 360px!important;
 }
 body.phone-lite .contact-phone-screen {
-  border-radius: 37px!important;
+  border-radius: 32px!important;
 }
 body.phone-lite .contact-profile {
-  padding-top: 49px!important;
+  padding-top: 38px!important;
 }
 body.phone-lite .contact-avatar {
-  width: 58px!important;
-  height: 58px!important;
-  font-size: 21px!important;
+  width: 46px!important;
+  height: 46px!important;
+  margin-bottom: 6px!important;
+  font-size: 18px!important;
+}
+body.phone-lite .contact-profile strong {
+  font-size: 17px!important;
 }
 body.phone-lite .contact-actions {
   display: grid!important;
   grid-template-columns: repeat(4,1fr)!important;
   gap: 5px!important;
-  margin: 22px 10px 0!important;
+  margin: 13px 8px 0!important;
 }
 body.phone-lite .contact-actions .contact-action {
   display: flex!important;
@@ -1121,38 +1128,40 @@ body.phone-lite .contact-actions .contact-mail {
   box-shadow: none!important;
 }
 body.phone-lite .contact-action-icon {
-  width: 44px!important;
-  height: 44px!important;
-  min-width: 44px!important;
-  min-height: 44px!important;
-  margin: 0 auto 6px!important;
-  border-radius: 12px!important;
+  width: 38px!important;
+  height: 38px!important;
+  min-width: 38px!important;
+  min-height: 38px!important;
+  margin: 0 auto 4px!important;
+  border-radius: 11px!important;
 }
 body.phone-lite .contact-action span:last-child {
   width: 100%!important;
   line-height: 1.15!important;
   text-align: center!important;
-  font-size: 10px!important;
+  font-size: 9px!important;
   max-width: none!important;
-  min-height: 18px!important;
+  min-height: 12px!important;
 }
 body.phone-lite .contact-message {
-  margin: 24px 12px 0!important;
-  padding: 11px 13px 12px!important;
+  margin: 13px 10px 0!important;
+  padding: 8px 11px 9px!important;
+  border-radius: 14px!important;
 }
 body.phone-lite .contact-home-indicator {
   bottom: 8px!important;
   width: 90px!important;
 }
 body.phone-lite .contact-final-caption {
-  max-width: 300px!important;
+  max-width: 330px!important;
   text-align: center!important;
   display: flex!important;
-  flex-direction: column!important;
-  gap: 10px!important;
-  margin: 24px auto 32px!important;
-  font-size: 14px!important;
-  line-height: 1.5!important;
+  flex-flow: row wrap!important;
+  justify-content: center!important;
+  gap: 3px 12px!important;
+  margin: 12px auto 14px!important;
+  font-size: 12px!important;
+  line-height: 1.3!important;
   overflow-wrap: anywhere!important;
   color: rgba(23,23,23,.72)!important;
 }
@@ -1164,32 +1173,33 @@ body.phone-lite .contact-final-caption a {
   text-decoration: none!important;
 }
 body.phone-lite .site-footer {
-  padding: 22px 20px max(22px, env(safe-area-inset-bottom))!important;
-  gap: 12px!important;
+  padding: 12px 16px max(12px, env(safe-area-inset-bottom))!important;
+  gap: 5px!important;
 }
 body.phone-lite .site-footer-legal {
   display: flex!important;
   flex-direction: column!important;
-  gap: 12px!important;
-  margin-top: 8px!important;
-  font-size: 12px!important;
-  line-height: 1.5!important;
+  gap: 2px!important;
+  margin-top: 2px!important;
+  font-size: 11px!important;
+  line-height: 1.25!important;
 }
 
 body.phone-lite .site-footer-legal a {
-  font-size: 12px!important;
-  line-height: 1.5!important;
-  min-height: 44px!important;
+  font-size: 11px!important;
+  line-height: 1.25!important;
+  min-height: 32px!important;
   display: flex!important;
   align-items: center!important;
   justify-content: center!important;
 }
 body.phone-lite .contact-number {
-  font-size: 12px!important;
+  margin-top: 3px!important;
+  font-size: 11px!important;
 }
 body.phone-lite .contact-message p {
-  font-size: 12px!important;
-  line-height: 1.45!important;
+  font-size: 11px!important;
+  line-height: 1.35!important;
 }
 body.phone-lite .contact-message > span {
   font-size: 10px!important;
