@@ -150,20 +150,12 @@
   ];
 
   function begin(){
-    if(phoneLite){
-      buildIosLaunch().then(()=>{
-        body.classList.add("hero-opened");
-      });
-      return;
-    }
-
     requestAnimationFrame(()=>{
       requestAnimationFrame(()=>{
         body.classList.add("hero-ready");
         if(noise) noise.classList.add("visible");
       });
     });
-
     setTimeout(()=>body.classList.add("hero-opened"),1900);
   }
 

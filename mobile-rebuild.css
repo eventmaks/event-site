@@ -1667,3 +1667,48 @@ body.phone-lite .ios-launch.ios-launch-run .ios-launch-card{
     border-radius 1.38s cubic-bezier(.22,.72,.12,1),
     box-shadow 1.05s ease!important;
 }
+
+/* MOBILE ORIGINAL BRANDED OPENING V49 */
+body.phone-lite .opening-screen{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:1200!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+  visibility:visible;
+}
+body.phone-lite .opening-half{background:var(--m-paper)!important;}
+body.phone-lite .opening-brand{
+  width:calc(100% - 40px)!important;
+  max-width:350px!important;
+  top:50%!important;
+  left:50%!important;
+  transform:translate(-50%,-50%)!important;
+  text-align:center!important;
+}
+body.phone-lite .opening-brand strong{
+  display:block!important;
+  width:100%!important;
+  white-space:normal!important;
+  font-size:clamp(32px,9.6vw,42px)!important;
+  line-height:.92!important;
+  letter-spacing:-.035em!important;
+}
+body.phone-lite .opening-brand span{
+  display:block!important;
+  width:100%!important;
+  margin-top:14px!important;
+  font-size:clamp(10px,3vw,12.5px)!important;
+  line-height:1.28!important;
+  letter-spacing:.025em!important;
+  white-space:normal!important;
+}
+body.phone-lite.hero-ready .opening-half-top{transform:translateY(-101.5%)!important;}
+body.phone-lite.hero-ready .opening-half-bottom{transform:translateY(101.5%)!important;}
+body.phone-lite.hero-ready .opening-brand{
+  opacity:0!important;
+  transform:translate(-50%,-54%)!important;
+}
+body.phone-lite.hero-opened .opening-screen{visibility:hidden!important;}
+body.phone-lite .ios-launch{display:none!important;}
