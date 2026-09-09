@@ -1381,3 +1381,294 @@ body.phone-lite .calc i{
     width:min(224px,calc(100vw - 16px))!important;
   }
 }
+
+
+/* =====================================================================
+   iOS APP-SWITCHER OPENING V43
+   Mobile only. The center preview is a clone of the ACTUAL Hero DOM.
+   ===================================================================== */
+
+body.phone-lite .opening-screen{
+  display:none!important;
+}
+
+body.phone-lite.ios-launch-active{
+  overflow:hidden!important;
+  touch-action:none!important;
+}
+
+body.phone-lite .ios-launch{
+  position:fixed;
+  inset:0;
+  z-index:2147483000;
+  overflow:hidden;
+  pointer-events:none;
+  background:#151421;
+  opacity:1;
+}
+
+body.phone-lite .ios-launch-bg{
+  position:absolute;
+  inset:-9%;
+  background:
+    radial-gradient(circle at 22% 76%,rgba(79,122,180,.65),transparent 23%),
+    radial-gradient(circle at 75% 82%,rgba(61,111,124,.55),transparent 22%),
+    radial-gradient(circle at 48% 10%,rgba(84,58,120,.7),transparent 35%),
+    linear-gradient(180deg,#171425 0%,#262243 62%,#14203f 100%);
+  filter:blur(18px) saturate(.92);
+  transform:scale(1.06);
+}
+
+body.phone-lite .ios-launch-bg:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(12,12,18,.18);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+body.phone-lite .ios-launch-app-label{
+  position:absolute;
+  z-index:6;
+  top:max(22px,calc(env(safe-area-inset-top) + 8px));
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:rgba(255,255,255,.92);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif!important;
+  font-size:13px!important;
+  font-weight:600;
+  white-space:nowrap;
+  opacity:1;
+  transition:opacity .34s ease,transform .72s cubic-bezier(.22,.72,.18,1);
+}
+
+body.phone-lite .ios-launch-app-dot{
+  display:grid;
+  place-items:center;
+  width:23px;
+  height:23px;
+  border-radius:7px;
+  background:linear-gradient(145deg,#fff,#e6e8ee);
+  color:#d62d55;
+  box-shadow:0 2px 8px rgba(0,0,0,.24);
+  font-size:10px!important;
+}
+
+body.phone-lite .ios-launch-side{
+  position:absolute;
+  z-index:2;
+  top:16.5svh;
+  width:46vw;
+  height:68svh;
+  border-radius:24px;
+  overflow:hidden;
+  opacity:.72;
+  box-shadow:0 12px 34px rgba(0,0,0,.28);
+  transition:
+    transform .84s cubic-bezier(.2,.75,.2,1),
+    opacity .56s ease;
+}
+
+body.phone-lite .ios-launch-side-left{
+  left:-35vw;
+  background:linear-gradient(160deg,#24255c,#18205f);
+}
+
+body.phone-lite .ios-launch-side-right{
+  right:-36vw;
+  background:#09090c;
+}
+
+body.phone-lite .ios-launch-side-bar{
+  position:absolute;
+  left:14px;
+  top:46px;
+  width:18px;
+  height:42%;
+  border-radius:9px;
+  background:rgba(255,255,255,.18);
+}
+
+body.phone-lite .ios-launch-side-black{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,#07070a,#15151a);
+}
+
+body.phone-lite .ios-launch-side-lines{
+  position:absolute;
+  inset:72px 22px auto;
+  height:45%;
+  opacity:.35;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,.7) 0 7px,
+      transparent 7px 27px
+    );
+  border-radius:8px;
+}
+
+body.phone-lite .ios-launch-card{
+  --launch-start-scale:.73;
+  position:absolute;
+  z-index:5;
+  left:50%;
+  top:51%;
+  width:92vw;
+  height:76svh;
+  max-width:404px;
+  max-height:760px;
+  overflow:hidden;
+  border-radius:26px;
+  background:#48222D;
+  box-shadow:0 22px 55px rgba(0,0,0,.42);
+  transform:
+    translate(-50%,-50%)
+    scale(var(--launch-start-scale));
+  transform-origin:50% 50%;
+  will-change:transform,border-radius,box-shadow;
+  transition:
+    transform .86s cubic-bezier(.18,.82,.18,1),
+    border-radius .68s cubic-bezier(.2,.7,.2,1),
+    box-shadow .6s ease;
+}
+
+body.phone-lite .ios-launch-preview{
+  position:absolute;
+  inset:0 0 52px;
+  overflow:hidden;
+  background:#48222D;
+}
+
+body.phone-lite .ios-launch-hero-clone{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:100%!important;
+  height:100svh!important;
+  min-height:620px!important;
+  transform:none!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+}
+
+body.phone-lite .ios-launch-hero-clone .canvas{
+  height:100%!important;
+}
+
+body.phone-lite .ios-launch-hero-clone .title,
+body.phone-lite .ios-launch-hero-clone .subtitle,
+body.phone-lite .ios-launch-hero-clone .portrait,
+body.phone-lite .ios-launch-hero-clone .arrow{
+  opacity:1!important;
+  visibility:visible!important;
+  filter:none!important;
+}
+
+body.phone-lite .ios-launch-hero-clone .portrait{
+  transform:translateX(-50%)!important;
+}
+
+body.phone-lite .ios-launch-browser{
+  position:absolute;
+  z-index:10;
+  left:0;
+  right:0;
+  bottom:0;
+  height:52px;
+  display:grid;
+  grid-template-columns:38px 1fr 42px;
+  align-items:center;
+  gap:5px;
+  padding:0 8px;
+  background:rgba(52,50,52,.96);
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Arial,sans-serif!important;
+  font-size:11px!important;
+}
+
+body.phone-lite .ios-launch-address{
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:18px;
+  background:rgba(117,115,117,.75);
+  color:rgba(255,255,255,.95);
+  white-space:nowrap;
+}
+
+body.phone-lite .ios-launch-browser-back,
+body.phone-lite .ios-launch-browser-menu{
+  display:grid;
+  place-items:center;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Arial,sans-serif!important;
+  font-size:25px!important;
+  color:rgba(255,255,255,.95);
+}
+
+body.phone-lite .ios-launch-browser-menu{
+  font-size:12px!important;
+  letter-spacing:1px;
+}
+
+body.phone-lite .ios-launch.ios-launch-run .ios-launch-card{
+  width:100vw;
+  height:100svh;
+  max-width:none;
+  max-height:none;
+  border-radius:0;
+  box-shadow:0 0 0 rgba(0,0,0,0);
+  transform:translate(-50%,-50%) scale(1);
+}
+
+body.phone-lite .ios-launch.ios-launch-run .ios-launch-preview{
+  inset:0;
+  transition:inset .72s cubic-bezier(.18,.82,.18,1);
+}
+
+body.phone-lite .ios-launch.ios-launch-run .ios-launch-browser{
+  transform:translateY(110%);
+  opacity:0;
+  transition:
+    transform .68s cubic-bezier(.18,.82,.18,1),
+    opacity .24s ease .38s;
+}
+
+body.phone-lite .ios-launch.ios-launch-run .ios-launch-side-left{
+  transform:translateX(-42vw) scale(.92);
+  opacity:0;
+}
+
+body.phone-lite .ios-launch.ios-launch-run .ios-launch-side-right{
+  transform:translateX(42vw) scale(.92);
+  opacity:0;
+}
+
+body.phone-lite .ios-launch.ios-launch-run .ios-launch-app-label{
+  transform:translate(-50%,-18px);
+  opacity:0;
+}
+
+body.phone-lite .ios-launch.ios-launch-finish{
+  opacity:0;
+  transition:opacity .08s linear;
+}
+
+@media(max-width:360px){
+  body.phone-lite .ios-launch-card{
+    width:94vw;
+    height:74svh;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  body.phone-lite .ios-launch{
+    display:none!important;
+  }
+}

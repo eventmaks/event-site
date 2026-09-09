@@ -5,6 +5,94 @@
   const phoneQuery=window.matchMedia("(max-width: 767px)");
   let phoneLite=phoneQuery.matches;
   body.classList.toggle("phone-lite",phoneLite);
+
+  /* ========================================================
+     MOBILE iOS APP-SWITCHER OPENING V43
+     Uses the real current Hero DOM as the preview source.
+     No regenerated webpage / no replacement recording.
+     ======================================================== */
+  let iosLaunchDone=!phoneLite;
+  let iosLaunchTimer=0;
+
+  function stripCloneIds(root){
+    if(!root) return;
+    if(root.id) root.removeAttribute("id");
+    root.querySelectorAll("[id]").forEach(el=>el.removeAttribute("id"));
+    root.querySelectorAll("[aria-labelledby],[aria-describedby]").forEach(el=>{
+      el.removeAttribute("aria-labelledby");
+      el.removeAttribute("aria-describedby");
+    });
+  }
+
+  function buildIosLaunch(){
+    if(!phoneLite || document.querySelector(".ios-launch")) return Promise.resolve();
+
+    const hero=document.querySelector(".hero");
+    if(!hero) return Promise.resolve();
+
+    return new Promise(resolve=>{
+      const launch=document.createElement("div");
+      launch.className="ios-launch";
+      launch.setAttribute("aria-hidden","true");
+
+      launch.innerHTML=`
+        <div class="ios-launch-bg"></div>
+        <div class="ios-launch-app-label">
+          <span class="ios-launch-app-dot">◉</span>
+          <span>Браузер</span>
+        </div>
+        <div class="ios-launch-side ios-launch-side-left" aria-hidden="true">
+          <div class="ios-launch-side-bar"></div>
+          <div class="ios-launch-side-lines"></div>
+        </div>
+        <div class="ios-launch-side ios-launch-side-right" aria-hidden="true">
+          <div class="ios-launch-side-black"></div>
+          <div class="ios-launch-side-lines"></div>
+        </div>
+        <div class="ios-launch-card">
+          <div class="ios-launch-preview"></div>
+          <div class="ios-launch-browser">
+            <span class="ios-launch-browser-back">‹</span>
+            <span class="ios-launch-address">eventmaks.ru</span>
+            <span class="ios-launch-browser-menu">•••</span>
+          </div>
+        </div>`;
+
+      const preview=launch.querySelector(".ios-launch-preview");
+      const clone=hero.cloneNode(true);
+      stripCloneIds(clone);
+
+      clone.classList.add("ios-launch-hero-clone");
+      clone.querySelector(".opening-screen")?.remove();
+      clone.querySelector(".calc")?.remove();
+      preview.appendChild(clone);
+
+      document.body.appendChild(launch);
+      document.body.classList.add("ios-launch-active");
+
+      /* Force the real page itself to be ready underneath the preview.
+         The clone is only a temporary visual representation of that exact DOM. */
+      body.classList.add("hero-ready");
+      if(noise) noise.classList.add("visible");
+
+      requestAnimationFrame(()=>{
+        requestAnimationFrame(()=>{
+          launch.classList.add("ios-launch-run");
+        });
+      });
+
+      iosLaunchTimer=window.setTimeout(()=>{
+        launch.classList.add("ios-launch-finish");
+        window.setTimeout(()=>{
+          launch.remove();
+          document.body.classList.remove("ios-launch-active");
+          iosLaunchDone=true;
+          resolve();
+        },90);
+      },920);
+    });
+  }
+
   phoneQuery.addEventListener("change",event=>{
     phoneLite=event.matches;
     body.classList.toggle("phone-lite",phoneLite);
@@ -28,6 +116,13 @@
   ];
 
   function begin(){
+    if(phoneLite){
+      buildIosLaunch().then(()=>{
+        body.classList.add("hero-opened");
+      });
+      return;
+    }
+
     requestAnimationFrame(()=>{
       requestAnimationFrame(()=>{
         body.classList.add("hero-ready");
