@@ -1,0 +1,1 @@
+V58: vertical treat drop timing expanded and eased with smootherstep for a very smooth fall.
