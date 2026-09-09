@@ -1,0 +1,37 @@
+SEO FINAL V48
+
+Implemented
+- Refined title and meta description around the real primary intent:
+  organizer + coordinator of events in Moscow.
+- Aligned Open Graph and Twitter metadata.
+- Added WebPage structured data connected to WebSite, Person, and Service.
+- Added truthful ContactPoint data.
+- Preserved Person and Service schema.
+- Added responsive hero preloads so mobile does not preload the desktop portrait unnecessarily.
+- Added apple-touch-icon and DNS prefetch.
+- Updated visible About copy with natural service/location context.
+- Added intrinsic width/height to local raster images to reduce layout shifts.
+- Kept privacy.html and consent.html noindex,follow.
+- Updated sitemap lastmod to 2026-09-09.
+- robots.txt verified.
+- Updated asset cache version to v48.
+
+Not done intentionally
+- No fake address / LocalBusiness markup.
+- No fake reviews or AggregateRating schema.
+- No keyword stuffing.
+- No thin doorway SEO pages.
+- No guarantees of #1 rankings.
+
+Next after domain launch
+1. Connect eventmaks.ru to GitHub Pages and enable HTTPS.
+2. Add and verify the domain in Google Search Console.
+3. Add and verify the site in Yandex Webmaster.
+4. Submit https://eventmaks.ru/sitemap.xml to both.
+5. Request indexing of the homepage.
+6. Connect/complete Yandex Business profile with the exact same site/phone/region.
+7. After indexing, build dedicated high-quality service pages only if there is enough unique content:
+   - organizer of weddings in Moscow
+   - wedding coordinator in Moscow
+   - corporate event organization
+   - birthday/private event organization
