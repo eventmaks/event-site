@@ -1,0 +1,31 @@
+FINAL CSS CLEANUP V46
+
+What was cleaned
+- Removed 333 obsolete/version-history comments from style.css.
+- Removed 22 obsolete/version-history comments from mobile-rebuild.css.
+- Removed deployment-irrelevant .md audit/history files and .DS_Store.
+- Updated cache versions to v46.
+
+Size
+- style.css: 226,597 -> 187,193 bytes (-39,404 bytes / -17.4%).
+- mobile-rebuild.css: 44,256 -> 43,116 bytes (-1,140 bytes / -2.6%).
+- Total CSS reduction: 40,544 bytes.
+
+Safety / regression checks
+- CSS cascade structure was preserved.
+- Selector order preserved.
+- Declaration order preserved.
+- Media-query order preserved.
+- !important flags preserved.
+- Semantic AST hash for style.css matches V45 exactly after comments are ignored.
+- Semantic AST hash for mobile-rebuild.css matches V45 exactly after comments are ignored.
+- JavaScript syntax passes node --check.
+- Duplicate HTML IDs: none.
+- Main H1 count: 1.
+- No missing normal local asset references found.
+- No visual/content redesign was performed.
+
+Important
+This cleanup is intentionally conservative. Non-adjacent duplicate selectors were NOT
+blindly deleted because old overrides can still participate in the CSS cascade and removing
+them without a full browser regression suite could change the approved design.

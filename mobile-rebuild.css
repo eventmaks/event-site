@@ -1,7 +1,3 @@
-/* Phone layout: single component rule sets. Desktop and tablet remain in style.css.
-   Important declarations bridge the existing desktop cascade; do not add version layers. */
-
-/* Global */
 :root {
   --m-side: 14px;
   --m-max: 430px;
@@ -29,8 +25,6 @@ body.phone-lite .calc {
 body.phone-lite .noise {
   opacity: .045!important;
 }
-
-/* ---------- HERO: same composition, scaled for phone ---------- */
 body.phone-lite .hero{
   position:relative!important;
   width:100%!important;
@@ -121,8 +115,6 @@ body.phone-lite .hero .arrow{
   left:auto!important;
   width:38px!important;
 }
-
-/* Showreel */
 body.phone-lite .showreel-scene {
   position: relative!important;
   padding: 0!important;
@@ -198,8 +190,6 @@ body.phone-lite .showreel-sound {
   font-size: 11px!important;
   background: rgba(23,23,23,.7)!important;
 }
-
-/* About */
 body.phone-lite .about-pattern-track {
   display: flex!important;
   width: max-content!important;
@@ -317,8 +307,6 @@ body.phone-lite .about-stamp {
 body.phone-lite .about-pattern-row:nth-child(n+18) {
   display: none!important;
 }
-
-/* Team */
 body.phone-lite .team-marquee-track {
   will-change: transform!important;
   animation: teamMarquee 26s linear infinite!important;
@@ -462,8 +450,6 @@ body.phone-lite .team-card:nth-child(even) {
   width: 100%!important;
   margin: 0!important;
 }
-
-/* Portfolio */
 body.phone-lite .portfolio-word-track {
   will-change: transform!important;
   display: flex!important;
@@ -551,8 +537,6 @@ body.phone-lite .portfolio-word span {
   font-size: clamp(40px, 12vw, 56px)!important;
   line-height: 1.15!important;
 }
-
-/* Quiz */
 body.phone-lite .quiz-section {
   padding: 48px 0 56px!important;
 }
@@ -668,8 +652,6 @@ body.phone-lite .quiz-consent {
   font-size: 12px!important;
   line-height: 1.5!important;
 }
-
-/* Benefits */
 body.phone-lite .benefits-section {
   min-height: 0!important;
   overflow: hidden!important;
@@ -721,8 +703,6 @@ body.phone-lite .benefits-title-stamp {
 body.phone-lite .benefits-side-doodle {
   display: block!important;
 }
-
-/* Contract */
 body.phone-lite .contract-ref {
   min-height: 0!important;
   overflow: hidden!important;
@@ -765,8 +745,6 @@ body.phone-lite .contract-visual-note {
   transform: scale(.72)!important;
   transform-origin: center!important;
 }
-
-/* Cost */
 body.phone-lite .cost-section {
   position: relative!important;
   overflow: hidden!important;
@@ -870,8 +848,6 @@ body.phone-lite .cost-treat {
   pointer-events: none!important;
   width: 24px!important;
 }
-
-/* Reviews */
 body.phone-lite .reviews-carousel-section {
   overflow: hidden!important;
   padding: 44px 0 48px!important;
@@ -930,8 +906,6 @@ body.phone-lite .reviews-arrow {
   width: 44px!important;
   height: 44px!important;
 }
-
-/* FAQ */
 body.phone-lite .faq-section {
   padding: 44px 0 48px!important;
 }
@@ -971,8 +945,6 @@ body.phone-lite .faq-item::before {
 body.phone-lite .faq-plus {
   flex-shrink: 0!important;
 }
-
-/* Contact */
 body.phone-lite .contact-final {
   min-height: 0!important;
   overflow: hidden!important;
@@ -1164,7 +1136,6 @@ body.phone-lite .contact-message p {
 body.phone-lite .contact-message > span {
   font-size: 10px!important;
 }
-/* Cookie */
 body.phone-lite .entry-consent.entry-consent--banner {
   right: max(8px, env(safe-area-inset-right))!important;
   bottom: max(8px, env(safe-area-inset-bottom))!important;
@@ -1199,8 +1170,6 @@ body.phone-lite .entry-consent.entry-consent--banner .entry-consent-close {
 body.phone-lite .entry-consent.entry-consent--banner[hidden] {
   display: none!important;
 }
-
-/* Transitions */
 body.phone-lite .flow-bridge {
   --bridge-p: 0;
   height: 36px!important;
@@ -1216,21 +1185,11 @@ body.phone-lite .flow-bridge {
   body.phone-lite .team-marquee-track,
   body.phone-lite.hero-opened .hero .portrait img { animation: none!important; }
 }
-
-/* Offscreen motion consumes no animation frames. */
 body.phone-lite .motion-paused .team-marquee-track,
 body.phone-lite .motion-paused .portfolio-word-track,
 body.phone-lite.hero-opened .hero.motion-paused .portrait img {
   animation-play-state: paused!important;
 }
-
-
-/* =====================================================================
-   MOBILE FIX V41
-   Hero/first screen is untouched.
-   ===================================================================== */
-
-/* ---- Make only the final legal/footer area compact ---- */
 body.phone-lite .contact-final-caption{
   margin:12px auto 14px!important;
   gap:3px!important;
@@ -1271,8 +1230,6 @@ body.phone-lite .site-footer-legal a{
   line-height:1.2!important;
   padding:0!important;
 }
-
-/* ---- Cookie: small and bottom-left ---- */
 body.phone-lite .entry-consent.entry-consent--banner{
   left:max(8px,env(safe-area-inset-left))!important;
   right:auto!important;
@@ -1335,8 +1292,6 @@ body.phone-lite .entry-consent.entry-consent--banner .entry-consent-close{
   height:18px!important;
   font-size:12px!important;
 }
-
-/* ---- Persistent "Рассчитать стоимость" ---- */
 body.phone-lite .calc,
 body.phone-lite .calc.is-mobile-context-hidden{
   display:grid!important;
@@ -1387,12 +1342,6 @@ body.phone-lite .calc i{
     width:min(224px,calc(100vw - 16px))!important;
   }
 }
-
-
-/* =====================================================================
-   iOS APP-SWITCHER OPENING V43
-   Mobile only. The center preview is a clone of the ACTUAL Hero DOM.
-   ===================================================================== */
 
 body.phone-lite .opening-screen{
   display:none!important;

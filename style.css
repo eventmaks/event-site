@@ -244,8 +244,6 @@ body{
   will-change:transform;
   transform-origin:50% 20%;
 }
-
-/* Mobile is a separate 320px artboard, just like the reference. */
 @media(max-width:1199px){
   .hero{
     min-height:570px;
@@ -312,15 +310,10 @@ body{
 }
 
 
-
 @media(prefers-reduced-motion:reduce){
   .opening{display:none}
   .calc i,.subtitle b{animation:none}
 }
-
-
-/* V2 — persistent white shape removed completely.
-   The opening reveal still uses the warm #EAE5DF panels only during page load. */
 .shape{display:none!important}
 
 @media(min-width:1200px){
@@ -346,10 +339,6 @@ body{
     left:246px;
   }
 }
-
-
-/* V3 — portrait is locked to the bottom edge.
-   No vertical drifting and no visible gap opening underneath it. */
 @media(min-width:1200px){
   .portrait{
     top:auto!important;
@@ -370,14 +359,7 @@ body{
   }
 }
 
-/* =========================================================
-   V4 — FIX BOTTOM GAP + SMOOTH OPENING
-   ========================================================= */
-
 .opening{display:none!important}
-
-/* Desktop: portrait compensates for the centered 700px artboard so it touches
-   the real viewport bottom even on 900/1080px-tall screens. */
 @media(min-width:1200px){
   .portrait{
     top:auto!important;
@@ -387,9 +369,6 @@ body{
     transform-origin:50% 100%!important;
   }
 }
-
-/* Hero elements enter softly. Portrait only scales from the bottom edge,
-   never translates vertically, so no gap can open underneath it. */
 .title,
 .subtitle,
 .arrow{
@@ -432,8 +411,6 @@ body.hero-ready .calc{
   opacity:1;
   transform:scale(1);
 }
-
-/* New smooth opening */
 .opening-screen{
   position:absolute;
   inset:0;
@@ -508,9 +485,6 @@ body.hero-opened .opening-screen{
 .subtitle{
   font-size:21px;
 }
-
-/* Mobile: artboard follows viewport height so portrait is truly attached
-   to the bottom of the screen. */
 @media(max-width:1199px){
   .canvas{
     height:100svh!important;
@@ -549,9 +523,6 @@ body.hero-opened .opening-screen{
 }
 
 html,body{background:#48222D}
-
-
-/* V5 — smooth two-state subtitle */
 .subtitle{
   min-height:28px;
 }
@@ -573,8 +544,6 @@ html,body{background:#48222D}
   transform:translateY(-5px);
   filter:blur(2px);
 }
-
-/* old blinking-cursor rules no longer apply */
 .subtitle b{display:none!important}
 
 @media(max-width:1199px){
@@ -585,14 +554,6 @@ html,body{background:#48222D}
     line-height:1.18!important;
   }
 }
-
-
-/* =========================================================
-   V6 — visible subtitle switching + portrait breathing motion
-   ========================================================= */
-
-/* The portrait stays attached to the bottom.
-   Only scale changes, so no bottom gap can appear. */
 .portrait{
   transform-origin:50% 100%!important;
   will-change:transform,opacity;
@@ -613,8 +574,6 @@ body.hero-ready .portrait{
     transform:scale(1.085)!important;
   }
 }
-
-/* Subtitle transition is deliberately more visible. */
 .subtitle #typed{
   display:inline-block;
   opacity:1;
@@ -631,14 +590,6 @@ body.hero-ready .portrait{
   transform:translateY(-7px);
   filter:blur(3px);
 }
-
-
-/* =========================================================
-   V7 — ONE FONT + REAL PORTRAIT ZOOM
-   ========================================================= */
-
-/* Use the exact same font file that the big "МАКСИМ ЧЕРЕПОВСКИЙ"
-   resolves to, for every text element on the first screen. */
 @font-face{
   font-family:"HeroSameFont";
   src:url("https://static.tildacdn.com/tild3738-6635-4533-b566-636462313638/LeonovSP.woff") format("woff");
@@ -668,11 +619,6 @@ body.hero-ready .portrait{
   font-weight:400!important;
   letter-spacing:.005em;
 }
-
-/* IMPORTANT:
-   The container stays absolutely fixed to the bottom.
-   We animate only the PNG *inside* it.
-   This bypasses the old transform:none!important rules on .portrait. */
 .portrait{
   transform:none!important;
   animation:none!important;
@@ -689,8 +635,6 @@ body.hero-ready .portrait{
   will-change:transform;
   animation:none!important;
 }
-
-/* Start motion only after the opening reveal is underway. */
 body.hero-ready .portrait img{
   animation:heroPortraitZoom 5.2s cubic-bezier(.45,0,.55,1) 1.15s infinite alternate!important;
 }
@@ -706,8 +650,6 @@ body.hero-ready .portrait img{
     transform:translate3d(0,0,0) scale(1.09);
   }
 }
-
-/* Make the subtitle switch easy to notice, but still smooth. */
 .subtitle #typed{
   transition:
     opacity .48s ease,
@@ -739,11 +681,6 @@ body.hero-ready .portrait img{
   }
 }
 
-
-/* =========================================================
-   V8 — real typing effect
-   ========================================================= */
-
 .subtitle{
   display:flex!important;
   justify-content:center!important;
@@ -771,13 +708,6 @@ body.hero-ready .portrait img{
   0%,48%{opacity:1}
   49%,100%{opacity:0}
 }
-
-
-/* =========================================================
-   SHOWREEL V7 — rebuilt from the supplied Borisov reference
-   ========================================================= */
-
-/* The approved Hero remains a complete first screen. */
 html{
   overflow-x:hidden!important;
   overflow-y:auto!important;
@@ -790,12 +720,6 @@ body{
   z-index:2;
   overflow:hidden!important;
 }
-
-/*
-  The second section is taller than one viewport.
-  Before its top reaches the viewport top it enters naturally.
-  Then the stage pins and gives a fullscreen-video hold.
-*/
 .showreel-scene{
   position:relative;
   z-index:3;
@@ -819,8 +743,6 @@ body{
   background:#EAE5DF;
   isolation:isolate;
 }
-
-/* Video is full-screen from the beginning, but hidden by the paper mask. */
 .showreel-video{
   position:absolute;
   inset:0;
@@ -833,8 +755,6 @@ body{
   transform-origin:center;
   will-change:transform;
 }
-
-/* Final buttons live underneath the paper mask. */
 .showreel-under-ui{
   position:absolute;
   inset:0;
@@ -857,8 +777,6 @@ body{
   will-change:transform,opacity,left,top;
   pointer-events:none;
 }
-
-/* Main left glass play button — above the mask, exactly like the reference. */
 .showreel-choice{
   position:absolute;
   width:124px;
@@ -921,11 +839,6 @@ body{
 .showreel-right-label{
   left:calc(var(--right-x) - 75px);
 }
-
-/*
-  Circular "СМОТРЕТЬ ВИДЕО" typography.
-  It stays a fixed size while the video hole grows, just like in the reference.
-*/
 .showreel-ring{
   position:absolute;
   z-index:6;
@@ -955,8 +868,6 @@ body{
   font-weight:400;
   letter-spacing:2.1px;
 }
-
-/* Hand-drawn arrow to the right of the small circle. */
 .showreel-arrow{
   position:absolute;
   z-index:6;
@@ -969,8 +880,6 @@ body{
   will-change:opacity,transform,top;
   pointer-events:none;
 }
-
-/* Optional audio toggle. Kept very quiet until video becomes fullscreen. */
 .showreel-sound{
   position:absolute;
   z-index:7;
@@ -992,8 +901,6 @@ body{
   cursor:pointer;
   transition:opacity .2s linear;
 }
-
-/* Keep the calculator visible like in the reference. */
 .calc{
   z-index:990!important;
 }
@@ -1040,8 +947,6 @@ body{
     left:67%;
     width:105px;
   }
-
-  /* On mobile the second button appears lower, like the original responsive layout. */
   .showreel-choice-right{
     top:calc(var(--cy) + 200px);
   }
@@ -1068,18 +973,10 @@ body{
     opacity:1!important;
   }
 }
-
-
-/* V8 — remove visible fullscreen labels completely */
 .showreel-left-label,
 .showreel-right-label{
   display:none!important;
 }
-
-
-/* =========================================================
-   ABOUT V2 — rebuilt from REC-20260904151139.mp4
-   ========================================================= */
 
 .about-reference{
   position:relative;
@@ -1093,8 +990,6 @@ body{
   color:#171215;
   font-family:"HeroSameFont",Arial,sans-serif!important;
 }
-
-/* LEFT SIDE — warm paper + repeating handwritten pattern */
 .about-left{
   position:relative;
   min-height:1520px;
@@ -1158,8 +1053,6 @@ body{
   object-fit:cover;
   object-position:center center;
 }
-
-/* Blue tape from the reference, built in CSS */
 .about-tape{
   position:absolute;
   z-index:5;
@@ -1185,8 +1078,6 @@ body{
     );
   opacity:.65;
 }
-
-/* RIGHT SIDE — tall burgundy editorial column */
 .about-right{
   position:relative;
   min-height:1520px;
@@ -1283,8 +1174,6 @@ body{
   font-weight:400!important;
   letter-spacing:.005em;
 }
-
-/* Make the section meet the next block cleanly */
 .about-reference + .calc{
   z-index:990!important;
 }
@@ -1367,32 +1256,14 @@ body{
     font-size:16px;
   }
 }
-
-
-/* =========================================================
-   V3 — REMOVE THE LARGE GAP BETWEEN VIDEO AND ABOUT
-   ========================================================= */
-
-/*
-  The large empty light area came from the Showreel section itself:
-  `min-height:1300px` was larger than the actual browser viewport,
-  so after the video reveal Safari still had hundreds of pixels of
-  warm background to scroll through before "Обо мне" could begin.
-
-  Keep only a short fullscreen hold after the reveal.
-*/
 .showreel-scene{
   height:116svh!important;
   min-height:0!important;
 }
-
-/* The sticky viewport must remain exactly one visible screen. */
 .showreel-stage{
   height:100svh!important;
   min-height:0!important;
 }
-
-/* About begins immediately after the short fullscreen hold. */
 .about-reference{
   margin-top:0!important;
 }
@@ -1409,11 +1280,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   ABOUT V4 — PATTERN CONTINUES TO THE VERY BOTTOM
-   ========================================================= */
-
 .about-left{
   overflow:hidden!important;
 }
@@ -1422,13 +1288,9 @@ body{
   top:-95px!important;
   min-height:1850px!important;
 }
-
-/* Rows continue behind the photo all the way to the bottom. */
 .about-pattern div{
   height:77px!important;
 }
-
-/* Slight alternate offset keeps the wall of text alive and avoids a rigid grid. */
 .about-pattern div:nth-child(3n){
   transform:translateX(-42px);
 }
@@ -1449,17 +1311,6 @@ body{
     height:52px!important;
   }
 }
-
-
-/* =========================================================
-   ABOUT V5 — SECTION ENDS WITH THE TEXT
-   ========================================================= */
-
-/*
-  Remove the fixed 1520px height.
-  The right text column now determines the real section height.
-  The left patterned column simply stretches to the same height.
-*/
 .about-reference{
   min-height:0!important;
   height:auto!important;
@@ -1477,20 +1328,14 @@ body{
   height:auto!important;
   align-self:stretch!important;
 }
-
-/* Keep only a clean final breathing space after the last line of text. */
 .about-right-text{
   padding-bottom:72px!important;
 }
-
-/* Pattern fills whatever height the text creates. */
 .about-pattern{
   bottom:-120px!important;
   min-height:0!important;
   height:auto!important;
 }
-
-/* Keep the photo in place; no artificial section height is needed. */
 @media(min-width:1200px){
   .about-left{
     position:relative!important;
@@ -1514,11 +1359,6 @@ body{
     padding-bottom:65px!important;
   }
 }
-
-
-/* =========================================================
-   TEAM V1 — editorial 5-person composition
-   ========================================================= */
 
 .team-section{
   position:relative;
@@ -1572,8 +1412,6 @@ body{
   transform:rotate(-1deg);
   transform-origin:left center;
 }
-
-/* Intentionally not a rigid ecommerce grid. */
 .team-grid{
   position:relative;
   width:100%;
@@ -1673,8 +1511,6 @@ body{
 .team-card-5 img{
   object-position:center 36%;
 }
-
-/* Very subtle labels/indexing — no extra bio text. */
 .team-card:before{
   position:absolute;
   z-index:4;
@@ -1722,8 +1558,6 @@ body{
   from{transform:translateX(0)}
   to{transform:translateX(-25%)}
 }
-
-/* Gentle scroll reveal. */
 .team-reveal{
   opacity:0;
   transform:translateY(26px);
@@ -1824,18 +1658,11 @@ body{
   }
 }
 
-
-/* =========================================================
-   TEAM V2 — BACKGROUND TYPOGRAPHY ACROSS THE WHOLE SECTION
-   ========================================================= */
-
 .team-section{
   position:relative!important;
   background:#EAE5DF!important;
   isolation:isolate;
 }
-
-/* Large repeating "МОЯ КОМАНДА" throughout the light background */
 .team-bg-pattern{
   position:absolute;
   z-index:0;
@@ -1869,8 +1696,6 @@ body{
 .team-bg-pattern div:nth-child(3n){
   transform:translateX(55px);
 }
-
-/* Keep actual content clearly above the pattern */
 .team-shell,
 .team-head,
 .team-grid,
@@ -1878,13 +1703,9 @@ body{
   position:relative;
   z-index:2;
 }
-
-/* Give photos a tiny paper edge so they don't get lost over typography */
 .team-photo-wrap{
   box-shadow:0 0 0 1px rgba(72,34,45,.07);
 }
-
-/* Bottom moving marquee remains, but slightly stronger to connect with background */
 .team-marquee{
   opacity:.11!important;
   z-index:1!important;
@@ -1912,18 +1733,6 @@ body{
     transform:translateX(35px);
   }
 }
-
-
-/* =========================================================
-   TEAM V3 — RESTORE TEAM PHOTOS
-   ========================================================= */
-
-/*
-  V2 bug:
-  `.team-card` was accidentally changed from `position:absolute`
-  to `position:relative`, which broke the editorial layout.
-  Restore the original positioning while keeping the new background pattern.
-*/
 
 .team-shell{
   position:relative!important;
@@ -1968,8 +1777,6 @@ body{
 .team-marquee{
   z-index:1!important;
 }
-
-/* Keep reveal animation working without hiding photos permanently */
 .team-card.team-reveal{
   opacity:0;
   transform:translateY(26px);
@@ -1990,19 +1797,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   TEAM V4 — HARMONIOUS EDITORIAL LAYOUT
-   ========================================================= */
-
-/*
-  Keep the playful editorial feel, but make the composition balanced:
-  - three cards on the first row;
-  - two cards centered on the second row;
-  - equal visual rhythm and consistent photo proportions;
-  - only small, intentional vertical offsets.
-*/
-
 .team-shell{
   min-height:1380px!important;
 }
@@ -2012,8 +1806,6 @@ body{
   height:1120px!important;
   margin:42px auto 0!important;
 }
-
-/* Unified card width / photo ratio for a cleaner visual rhythm */
 .team-card{
   width:320px!important;
 }
@@ -2022,8 +1814,6 @@ body{
   width:320px!important;
   height:430px!important;
 }
-
-/* Row 1 */
 .team-card-1{
   left:0!important;
   top:54px!important;
@@ -2036,8 +1826,6 @@ body{
   left:784px!important;
   top:64px!important;
 }
-
-/* Row 2 — centered and slightly larger as a closing pair */
 .team-card-4,
 .team-card-5{
   width:350px!important;
@@ -2058,8 +1846,6 @@ body{
   left:582px!important;
   top:572px!important;
 }
-
-/* More deliberate portrait framing */
 .team-card-1 img{
   object-position:center 42%!important;
 }
@@ -2075,16 +1861,12 @@ body{
 .team-card-5 img{
   object-position:center 31%!important;
 }
-
-/* Names use the same visual baseline and spacing */
 .team-name{
   margin-top:12px!important;
   font-size:17px!important;
   line-height:1.08!important;
   letter-spacing:.012em!important;
 }
-
-/* Background typography quieter so it supports the portraits instead of competing */
 .team-bg-pattern{
   opacity:.055!important;
 }
@@ -2092,15 +1874,11 @@ body{
 .team-marquee{
   opacity:.085!important;
 }
-
-/* Keep only subtle numbering */
 .team-card:before{
   right:10px!important;
   top:10px!important;
   opacity:.82;
 }
-
-/* Mobile remains intentionally simple and aligned */
 @media(max-width:1199px){
   .team-shell{
     min-height:0!important;
@@ -2135,19 +1913,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   TEAM V5 — CLEAN ALIGNED LAYOUT
-   ========================================================= */
-
-/*
-  New composition:
-  - first row = 3 cards perfectly aligned;
-  - second row = 2 cards centered;
-  - same card width and same image height everywhere;
-  - no random vertical offsets.
-*/
-
 .team-shell{
   min-height:1320px!important;
 }
@@ -2171,8 +1936,6 @@ body{
   width:320px!important;
   height:440px!important;
 }
-
-/* Top row — perfectly aligned */
 .team-card-1{
   left:0!important;
   top:0!important;
@@ -2187,8 +1950,6 @@ body{
   left:780px!important;
   top:0!important;
 }
-
-/* Bottom row — centered under the top row */
 .team-card-4{
   left:195px!important;
   top:550px!important;
@@ -2198,8 +1959,6 @@ body{
   left:585px!important;
   top:550px!important;
 }
-
-/* Keep portrait framing balanced */
 .team-card-1 img{
   object-position:center 43%!important;
 }
@@ -2219,16 +1978,12 @@ body{
 .team-card-5 img{
   object-position:center 34%!important;
 }
-
-/* Same name rhythm for every card */
 .team-name{
   margin-top:12px!important;
   font-size:17px!important;
   line-height:1.08!important;
   text-align:left!important;
 }
-
-/* Make the decorative background even quieter */
 .team-bg-pattern{
   opacity:.045!important;
 }
@@ -2236,8 +1991,6 @@ body{
 .team-marquee{
   opacity:.07!important;
 }
-
-/* Mobile remains one straight column */
 @media(max-width:1199px){
   .team-shell{
     min-height:0!important;
@@ -2267,20 +2020,10 @@ body{
   }
 }
 
-
-/* =========================================================
-   TEAM V6 — REMOVE CARD NUMBERING
-   ========================================================= */
-
 .team-card:before{
   display:none!important;
   content:none!important;
 }
-
-
-/* =========================================================
-   PORTFOLIO V1 — editorial gallery
-   ========================================================= */
 
 .portfolio-section{
   position:relative;
@@ -2374,16 +2117,12 @@ body{
 .portfolio-item:hover .portfolio-img img{
   transform:scale(1.025);
 }
-
-/* Big opening frame */
 .portfolio-wide .portfolio-img{
   height:590px;
 }
 .portfolio-wide .portfolio-img img{
   object-position:center center;
 }
-
-/* Two balanced photographs */
 .portfolio-pair{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -2392,24 +2131,18 @@ body{
 .portfolio-pair .portfolio-img{
   height:520px;
 }
-
-/* The first pair is bright and crowded; crop slightly lower to preserve faces */
 .portfolio-pair .portfolio-item:first-child img{
   object-position:center 43%;
 }
 .portfolio-pair .portfolio-item:last-child img{
   object-position:center 44%;
 }
-
-/* Dark hosting frame becomes a calmer visual pause */
 .portfolio-img-dark{
   height:610px!important;
 }
 .portfolio-img-dark img{
   object-position:center 42%!important;
 }
-
-/* Three moments on one calm baseline */
 .portfolio-triptych{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -2427,8 +2160,6 @@ body{
 .portfolio-triptych .portfolio-item:nth-child(3) img{
   object-position:center 46%;
 }
-
-/* Final composition uses the one vertical shot to create a deliberate ending */
 .portfolio-finale{
   display:grid;
   grid-template-columns:1.65fr .85fr;
@@ -2445,8 +2176,6 @@ body{
 .portfolio-finale-vertical img{
   object-position:center 48%;
 }
-
-/* Large quiet type under the images */
 .portfolio-word{
   position:absolute;
   z-index:1;
@@ -2561,13 +2290,6 @@ body{
     transition:none!important;
   }
 }
-
-
-/* =========================================================
-   PORTFOLIO V2 — MORE COMPACT
-   ========================================================= */
-
-/* Reduce the overall vertical footprint without changing the composition. */
 .portfolio-section{
   padding-top:70px!important;
   padding-bottom:110px!important;
@@ -2590,8 +2312,6 @@ body{
 .portfolio-finale{
   gap:16px!important;
 }
-
-/* Main visual reduction: shorter image blocks */
 .portfolio-wide .portfolio-img{
   height:470px!important;
 }
@@ -2612,8 +2332,6 @@ body{
 .portfolio-finale-vertical .portfolio-img{
   height:470px!important;
 }
-
-/* Decorative footer type slightly smaller and closer to the content */
 .portfolio-word{
   bottom:18px!important;
 }
@@ -2662,21 +2380,6 @@ body{
     font-size:40px!important;
   }
 }
-
-
-/* =========================================================
-   SHOWREEL PERFORMANCE V3
-   Safari / reverse-scroll optimization
-   ========================================================= */
-
-/*
-  Previous version scaled a 2600×1800 SVG up to ~15–20x.
-  Safari can rasterize/promote that into an enormous compositing layer,
-  which is especially noticeable while reversing scroll direction.
-
-  The new SVG always stays viewport-sized.
-  JS changes only the radius of the transparent circle.
-*/
 .showreel-stage{
   contain:paint!important;
 }
@@ -2697,16 +2400,12 @@ body{
   pointer-events:none!important;
   overflow:visible!important;
 }
-
-/* Avoid compositing a second continuously changing video transform. */
 .showreel-video{
   transform:translateZ(0) scale(1.018)!important;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
   will-change:auto!important;
 }
-
-/* Backdrop blur is attractive but relatively expensive in Safari during scroll. */
 .showreel-choice,
 .showreel-sound{
   -webkit-backdrop-filter:none!important;
@@ -2720,19 +2419,12 @@ body{
 .showreel-sound{
   background:rgba(0,0,0,.28)!important;
 }
-
-/* Circle/ring are tiny layers; promote only these instead of the giant mask. */
 .showreel-ring,
 .showreel-arrow{
   transform-style:preserve-3d;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
 }
-
-
-/* =========================================================
-   QUIZ V1 — reference-style cost calculator
-   ========================================================= */
 
 .quiz-section{
   position:relative;
@@ -3116,11 +2808,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   QUIZ V2 — copy and layout refinements for Maksim
-   ========================================================= */
-
 .quiz-option-wide{
   grid-column:1 / -1;
 }
@@ -3135,26 +2822,12 @@ body{
   }
 }
 
-
-/* =========================================================
-   QUIZ V3 — MORE READABLE FONT
-   ========================================================= */
-
-/*
-  Keep the main quiz headline in the current handwritten/site font.
-  Everything else in the calculator switches to a clean system sans-serif.
-*/
-
 .quiz-card{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif!important;
 }
-
-/* DO NOT change this headline */
 .quiz-title{
   font-family:"HeroSameFont",Arial,sans-serif!important;
 }
-
-/* Improve readability of all functional quiz text */
 .quiz-question,
 .quiz-option,
 .quiz-gift span,
@@ -3186,8 +2859,6 @@ body{
 .quiz-note{
   font-weight:400!important;
 }
-
-/* Slightly calmer letter spacing for interface text */
 .quiz-question,
 .quiz-option,
 .quiz-gift span,
@@ -3199,16 +2870,9 @@ body{
   letter-spacing:0!important;
 }
 
-
-/* =========================================================
-   QUIZ V4 — GENERATED GIFT PHOTOS
-   ========================================================= */
-
 .quiz-option-image img{
   object-fit:cover!important;
 }
-
-/* Fine-tuned crops for the three newly generated scenes */
 .quiz-options-gifts .quiz-gift:nth-child(1) .quiz-option-image img{
   object-position:center center!important;
 }
@@ -3220,18 +2884,10 @@ body{
 .quiz-options-gifts .quiz-gift:nth-child(3) .quiz-option-image img{
   object-position:center center!important;
 }
-
-/* The third option is now a photo card too. */
 .quiz-gift-empty,
 .quiz-empty-text{
   display:none!important;
 }
-
-
-/* =========================================================
-   BENEFITS V1 — "ЧТО ВЫ ПОЛУЧИТЕ"
-   Reference-driven layout
-   ========================================================= */
 
 .benefits-section{
   position:relative;
@@ -3471,36 +3127,14 @@ body{
   }
 }
 
-
-/* =========================================================
-   BENEFITS V4 — REFERENCE-LIKE REVERSIBLE SCROLL REVEAL
-   ========================================================= */
-
-/*
-  Rebuilt from the clean V1 version after re-checking the reference video
-  frame by frame.
-
-  Reference behaviour:
-  - cards do NOT fly in horizontally;
-  - a card first appears as a pale blue "ghost";
-  - then its text/background smoothly gain opacity;
-  - the card rises only a little;
-  - scrolling upward performs the same motion backwards;
-  - the vertical timeline grows/shrinks together with the cards.
-*/
-
 .benefits-section{
   --benefits-title-p:0;
   --benefits-line-p:0;
 }
-
-/* Kill the old one-way IntersectionObserver state only in this block. */
 .benefits-section .benefits-reveal,
 .benefits-section .benefits-reveal.is-visible{
   transition:none!important;
 }
-
-/* Heading has only a very light entrance, like in the reference. */
 .benefits-title{
   opacity:calc(.18 + var(--benefits-title-p) * .82)!important;
   transform:translateY(calc((1 - var(--benefits-title-p)) * 16px))!important;
@@ -3521,19 +3155,11 @@ body{
     scale(calc(.88 + var(--benefits-title-p) * .12))!important;
   transform-origin:center!important;
 }
-
-/* The line is actually drawn as the cards open, and rewinds on scroll-up. */
 .benefits-line{
   transform:scaleY(var(--benefits-line-p))!important;
   transform-origin:top center!important;
   will-change:transform;
 }
-
-/*
-  JS writes --card-p from 0 to 1 for EACH card.
-  At p=0 the pale card is already barely visible — this recreates the
-  "ghost rectangle" visible in the reference before the text fully appears.
-*/
 .benefit-card{
   --card-p:0;
   opacity:calc(.075 + var(--card-p) * .925)!important;
@@ -3544,8 +3170,6 @@ body{
   transition:none!important;
   will-change:opacity,transform;
 }
-
-/* Text appears slightly later than the blue plate itself. */
 .benefit-card h3,
 .benefit-card p{
   opacity:clamp(0, calc((var(--card-p) - .12) * 1.18), 1);
@@ -3553,21 +3177,15 @@ body{
   transition:none!important;
   will-change:opacity,transform;
 }
-
-/* Dots track each corresponding card. */
 .benefit-card .benefit-dot{
   opacity:var(--card-p)!important;
   transform:scale(calc(.45 + var(--card-p) * .55))!important;
   transition:none!important;
   will-change:opacity,transform;
 }
-
-/* Decorative splatter is static in the reference; don't animate it. */
 .benefits-splatter{
   transform:none!important;
 }
-
-/* On mobile the same effect, just with a shorter vertical travel. */
 @media(max-width:1199px){
   .benefit-card{
     transform:
@@ -3590,11 +3208,6 @@ body{
     --card-p:1!important;
   }
 }
-
-
-/* =========================================================
-   CONTRACT V4 — rebuilt from user's exact video reference
-   ========================================================= */
 
 .contract-ref{
   --pen-p:0;
@@ -3685,8 +3298,6 @@ body{
   background:#171717;
   transform:rotate(-1deg);
 }
-
-/* Same blue strip visible at the bottom of the reference section */
 .contract-ref-bottom{
   position:absolute;
   z-index:1;
@@ -3696,26 +3307,15 @@ body{
   height:72px;
   background:#BBCBD8;
 }
-
-/*
-  PEN ANIMATION:
-  The NIB stays attached to the signature area.
-  The whole pen pivots around the nib from a resting almost-horizontal
-  position to an upright writing position.
-*/
 #contractRefPen{
   transform-origin:0 0;
   will-change:transform;
 }
-
-/* The little heart/signature becomes slightly darker while the pen "writes". */
 #contractRefMark{
   stroke-dasharray:92;
   stroke-dashoffset:calc(92 - var(--pen-p) * 92);
   opacity:calc(.38 + var(--pen-p) * .62);
 }
-
-/* Nothing else flies in: the document and title are stable, like the video. */
 .contract-ref-paper-group,
 .contract-ref-copy{
   will-change:auto;
@@ -3768,17 +3368,6 @@ body{
     --pen-p:.45!important;
   }
 }
-
-
-/* =========================================================
-   CONTRACT V5 — ALIGNMENT + PEN REALLY DRAWS THE HEART
-   ========================================================= */
-
-/*
-  Alignment correction:
-  in V4 the document sat noticeably higher than the title.
-  Move only the visual down so the two main objects share one visual axis.
-*/
 .contract-ref-shell{
   align-items:center!important;
 }
@@ -3790,38 +3379,26 @@ body{
 .contract-ref-copy{
   transform:translateY(0)!important;
 }
-
-/* Slightly enlarge the contract to restore visual balance after moving it down. */
 .contract-ref-art{
   width:435px!important;
 }
-
-/* Heart starts invisible and is progressively drawn by JS. */
 #contractHeartPath{
   opacity:0;
   transition:none!important;
   will-change:stroke-dashoffset,opacity;
 }
-
-/* The moving SVG group MUST NOT receive CSS transform. */
 #contractRefPenMover{
   opacity:0;
   transition:none!important;
   will-change:opacity;
 }
-
-/* Artwork has its fixed handwriting angle relative to the path tangent. */
 #contractRefPenArt{
   transform-origin:0 0;
 }
-
-/* Keep everything around the nib visible. */
 .contract-ref-art,
 .contract-ref-visual{
   overflow:visible!important;
 }
-
-/* On mobile alignment is stacked, so remove the desktop downward shift. */
 @media(max-width:1199px){
   .contract-ref-visual{
     transform:none!important;
@@ -3831,45 +3408,17 @@ body{
     width:285px!important;
   }
 }
-
-
-/* =========================================================
-   CONTRACT V6 — HEART STARTS LATER AND IS MUCH MORE VISIBLE
-   ========================================================= */
-
-/* Stronger heart line so the writing is easy to see. */
 #contractHeartPath{
   stroke:#48222D!important;
   stroke-width:4.1!important;
   opacity:0;
 }
-
-/*
-  Pen is visible in a resting position before writing starts.
-  This makes the user notice the pen first, then the actual drawing begins.
-*/
 #contractRefPenMover{
   opacity:.84;
 }
-
-/* Slightly stronger visual emphasis around the contract. */
 .contract-ref-art{
   filter:saturate(1.04) contrast(1.02);
 }
-
-
-/* =========================================================
-   CONTRACT V7 — STRAIGHT PAPER + LESS EMPTY SPACE
-   ========================================================= */
-
-/*
-  1) The white document is now perfectly parallel to the burgundy frame.
-     Both are regular rectangles inside the same rotated SVG group, so the
-     border thickness is visually even on every side.
-
-  2) Reduce the large empty transition after "Что вы получите".
-     The contract composition starts much earlier.
-*/
 .contract-ref{
   min-height:560px!important;
   padding-top:22px!important;
@@ -3880,26 +3429,15 @@ body{
   min-height:420px!important;
   align-items:center!important;
 }
-
-/* Remove the big extra downward correction from V5/V6. */
 .contract-ref-visual{
   transform:translateY(10px)!important;
 }
-
-/* Bring the title slightly upward as well so visual centers line up. */
 .contract-ref-copy{
   transform:translateY(-2px)!important;
 }
-
-/* Keep the document large enough to read but visually calmer. */
 .contract-ref-art{
   width:425px!important;
 }
-
-/*
-  The benefits section had a generous bottom padding.
-  Tighten only the hand-off to the next block.
-*/
 .benefits-section{
   padding-bottom:58px!important;
   min-height:0!important;
@@ -3929,12 +3467,6 @@ body{
     padding-bottom:44px!important;
   }
 }
-
-
-/* =========================================================
-   COST V1 — PUG + TREAT SCROLL VISUALIZATION
-   Reference mechanics adapted from REC-20260904170249.mp4
-   ========================================================= */
 
 .cost-section{
   position:relative;
@@ -4062,8 +3594,6 @@ body{
   font-size:9px;
   color:rgba(23,23,23,.50);
 }
-
-/* Pug is intentionally much smaller than the source photo. */
 .cost-pug{
   position:absolute;
   z-index:5;
@@ -4084,11 +3614,6 @@ body{
   height:auto;
   filter:drop-shadow(0 18px 20px rgba(33,38,41,.18));
 }
-
-/*
-  Treat position is written by JS because the final coordinate depends on
-  the REAL rendered pug mouth position at each viewport size.
-*/
 .cost-treat{
   position:absolute;
   z-index:7;
@@ -4125,8 +3650,6 @@ body{
   font-size:28px;
   font-weight:400;
 }
-
-/* tiny "chew" reaction after the treat reaches the mouth */
 .cost-stage.is-fed .cost-pug{
   animation:costPugChew .48s ease-in-out 1 both;
 }
@@ -4211,36 +3734,14 @@ body{
   }
 }
 
-
-/* =========================================================
-   COST V2 — SMALLER BONE BISCUIT
-   ========================================================= */
-
 .cost-treat{
   width:72px!important;
 }
-
-/* Slightly reduce the final swallow scale as well. */
 @media(max-width:1199px){
   .cost-treat{
     width:48px!important;
   }
 }
-
-
-/* =========================================================
-   COST V3 — FIXED AFTER REVIEWING REC-20260904171741.mp4
-   ========================================================= */
-
-/*
-  Corrections after frame-by-frame review:
-  - pug was too large and too close to the floating calculator;
-  - bone was still too large;
-  - the bone's target was the upper muzzle/nose, not the open mouth;
-  - motion happened too late and too quickly;
-  - bone faded before the "eating" moment was readable;
-  - decorative note added clutter and is removed.
-*/
 
 .cost-scene{
   height:142svh!important;
@@ -4262,8 +3763,6 @@ body{
 .cost-paw-note{
   display:none!important;
 }
-
-/* No extra dog zoom/translation while the biscuit is moving. */
 .cost-stage.is-fed .cost-pug{
   animation:none!important;
 }
@@ -4285,17 +3784,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   COST V4 — FULL PUG + BONE STARTS FROM THE TOP
-   ========================================================= */
-
-/*
-  1. Show the pug completely, including paws.
-  2. Start the biscuit near the "СТОИМОСТЬ" title.
-  3. Stretch the flight across almost the whole sticky scroll range.
-*/
-
 .cost-scene{
   height:175svh!important;
   min-height:1120px!important;
@@ -4313,8 +3801,6 @@ body{
   height:auto!important;
   object-fit:contain!important;
 }
-
-/* Small biscuit like in the reference. */
 .cost-treat{
   width:48px!important;
 }
@@ -4335,16 +3821,6 @@ body{
     width:34px!important;
   }
 }
-
-
-/* =========================================================
-   COST V5 — COMPACT NORMAL SECTION / CARD + PUG IN ONE ROW
-   ========================================================= */
-
-/*
-  Remove the oversized sticky 175svh scene.
-  The section now takes only as much height as its visible content.
-*/
 .cost-section{
   position:relative!important;
   min-height:0!important;
@@ -4364,8 +3840,6 @@ body{
   min-height:620px!important;
   overflow:hidden!important;
 }
-
-/* Header stays above both main columns. */
 .cost-title{
   position:relative!important;
   top:auto!important;
@@ -4378,8 +3852,6 @@ body{
 .cost-title h2{
   font-size:58px!important;
 }
-
-/* Card + pug now share one row and one visual baseline. */
 .cost-content-row{
   position:relative;
   z-index:4;
@@ -4400,11 +3872,6 @@ body{
   min-height:360px!important;
   transform:none!important;
 }
-
-/*
-  Full-body pug. Bottom of paws aligns with bottom edge of card
-  instead of extending the page below it.
-*/
 .cost-pug{
   position:relative!important;
   right:auto!important;
@@ -4421,19 +3888,13 @@ body{
   height:auto!important;
   object-fit:contain!important;
 }
-
-/* Bone is smaller and visually secondary. */
 .cost-treat{
   width:42px!important;
   z-index:8!important;
 }
-
-/* Remove old decoration that adds nothing to the reference mechanics. */
 .cost-paw-note{
   display:none!important;
 }
-
-/* No sticky dog reaction that changes layout. */
 .cost-stage.is-fed .cost-pug{
   animation:none!important;
 }
@@ -4476,20 +3937,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   COST V6 — CENTERED CARD / PUG RIGHT & LOWER / LONGER FEED PATH
-   ========================================================= */
-
-/*
-  Main composition:
-  - the "В СТОИМОСТЬ РАБОТЫ ВХОДИТ" card is visually centered on the page;
-  - pug sits a little farther to the right;
-  - pug is lowered slightly, but remains fully visible;
-  - the biscuit starts from the LEFT EDGE of the card;
-  - biscuit travel spans a longer scroll distance without adding page height.
-*/
-
 .cost-content-row{
   width:min(1120px,calc(100% - 80px))!important;
   grid-template-columns:1fr 500px 1fr!important;
@@ -4497,16 +3944,12 @@ body{
   align-items:end!important;
   justify-items:center!important;
 }
-
-/* Center column = card. */
 .cost-card{
   grid-column:2!important;
   width:500px!important;
   justify-self:center!important;
   margin:0!important;
 }
-
-/* Pug occupies the right column and is shifted slightly outward/down. */
 .cost-pug{
   grid-column:3!important;
   width:218px!important;
@@ -4515,13 +3958,9 @@ body{
   margin:0 -16px -26px 0!important;
   transform:none!important;
 }
-
-/* Keep all paws visible even with the lower placement. */
 .cost-content-row{
   padding-bottom:28px!important;
 }
-
-/* Slightly smaller biscuit for the longer travel. */
 .cost-treat{
   width:39px!important;
 }
@@ -4550,23 +3989,12 @@ body{
     width:30px!important;
   }
 }
-
-
-/* =========================================================
-   COST V7 — BONE FOLLOWS THE REFERENCE COIN PATH
-   ========================================================= */
-
-/* Keep the compact composition from V6. */
 .cost-section{
   overflow:hidden!important;
 }
-
-/* Reference coin is visually small. */
 .cost-treat{
   width:36px!important;
 }
-
-/* Pug/card layout stays compact and aligned. */
 .cost-pug{
   width:218px!important;
   margin:0 -16px -26px 0!important;
@@ -4577,18 +4005,9 @@ body{
     width:28px!important;
   }
 }
-
-
-/* =========================================================
-   COST V8 — KEEP BISCUIT AWAY FROM "СТОИМОСТЬ"
-   ========================================================= */
-
-/* A little more breathing room between heading and card for the flying bone. */
 .cost-title{
   margin-bottom:50px!important;
 }
-
-/* Keep the bone small and visually separated from the heading. */
 .cost-treat{
   width:34px!important;
 }
@@ -4602,11 +4021,6 @@ body{
     width:27px!important;
   }
 }
-
-
-/* =========================================================
-   REVIEWS V1 — text-only editorial testimonials
-   ========================================================= */
 
 .reviews-section{
   position:relative;
@@ -4819,11 +4233,6 @@ body{
     transform:none!important;
   }
 }
-
-
-/* =========================================================
-   REVIEWS V2 — REFERENCE-LIKE HORIZONTAL CAROUSEL
-   ========================================================= */
 
 .reviews-carousel-section{
   position:relative!important;
@@ -5068,11 +4477,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   FAQ V1 — reference-like accordion
-   ========================================================= */
-
 .faq-section{
   position:relative;
   z-index:12;
@@ -5255,10 +4659,6 @@ body{
   font-size:27px;
   font-weight:400;
 }
-
-/* =========================================================
-   FINAL CONTACT — reference-like phone scene
-   ========================================================= */
 
 .contact-final{
   position:relative;
@@ -5576,23 +4976,11 @@ body{
   }
 }
 
-
-/* =========================================================
-   CONTACT V3 — EMAIL INSTEAD OF INSTAGRAM
-   ========================================================= */
-
 .contact-mail{
   grid-column:2 / span 2;
   background:#48222D;
   font-size:24px!important;
 }
-
-
-/* =========================================================
-   CONTACT V4 — READABLE PHONE NUMBER
-   ========================================================= */
-
-/* Keep the design, but make the actual number easy to read. */
 .contact-call-copy strong{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif!important;
   font-size:15px!important;
@@ -5605,13 +4993,6 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif!important;
 }
 
-
-/* =========================================================
-   ABOUT — READABLE BODY FONT
-   Keep the handwritten "ДАВАЙТЕ ЗНАКОМИТЬСЯ!" heading.
-   Everything starting from "Привет! Я — Максим..." becomes readable.
-   ========================================================= */
-
 .about-right p,
 .about-right li,
 .about-lead,
@@ -5619,8 +5000,6 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif!important;
   letter-spacing:0!important;
 }
-
-/* Slightly improve text hierarchy and readability */
 .about-right p,
 .about-right li{
   font-size:15px!important;
@@ -5664,24 +5043,12 @@ body{
     line-height:1.35!important;
   }
 }
-
-
-/* =========================================================
-   QUIZ V5 — READABLE MAIN HEADING + UPDATED GIFTS
-   ========================================================= */
-
-/*
-  The main quiz headline is now intentionally readable too.
-  Use a clean sans-serif instead of the decorative site font.
-*/
 .quiz-title{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif!important;
   font-weight:650!important;
   letter-spacing:.01em!important;
   line-height:1.28!important;
 }
-
-/* Keep gift labels equally readable. */
 .quiz-gift span,
 .quiz-question,
 .quiz-option{
@@ -5693,13 +5060,6 @@ body{
   line-height:1.35!important;
   font-weight:600!important;
 }
-
-
-/* =========================================================
-   QUIZ V6 — RELEVANT PHOTOS + PERFECTLY ALIGNED COLUMNS
-   ========================================================= */
-
-/* Three equal columns with identical geometry. */
 .quiz-options-gifts{
   display:grid!important;
   grid-template-columns:repeat(3,minmax(0,1fr))!important;
@@ -5714,8 +5074,6 @@ body{
   min-width:0!important;
   align-content:start!important;
 }
-
-/* Every photo block is exactly the same size. */
 .quiz-options-gifts .quiz-option-image{
   width:100%!important;
   height:178px!important;
@@ -5724,8 +5082,6 @@ body{
   border-radius:5px!important;
   background:#eee9e3!important;
 }
-
-/* All three photos crop uniformly and fill their columns. */
 .quiz-options-gifts .quiz-option-image img{
   display:block!important;
   width:100%!important;
@@ -5733,8 +5089,6 @@ body{
   object-fit:cover!important;
   object-position:center center!important;
 }
-
-/* Fine crops by subject. */
 .quiz-options-gifts .quiz-gift:nth-child(1) .quiz-option-image img{
   object-position:center 52%!important;
 }
@@ -5746,8 +5100,6 @@ body{
 .quiz-options-gifts .quiz-gift:nth-child(3) .quiz-option-image img{
   object-position:center 48%!important;
 }
-
-/* Labels all begin at exactly the same vertical level. */
 .quiz-options-gifts .quiz-gift > span{
   display:flex!important;
   align-items:flex-start!important;
@@ -5760,8 +5112,6 @@ body{
   line-height:1.3!important;
   font-weight:600!important;
 }
-
-/* Selected state must not change card dimensions. */
 .quiz-options-gifts .quiz-gift.is-selected .quiz-option-image{
   box-shadow:0 0 0 2px rgba(72,34,45,.16)!important;
 }
@@ -5785,17 +5135,8 @@ body{
     font-size:12px!important;
   }
 }
-
-
-/* =========================================================
-   REVIEWS V3 — 7 REAL CLIENT REVIEWS
-   ========================================================= */
-
-/* Keep the reference-like stagger for the extra cards too. */
 .review-slide-6{margin-top:18px}
 .review-slide-7{margin-top:62px}
-
-/* Real reviews are longer; give the cards room without clipping. */
 .review-slide-inner{
   min-height:390px!important;
 }
@@ -5809,11 +5150,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   FULL AUDIT FIX V1 — functional/accessibility corrections
-   ========================================================= */
-
 .quiz-input.is-error{
   outline:2px solid #48222D!important;
   outline-offset:1px;
@@ -5823,15 +5159,6 @@ body{
   opacity:.58;
   cursor:wait;
 }
-
-
-/* =========================================================
-   VISUAL UPGRADE V1
-   About + Team + Portfolio
-   Adds depth and interaction without changing approved layout.
-   ========================================================= */
-
-/* ---------------- ABOUT: depth, facts, scribbles ---------------- */
 
 .about-left,
 .about-right{
@@ -5987,8 +5314,6 @@ body{
   }
 }
 
-/* ---------------- TEAM: moving type + tactile portraits ---------------- */
-
 .team-bg-pattern div{
   --team-row-shift:0px;
   will-change:transform;
@@ -6115,8 +5440,6 @@ body{
   animation-duration:34s!important;
 }
 
-/* ---------------- MOBILE: visual, but calmer ---------------- */
-
 @media(max-width:1199px){
   .about-photo-card{
     box-shadow:0 13px 28px rgba(72,34,45,.11);
@@ -6177,18 +5500,10 @@ body{
   }
 }
 
-
-/* =========================================================
-   QUIZ VISUAL V7 — premium editorial layer
-   Keeps the approved structure/content, adds visual hierarchy.
-   ========================================================= */
-
 .quiz-card{
   position:relative!important;
   isolation:isolate;
 }
-
-/* Huge quiet step watermark in the card background. */
 .quiz-card:before{
   content:attr(data-quiz-step);
   position:absolute;
@@ -6293,8 +5608,6 @@ body{
   background:#48222D;
   transform:rotate(-2deg);
 }
-
-/* Give each step a little more editorial breathing room. */
 .quiz-step{
   position:relative;
 }
@@ -6333,8 +5646,6 @@ body{
   background:#BBCBD8;
   transform:rotate(-2deg);
 }
-
-/* ---------------- Gift cards ---------------- */
 
 .quiz-options-gifts{
   gap:14px!important;
@@ -6488,8 +5799,6 @@ body{
   transition:transform .45s cubic-bezier(.22,.61,.36,1)!important;
 }
 
-/* ---------------- Answer buttons ---------------- */
-
 .quiz-options-list{
   counter-reset:quizanswer;
 }
@@ -6571,8 +5880,6 @@ body{
   }
 }
 
-/* ---------------- Footer / navigation ---------------- */
-
 .quiz-footer{
   position:relative;
 }
@@ -6618,8 +5925,6 @@ body{
   }
 }
 
-/* ---------------- Final form ---------------- */
-
 .quiz-result-form{
   position:relative;
 }
@@ -6651,8 +5956,6 @@ body{
   background:#fff!important;
   box-shadow:0 7px 18px rgba(72,34,45,.06);
 }
-
-/* ---------------- Mobile ---------------- */
 
 @media(max-width:1199px){
   .quiz-card:before{
@@ -6762,16 +6065,6 @@ body{
     transition:none!important;
   }
 }
-
-
-/* =========================================================
-   BENEFITS + CONTRACT VISUAL V1
-   Extra visual depth while preserving approved mechanics.
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   BENEFITS — restrained motion and editorial micro-details
-   --------------------------------------------------------- */
 
 .benefits-section{
   --benefits-scene-p:0;
@@ -6921,10 +6214,6 @@ body{
   box-shadow:
     0 0 0 calc(var(--card-p) * 5px) rgba(175,196,211,.18);
 }
-
-/* ---------------------------------------------------------
-   CONTRACT — physical paper feeling, same heart/pen mechanism
-   --------------------------------------------------------- */
 
 .contract-ref{
   --contract-scene-p:0;
@@ -7106,8 +6395,6 @@ body{
 #contractRefPenMover{
   filter:drop-shadow(0 3px 3px rgba(0,0,0,.12));
 }
-
-/* Small ink bloom at the very end of writing, without changing trajectory. */
 .contract-ref:after{
   content:"";
   position:absolute;
@@ -7123,10 +6410,6 @@ body{
   transform:rotate(-8deg);
   pointer-events:none;
 }
-
-/* ---------------------------------------------------------
-   MOBILE — keep the extra visual layer quieter
-   --------------------------------------------------------- */
 
 @media(max-width:1199px){
   .benefits-title-stamp{
@@ -7226,16 +6509,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   COST + REVIEWS VISUAL V1
-   Cost bone trajectory is intentionally untouched.
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   REVIEWS — scroll-linked drift + living wave
-   --------------------------------------------------------- */
-
 .reviews-carousel-section{
   --reviews-scene-p:0;
   --reviews-wave-x:0px;
@@ -7274,11 +6547,6 @@ body{
       0
     )!important;
 }
-
-/*
-  Different cards stay on their reference-like levels, but gain
-  a 2–5px scroll float and an almost imperceptible paper tilt.
-*/
 .review-slide{
   --review-float:0px;
   --review-tilt:0deg;
@@ -7342,10 +6610,6 @@ body{
   }
 }
 
-/* ---------------------------------------------------------
-   MOBILE — no exaggerated movement
-   --------------------------------------------------------- */
-
 @media(max-width:1199px){
 
 
@@ -7375,12 +6639,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   COST ALIGNMENT FIX V1
-   Clean centred column; approved bone path stays untouched.
-   ========================================================= */
-
 .cost-content-row{
   grid-template-columns:minmax(0,1fr) 500px minmax(0,1fr)!important;
   justify-items:stretch!important;
@@ -7408,8 +6666,6 @@ body{
   margin-left:0!important;
   margin-right:0!important;
 }
-
-/* Fixed custom bullets make every text line start on one clean vertical axis. */
 .cost-card ul{
   width:100%!important;
   box-sizing:border-box!important;
@@ -7484,11 +6740,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   PORTFOLIO V1 — editorial gallery
-   ========================================================= */
-
 .portfolio-section{
   position:relative;
   z-index:6;
@@ -7589,16 +6840,12 @@ body{
 .portfolio-item:hover .portfolio-img img{
   transform:scale(1.025);
 }
-
-/* Big opening frame */
 .portfolio-wide .portfolio-img{
   height:590px;
 }
 .portfolio-wide .portfolio-img img{
   object-position:center center;
 }
-
-/* Two balanced photographs */
 .portfolio-pair{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -7607,24 +6854,18 @@ body{
 .portfolio-pair .portfolio-img{
   height:520px;
 }
-
-/* The first pair is bright and crowded; crop slightly lower to preserve faces */
 .portfolio-pair .portfolio-item:first-child img{
   object-position:center 43%;
 }
 .portfolio-pair .portfolio-item:last-child img{
   object-position:center 44%;
 }
-
-/* Dark hosting frame becomes a calmer visual pause */
 .portfolio-img-dark{
   height:610px!important;
 }
 .portfolio-img-dark img{
   object-position:center 42%!important;
 }
-
-/* Three moments on one calm baseline */
 .portfolio-triptych{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -7642,8 +6883,6 @@ body{
 .portfolio-triptych .portfolio-item:nth-child(3) img{
   object-position:center 46%;
 }
-
-/* Final composition uses the one vertical shot to create a deliberate ending */
 .portfolio-finale{
   display:grid;
   grid-template-columns:1.65fr .85fr;
@@ -7660,8 +6899,6 @@ body{
 .portfolio-finale-vertical img{
   object-position:center 48%;
 }
-
-/* Large quiet type under the images */
 .portfolio-word{
   position:absolute;
   z-index:1;
@@ -7776,13 +7013,6 @@ body{
     transition:none!important;
   }
 }
-
-
-/* =========================================================
-   PORTFOLIO V2 — MORE COMPACT
-   ========================================================= */
-
-/* Reduce the overall vertical footprint without changing the composition. */
 .portfolio-section{
   padding-top:70px!important;
   padding-bottom:110px!important;
@@ -7805,8 +7035,6 @@ body{
 .portfolio-finale{
   gap:16px!important;
 }
-
-/* Main visual reduction: shorter image blocks */
 .portfolio-wide .portfolio-img{
   height:470px!important;
 }
@@ -7827,8 +7055,6 @@ body{
 .portfolio-finale-vertical .portfolio-img{
   height:470px!important;
 }
-
-/* Decorative footer type slightly smaller and closer to the content */
 .portfolio-word{
   bottom:18px!important;
 }
@@ -7877,14 +7103,6 @@ body{
     font-size:40px!important;
   }
 }
-
-
-/* =========================================================
-   PORTFOLIO RESTORED FROM VISUAL-UPGRADE-V1
-   ========================================================= */
-/* =========================================================
-   PORTFOLIO V1 — editorial gallery
-   ========================================================= */
 
 .portfolio-section{
   position:relative;
@@ -7986,16 +7204,12 @@ body{
 .portfolio-item:hover .portfolio-img img{
   transform:scale(1.025);
 }
-
-/* Big opening frame */
 .portfolio-wide .portfolio-img{
   height:590px;
 }
 .portfolio-wide .portfolio-img img{
   object-position:center center;
 }
-
-/* Two balanced photographs */
 .portfolio-pair{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -8004,24 +7218,18 @@ body{
 .portfolio-pair .portfolio-img{
   height:520px;
 }
-
-/* The first pair is bright and crowded; crop slightly lower to preserve faces */
 .portfolio-pair .portfolio-item:first-child img{
   object-position:center 43%;
 }
 .portfolio-pair .portfolio-item:last-child img{
   object-position:center 44%;
 }
-
-/* Dark hosting frame becomes a calmer visual pause */
 .portfolio-img-dark{
   height:610px!important;
 }
 .portfolio-img-dark img{
   object-position:center 42%!important;
 }
-
-/* Three moments on one calm baseline */
 .portfolio-triptych{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -8039,8 +7247,6 @@ body{
 .portfolio-triptych .portfolio-item:nth-child(3) img{
   object-position:center 46%;
 }
-
-/* Final composition uses the one vertical shot to create a deliberate ending */
 .portfolio-finale{
   display:grid;
   grid-template-columns:1.65fr .85fr;
@@ -8057,8 +7263,6 @@ body{
 .portfolio-finale-vertical img{
   object-position:center 48%;
 }
-
-/* Large quiet type under the images */
 .portfolio-word{
   position:absolute;
   z-index:1;
@@ -8173,13 +7377,6 @@ body{
     transition:none!important;
   }
 }
-
-
-/* =========================================================
-   PORTFOLIO V2 — MORE COMPACT
-   ========================================================= */
-
-/* Reduce the overall vertical footprint without changing the composition. */
 .portfolio-section{
   padding-top:70px!important;
   padding-bottom:110px!important;
@@ -8202,8 +7399,6 @@ body{
 .portfolio-finale{
   gap:16px!important;
 }
-
-/* Main visual reduction: shorter image blocks */
 .portfolio-wide .portfolio-img{
   height:470px!important;
 }
@@ -8224,8 +7419,6 @@ body{
 .portfolio-finale-vertical .portfolio-img{
   height:470px!important;
 }
-
-/* Decorative footer type slightly smaller and closer to the content */
 .portfolio-word{
   bottom:18px!important;
 }
@@ -8274,21 +7467,6 @@ body{
     font-size:40px!important;
   }
 }
-
-
-/* =========================================================
-   SHOWREEL PERFORMANCE V3
-   Safari / reverse-scroll optimization
-   ========================================================= */
-
-/*
-  Previous version scaled a 2600×1800 SVG up to ~15–20x.
-  Safari can rasterize/promote that into an enormous compositing layer,
-  which is especially noticeable while reversing scroll direction.
-
-  The new SVG always stays viewport-sized.
-  JS changes only the radius of the transparent circle.
-*/
 .showreel-stage{
   contain:paint!important;
 }
@@ -8309,16 +7487,12 @@ body{
   pointer-events:none!important;
   overflow:visible!important;
 }
-
-/* Avoid compositing a second continuously changing video transform. */
 .showreel-video{
   transform:translateZ(0) scale(1.018)!important;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
   will-change:auto!important;
 }
-
-/* Backdrop blur is attractive but relatively expensive in Safari during scroll. */
 .showreel-choice,
 .showreel-sound{
   -webkit-backdrop-filter:none!important;
@@ -8332,16 +7506,12 @@ body{
 .showreel-sound{
   background:rgba(0,0,0,.28)!important;
 }
-
-/* Circle/ring are tiny layers; promote only these instead of the giant mask. */
 .showreel-ring,
 .showreel-arrow{
   transform-style:preserve-3d;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
 }
-
-/* ---------------- PORTFOLIO: parallax + editorial labels ---------------- */
 
 .portfolio-gallery{
   position:relative;
@@ -8475,8 +7645,6 @@ body{
     rotate(-2deg)!important;
   will-change:transform;
 }
-
-/* Visual section handoff: a restrained blue stroke at the end of Portfolio. */
 .portfolio-section:after{
   content:"";
   position:absolute;
@@ -8544,25 +7712,10 @@ body{
   }
 }
 
-
-
-/* =========================================================
-   PORTFOLIO — REMOVE NUMBERING ONLY
-   Keep captions, parallax, hover and all other visual effects.
-   ========================================================= */
-
 .portfolio-item:before{
   display:none!important;
   content:none!important;
 }
-
-
-/* =========================================================
-   FAQ + CONTACT VISUAL V2
-   Portfolio and all upper sections are intentionally untouched.
-   ========================================================= */
-
-/* ---------------- FAQ ---------------- */
 
 .faq-section{
   --faq-scene-p:0;
@@ -8764,8 +7917,6 @@ body{
     left:115%;
   }
 }
-
-/* ---------------- FINAL CONTACT ---------------- */
 
 .contact-final{
   --contact-scene-p:0;
@@ -9136,8 +8287,6 @@ body{
   }
 }
 
-/* ---------------- MOBILE ---------------- */
-
 @media(max-width:1199px){
   .faq-kicker{
     font-size:5.5px;
@@ -9273,13 +8422,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   FLOW POLISH V1
-   Four restrained visual handoffs between finished sections.
-   No changes inside Portfolio.
-   ========================================================= */
-
 .flow-bridge{
   --bridge-p:0;
   position:relative;
@@ -9322,8 +8464,6 @@ body{
   stroke-dasharray:310;
   stroke-dashoffset:calc(310 - var(--bridge-p) * 310);
 }
-
-/* Warm Team -> burgundy Portfolio */
 .flow-team-portfolio{
   margin-top:-1px;
   margin-bottom:-1px;
@@ -9365,8 +8505,6 @@ body{
   stroke:#48222D;
   stroke-width:2;
 }
-
-/* Burgundy Portfolio -> warm Quiz */
 .flow-portfolio-quiz{
   margin-top:-1px;
   margin-bottom:-1px;
@@ -9411,8 +8549,6 @@ body{
   color:#EAE5DF;
   transform:rotate(1.5deg);
 }
-
-/* Warm Contract -> blue Cost */
 .flow-contract-cost{
   height:68px;
   margin-top:-1px;
@@ -9448,8 +8584,6 @@ body{
   stroke-width:2;
   opacity:.72;
 }
-
-/* Blue FAQ -> warm Contact */
 .flow-faq-contact{
   height:64px;
   margin-top:-1px;
@@ -9496,8 +8630,6 @@ body{
   stroke-width:1.9;
   opacity:.68;
 }
-
-/* Slightly smoother anchor landings for interactive CTA links. */
 #calculator,
 #faq,
 #contact{
@@ -9580,15 +8712,6 @@ body{
     transform:none!important;
   }
 }
-
-
-/* =========================================================
-   MOBILE PASS V1
-   Target: 320–430px phones.
-   Portfolio is intentionally untouched.
-   ========================================================= */
-
-/* Better tap behavior and safe-area handling. */
 @media(max-width:1199px){
   html,
   body{
@@ -9602,9 +8725,6 @@ body{
   a{
     -webkit-tap-highlight-color:transparent;
   }
-
-  /* Floating calculator: smaller and calmer on phones.
-     It is hidden by JS inside dense/CTA-heavy sections. */
   .calc{
     right:max(12px,env(safe-area-inset-right))!important;
     bottom:max(12px,env(safe-area-inset-bottom))!important;
@@ -9629,28 +8749,18 @@ body{
     pointer-events:none!important;
     transform:scale(.82)!important;
   }
-
-  /* Showreel sound control gets a proper mobile tap target. */
   .showreel-sound{
     min-height:44px!important;
     padding:12px 17px 11px!important;
   }
-
-  /* Reviews: arrows were 36px and too small for touch. */
   .reviews-arrow{
     width:44px!important;
     height:44px!important;
     flex:0 0 44px!important;
   }
-
-  /* The scroll-driven horizontal drift is disabled on phones in JS.
-     Keep the first card comfortably inside the viewport. */
   .reviews-track{
     padding-left:20px!important;
   }
-
-  /* Fix old .contact-mail rules leaking into the new phone UI.
-     Email must be the same fourth app icon as the other actions. */
   .contact-actions .contact-mail{
     grid-column:auto!important;
     grid-row:auto!important;
@@ -9695,8 +8805,6 @@ body{
     white-space:normal!important;
     overflow-wrap:anywhere;
   }
-
-  /* Focus should still be visible for keyboard/external-keyboard users. */
   button:focus-visible,
   a:focus-visible,
   input:focus-visible{
@@ -9704,29 +8812,9 @@ body{
     outline-offset:3px;
   }
 }
-
-/* Narrow phones: two genuine overflows found in the audit. */
-
-
-/* Extra-small legacy widths. */
-
-
-
-/* =========================================================
-   PORTFOLIO CLEAN LABELS V1
-   Removed only editorial labels: ЛЮДИ / ЭМОЦИИ / ДЕТАЛИ.
-   Layout, photos, hover, parallax and background word remain unchanged.
-   ========================================================= */
 .portfolio-note{
   display:none!important;
 }
-
-
-/* =========================================================
-   PORTFOLIO NO HOVER TOOLS V1
-   Portfolio photos are rendered as CSS backgrounds instead of <img>.
-   This removes browser/Yandex image hover helpers and all photo hover reactions.
-   ========================================================= */
 
 .portfolio-img{
   pointer-events:none!important;
@@ -9746,8 +8834,6 @@ body{
   -webkit-user-select:none!important;
   -webkit-user-drag:none!important;
 }
-
-/* Kill every old img-based hover/parallax visual inside Portfolio. */
 .portfolio-img img{
   display:none!important;
 }
@@ -9758,8 +8844,6 @@ body{
   transform:none!important;
   filter:none!important;
 }
-
-/* Keep cards visually stable under cursor. */
 .portfolio-item{
   cursor:default!important;
 }
@@ -9769,13 +8853,6 @@ body{
 .portfolio-item:active{
   transform:none!important;
 }
-
-
-/* =========================================================
-   ABOUT MOVING TEXT V1
-   Continuous seamless motion for repeated "СОЗДАЮ СОБЫТИЯ" rows.
-   Photo/card/text content is unchanged.
-   ========================================================= */
 
 .about-pattern > .about-pattern-row{
   position:relative;
@@ -9797,14 +8874,10 @@ body{
   white-space:nowrap;
   padding-right:34px;
 }
-
-/* Every second line moves in the opposite direction. */
 .about-pattern > .about-pattern-row:nth-child(even) .about-pattern-track{
   animation-name:aboutTickerRight;
   animation-duration:24s;
 }
-
-/* Slightly different speeds/delays keep it organic rather than mechanical. */
 .about-pattern > .about-pattern-row:nth-child(3n) .about-pattern-track{
   animation-duration:26s;
   animation-delay:-6s;
@@ -9850,14 +8923,6 @@ body{
   }
 }
 
-
-/* =========================================================
-   TEAM + PORTFOLIO MOVING TEXT V1
-   Same seamless motion language as "СОЗДАЮ СОБЫТИЯ".
-   ========================================================= */
-
-/* ---------------- TEAM repeated background ---------------- */
-
 .team-bg-pattern > .team-pattern-row{
   position:relative;
   display:block;
@@ -9880,8 +8945,6 @@ body{
   white-space:nowrap;
   padding-right:46px;
 }
-
-/* Neighboring rows travel in opposite directions. */
 .team-bg-pattern > .team-pattern-row:nth-child(even) .team-pattern-track{
   animation-name:teamTickerRight;
   animation-duration:25s;
@@ -9910,8 +8973,6 @@ body{
   from{transform:translate3d(-50%,0,0);}
   to{transform:translate3d(0,0,0);}
 }
-
-/* ---------------- PORTFOLIO repeated footer word ---------------- */
 
 .portfolio-word{
   left:0!important;
@@ -9977,21 +9038,6 @@ body{
     transform:none!important;
   }
 }
-
-
-/* =========================================================
-   COLOR SEAMS FIXED V2
-   Keeps the ORIGINAL site palette and original section colors.
-   Only removes visible shade jumps at section boundaries.
-   ========================================================= */
-
-/*
-  Texture layers now fade in away from the top/bottom edges.
-  This means the boundary itself shows the exact original solid
-  section color, while the texture remains visible in the body.
-*/
-
-/* Warm sections */
 .quiz-noise,
 .benefits-noise,
 .contract-ref-noise,
@@ -10015,8 +9061,6 @@ body{
     transparent 100%
   )!important;
 }
-
-/* Burgundy Portfolio */
 .portfolio-noise{
   -webkit-mask-image:linear-gradient(
     to bottom,
@@ -10037,8 +9081,6 @@ body{
     transparent 100%
   )!important;
 }
-
-/* Blue sections */
 .cost-noise,
 .reviews-carousel-section .reviews-noise,
 .faq-noise{
@@ -10061,11 +9103,6 @@ body{
     transparent 100%
   )!important;
 }
-
-/*
-  About uses its own plastic texture rather than .*-noise elements.
-  Keep the original texture, only soften it at outer boundaries.
-*/
 .about-left:after,
 .about-right:before{
   -webkit-mask-image:linear-gradient(
@@ -10083,13 +9120,6 @@ body{
     transparent 100%
   )!important;
 }
-
-/*
-  Contract → Cost was the clearest mismatch:
-  the contract's blue strip is flat #BBCBD8 while Cost immediately
-  started with noise. The Cost noise now begins lower, so these
-  surfaces meet as exactly the same original #BBCBD8.
-*/
 .cost-stage{
   background:#BBCBD8!important;
 }
@@ -10098,8 +9128,6 @@ body{
 .flow-contract-cost:after{
   background:#BBCBD8!important;
 }
-
-/* Keep the OTHER original transition colors exactly as they were. */
 .flow-team-portfolio{
   background:#EAE5DF!important;
 }
@@ -10124,17 +9152,10 @@ body{
 .flow-faq-contact:after{
   background:#EAE5DF!important;
 }
-
-/*
-  Prevent 1px anti-alias/subpixel gaps between colored sections.
-  No change to their geometry or animation.
-*/
 .flow-bridge{
   margin-top:-2px!important;
   margin-bottom:-2px!important;
 }
-
-/* Mobile: shorter fade zone so texture still has room to breathe. */
 @media(max-width:1199px){
   .quiz-noise,
   .benefits-noise,
@@ -10178,11 +9199,6 @@ body{
     )!important;
   }
 }
-
-
-/* =========================================================
-   PRIVACY + CONSENT V1
-   ========================================================= */
 .quiz-consent{
   position:relative;
   display:grid;
@@ -10296,12 +9312,6 @@ body{
   }
   .site-footer-legal a{font-size:7.5px}
 }
-
-
-/* =========================================================
-   ENTRY CONSENT V1
-   First-visit privacy/consent dialog.
-   ========================================================= */
 
 .entry-consent[hidden]{
   display:none!important;
@@ -10450,129 +9460,15 @@ body{
 body.entry-consent-open{
   overflow:hidden!important;
 }
-
-
-
-
-/* =========================================================
-   MOBILE PRO V2 — PHONE-FIRST REDESIGN + PERFORMANCE
-   Desktop/tablet >= 768px is intentionally untouched.
-   ========================================================= */
-
-
-/* Extra narrow phones: no cramped headings. */
-
-
-
-/* =========================================================
-   SHOWREEL RING + ARROW V4
-   Keep decorative ring/arrow; remove only the two play circles.
-   ========================================================= */
 .showreel-choice{
   display:none!important;
 }
-
-/* Ring and arrow are decorative again. */
 .showreel-ring{
   display:block!important;
 }
 .showreel-arrow{
   display:block!important;
 }
-
-/* Preserve the optimized mobile behavior: arrow stays hidden on phone,
-   while the ring remains as the single visual cue over the video. */
-
-
-
-/* =========================================================
-   MOBILE REFERENCE V7
-   SR3436 = Borisov reference, SR6120 = previous build.
-   The phone layout is rebuilt, while key visual mechanics remain alive.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE HERO FIX V8 — ROOT CAUSE FIX
-   The old body.hero-ready .portrait rule was overriding the
-   mobile centering transform because of higher specificity.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE SHOWREEL FIX V9
-   Based on SR9097 (our bug) vs SR3436 (Borisov reference).
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE SHOWREEL REVEAL V10
-   Small circle -> full video on scroll; reverse scroll closes it.
-   No long tail and no permanently visible "СМОТРЕТЬ ВИДЕО".
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE QUIZ TEXT FIX V11
-   Root cause: old mobile grid-template-columns was still active.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE BENEFITS + PUG TREAT V12
-   Restore desktop-like reversible visualization on phone.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE FINAL FIXES V13
-   Full surname + longer visible pug treat.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE HERO SUBTITLE V14
-   Smooth switch between the two approved hero phrases.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE ENTRY CONSENT FIX V15
-   Centered, safe-area aware, no clipped letters.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE CONSENT CLICK FIX V16
-   Explicit iPhone hit-testing and safe dismissal.
-   ========================================================= */
 .entry-consent{
   pointer-events:auto!important;
   touch-action:manipulation;
@@ -10611,23 +9507,11 @@ body.entry-consent-open{
   -webkit-user-select:none!important;
   user-select:none!important;
 }
-
-
-
-
-/* =========================================================
-   MOBILE CONSENT REAL FIX V17
-   Root cause: display:grid!important could override hidden state.
-   ========================================================= */
-
-/* Hidden must ALWAYS win, including iPhone Safari. */
 .entry-consent[hidden]{
   display:none!important;
   visibility:hidden!important;
   pointer-events:none!important;
 }
-
-/* When open, all interactive layers remain above the backdrop. */
 .entry-consent:not([hidden]){
   visibility:visible!important;
   pointer-events:auto!important;
@@ -10643,35 +9527,6 @@ body.entry-consent-open{
   pointer-events:auto!important;
   -webkit-tap-highlight-color:transparent;
 }
-
-
-/* =========================================================
-   MOBILE DESKTOP PARITY V19
-   Rebuilt after a full mobile-vs-desktop audit.
-   Goal: same visual language/mechanics as desktop, recomposed for 320–430px.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE STRICT DESKTOP PARITY V20
-   Strategy: preserve desktop composition/mechanics and scale them
-   proportionally for 320–430px instead of inventing separate mobile layouts.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE DESKTOP MOTION V21
-   The phone keeps the same typography mechanics as desktop.
-   ========================================================= */
-
-
-/* Desktop consent remains available too. */
 .entry-consent:not([hidden]){
   display:grid!important;
   visibility:visible!important;
@@ -10680,12 +9535,6 @@ body.entry-consent-open{
 .entry-consent[hidden]{
   display:none!important;
 }
-
-
-/* =========================================================
-   PHONE APP ICONS V22
-   Make the contact mockup feel like a real iPhone home/call UI.
-   ========================================================= */
 .contact-actions{
   align-items:start!important;
 }
@@ -10723,13 +9572,9 @@ body.entry-consent-open{
   height:25px!important;
   fill:#fff!important;
 }
-
-/* iPhone Phone app */
 .contact-call .contact-action-icon{
   background:linear-gradient(180deg,#61D76A 0%,#22B83D 100%)!important;
 }
-
-/* WhatsApp app */
 .contact-wa .contact-action-icon{
   background:linear-gradient(180deg,#38DC70 0%,#19B950 100%)!important;
 }
@@ -10737,8 +9582,6 @@ body.entry-consent-open{
   width:28px!important;
   height:28px!important;
 }
-
-/* Telegram app */
 .contact-tg .contact-action-icon{
   background:linear-gradient(180deg,#55BCEB 0%,#2498D5 100%)!important;
 }
@@ -10747,8 +9590,6 @@ body.entry-consent-open{
   height:27px!important;
   transform:translate(-1px,1px);
 }
-
-/* iOS Mail-style app */
 .contact-mail .contact-action-icon{
   background:linear-gradient(180deg,#5CC8FF 0%,#1976F3 100%)!important;
 }
@@ -10756,24 +9597,12 @@ body.entry-consent-open{
   width:26px!important;
   height:26px!important;
 }
-
-/* More iPhone-like spacing inside the phone mockup. */
 .contact-actions{
   grid-template-columns:repeat(4,minmax(0,1fr))!important;
   gap:9px!important;
   margin-left:16px!important;
   margin-right:16px!important;
 }
-
-
-
-
-
-
-/* =========================================================
-   CONTACT ICON REFINEMENT V23
-   Cleaner app-like icons and robust mobile alignment.
-   ========================================================= */
 .contact-actions{
   display:flex!important;
   justify-content:space-between!important;
@@ -10873,38 +9702,6 @@ body.entry-consent-open{
 .contact-wa .contact-action-icon svg{ width:26px!important; height:26px!important; }
 .contact-tg .contact-action-icon svg{ width:25px!important; height:25px!important; transform:translate(-1px,1px)!important; }
 .contact-mail .contact-action-icon svg{ width:24px!important; height:24px!important; }
-
-
-
-
-
-
-/* =========================================================
-   MOBILE CONTACT POLISH V24
-   Fixes the phone mockup specifically on mobile.
-   Desktop styling remains unchanged.
-   ========================================================= */
-
-
-
-
-
-/* =========================================================
-   MOBILE COST PUG FIX V25
-   The pug must not cover the price card on phones.
-   Desktop is unchanged.
-   ========================================================= */
-
-
-
-
-
-
-
-/* =========================================================
-   TEAM V32 — sixth member: СЛОБОДЯНЮК ДАНИИЛ
-   Desktop bottom row becomes 3 balanced cards.
-   ========================================================= */
 @media(min-width:1200px){
   .team-card-4{
     left:74px!important;
@@ -10948,12 +9745,6 @@ body.entry-consent-open{
 .team-card-6:before{
   content:"06";
 }
-
-
-/* =========================================================
-   TEAM V33 — CLEAN 3 x 2 DESKTOP GRID
-   All six cards aligned to one visual system.
-   ========================================================= */
 @media(min-width:1200px){
 
   .team-section{
@@ -11049,13 +9840,6 @@ body.entry-consent-open{
     bottom:18px!important;
   }
 }
-
-
-/* =========================================================
-   TEAM SPACING V34
-   Fix visual touching between repeated "МОЯ КОМАНДА" words
-   in the desktop team background.
-   ========================================================= */
 @media(min-width:1200px){
   .team-bg-pattern{
     opacity:.072!important;
@@ -11086,13 +9870,6 @@ body.entry-consent-open{
     letter-spacing:-.02em!important;
   }
 }
-
-
-/* =========================================================
-   TEAM SYNC V35
-   All background "МОЯ КОМАНДА" rows move together,
-   stay identical, and keep a clean gap between repeats.
-   ========================================================= */
 .team-pattern-word{
   display:block;
   flex:0 0 auto;
@@ -11142,13 +9919,6 @@ body.entry-consent-open{
     animation-delay:0s!important;
   }
 }
-
-
-/* =========================================================
-   TEAM CLEAN V36
-   Remove the large moving background text wall.
-   Keep only the bottom moving "МОЯ КОМАНДА" marquee.
-   ========================================================= */
 .team-bg-pattern{
   display:none!important;
 }
@@ -11156,12 +9926,6 @@ body.entry-consent-open{
 .team-marquee{
   display:block!important;
 }
-
-
-/* =========================================================
-   COOKIE BANNER V39
-   Smaller floating cookie notice in the bottom-right corner.
-   ========================================================= */
 .entry-consent.entry-consent--banner{
   position:fixed!important;
   right:16px!important;
@@ -11273,14 +10037,6 @@ body.entry-consent-open{
 body.entry-consent-open{
   overflow:auto!important;
 }
-
-
-
-
-/* =========================================================
-   COOKIE FIX V41
-   Small bottom-left banner. No page blocking.
-   ========================================================= */
 .entry-consent.entry-consent--banner{
   left:16px!important;
   right:auto!important;
