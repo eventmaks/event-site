@@ -1,0 +1,15 @@
+MOBILE INTRO TIMING FIX V50
+
+Problem found:
+- In V49 mobile `hero-ready` was added almost immediately.
+- That instantly started fading the branded intro.
+- `hero-opened` hid the intro at 1.9 seconds, while the original panel transition
+  could still be in progress.
+
+Fixed:
+- Branded screen remains fully visible for ~1.35 seconds.
+- Then the two paper halves open over ~1.45 seconds.
+- Intro is hidden only after ~3.35 seconds total.
+- Desktop timing remains unchanged.
+- SEO FINAL V48 remains preserved.
+- Main page / sections / cost animation / cookie behavior are unchanged.

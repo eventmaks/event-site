@@ -1712,3 +1712,44 @@ body.phone-lite.hero-ready .opening-brand{
 }
 body.phone-lite.hero-opened .opening-screen{visibility:hidden!important;}
 body.phone-lite .ios-launch{display:none!important;}
+
+
+/* =====================================================================
+   MOBILE BRANDED INTRO TIMING FIX V50
+   Fixes the intro disappearing almost immediately on phones.
+   ===================================================================== */
+body.phone-lite .opening-half{
+  transition:transform 1.45s cubic-bezier(.76,0,.24,1) 0s!important;
+}
+
+body.phone-lite .opening-brand{
+  transition:
+    opacity .42s ease .08s,
+    transform .58s cubic-bezier(.22,.61,.36,1) .04s!important;
+}
+
+body.phone-lite:not(.hero-ready) .opening-brand{
+  opacity:1!important;
+  visibility:visible!important;
+}
+
+body.phone-lite:not(.hero-ready) .opening-half-top,
+body.phone-lite:not(.hero-ready) .opening-half-bottom{
+  transform:translateY(0)!important;
+}
+
+/* Keep the real Hero visually underneath until the paper starts opening. */
+body.phone-lite:not(.hero-ready) .hero .title,
+body.phone-lite:not(.hero-ready) .hero .subtitle,
+body.phone-lite:not(.hero-ready) .hero .portrait,
+body.phone-lite:not(.hero-ready) .hero .arrow{
+  opacity:0!important;
+}
+
+/* Once opening starts, reveal the real Hero smoothly underneath. */
+body.phone-lite.hero-ready .hero .title,
+body.phone-lite.hero-ready .hero .subtitle,
+body.phone-lite.hero-ready .hero .portrait,
+body.phone-lite.hero-ready .hero .arrow{
+  opacity:1!important;
+}

@@ -150,12 +150,33 @@
   ];
 
   function begin(){
+    if(phoneLite){
+      /*
+        V50 MOBILE INTRO:
+        1) keep the branded screen fully visible long enough to read;
+        2) then open the two paper halves;
+        3) hide the intro only after that animation has actually finished.
+      */
+      if(noise) noise.classList.add("visible");
+
+      window.setTimeout(()=>{
+        body.classList.add("hero-ready");
+      },1350);
+
+      window.setTimeout(()=>{
+        body.classList.add("hero-opened");
+      },3350);
+
+      return;
+    }
+
     requestAnimationFrame(()=>{
       requestAnimationFrame(()=>{
         body.classList.add("hero-ready");
         if(noise) noise.classList.add("visible");
       });
     });
+
     setTimeout(()=>body.classList.add("hero-opened"),1900);
   }
 
