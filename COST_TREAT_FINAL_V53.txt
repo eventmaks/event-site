@@ -1,0 +1,8 @@
+COST TREAT FINAL V53
+
+Changes:
+- Treat moves slower than V52.
+- Treat size increased.
+- When the treat reaches the dog, it shrinks/fades out as if eaten.
+- Applied for desktop and mobile.
+- Cache version bumped to v53.

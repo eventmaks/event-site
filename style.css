@@ -10176,3 +10176,17 @@ body.entry-consent-open{
     width:38px!important;
   }
 }
+
+
+/* ========================================================
+   COST TREAT FINAL POLISH V53
+   Larger treat on desktop and mobile.
+   ======================================================== */
+.cost-treat{
+  width:42px!important;
+}
+@media(max-width:1199px){
+  .cost-treat{
+    width:32px!important;
+  }
+}

@@ -1071,11 +1071,11 @@
       }
 
       /*
-        V52 — SLOWER TREAT TIMING
-        Make the treat noticeably calmer on both desktop and mobile,
-        while still finishing at the mouth when the section completes.
+        V53 — EVEN SLOWER TREAT TIMING
+        Slow the motion down more so the treat reads clearly,
+        especially on mobile, while still completing within the section.
       */
-      const t=Math.pow(cSmooth(raw),1.22);
+      const t=Math.pow(cSmooth(raw),1.42);
       costStage.style.setProperty("--cost-p",t.toFixed(4));
 
       /*
@@ -1171,22 +1171,22 @@
       let pt;
       let angle=0;
 
-      if(t<=.66){
-        const q=cSmooth(cClamp(t/.66));
+      if(t<=.74){
+        const q=cSmooth(cClamp(t/.74));
         pt={
           x:lerp(startPoint.x,cornerPoint.x,q),
           y:horizontalY
         };
         angle=0;
-      }else if(t<=.90){
-        const q=cSmooth(cClamp((t-.66)/.24));
+      }else if(t<=.94){
+        const q=cSmooth(cClamp((t-.74)/.20));
         pt={
           x:cornerX,
           y:lerp(cornerPoint.y,dropPoint.y,q)
         };
         angle=0;
       }else{
-        const q=cSmooth(cClamp((t-.90)/.10));
+        const q=cSmooth(cClamp((t-.94)/.06));
         pt={
           x:lerp(dropPoint.x,mouth.x,q),
           y:lerp(dropPoint.y,mouth.y,q)
@@ -1195,28 +1195,15 @@
       }
 
       /*
-        The biscuit stays fully visible during the entire travel.
-        It starts "being eaten" only after it has actually reached the mouth.
+        V53 — EATEN AT THE MOUTH
+        The treat remains visible during the route, then shrinks and fades
+        right as it reaches Muksik, so it feels like he ate it.
       */
       let scale=1;
       let opacity=1;
-
-      if(phoneLite){
-        /*
-          On phone the treat stays visible at the mouth while the pug is
-          actually on screen. It fades only after the dog has almost left
-          through the top of the viewport.
-        */
-        const holdFade=cSmooth(
-          cClamp((pugRect.bottom-(vh*.02))/(vh*.30))
-        );
-        opacity=.15 + (holdFade*.85);
-        scale=.96 + (holdFade*.04);
-      }else{
-        const swallow=cSmooth(cClamp((t-.965)/.035));
-        scale=1-(swallow*.72);
-        opacity=1-cClamp((swallow-.70)/.30);
-      }
+      const swallow=cSmooth(cClamp((t-.94)/.06));
+      scale=1-(swallow*.88);
+      opacity=1-swallow;
 
       costTreat.style.transform=
         `translate3d(${pt.x.toFixed(2)}px,${pt.y.toFixed(2)}px,0) `+
