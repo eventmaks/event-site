@@ -1627,3 +1627,43 @@ body.phone-lite .ios-launch.ios-launch-finish{
     display:none!important;
   }
 }
+
+
+/* =====================================================================
+   iOS OPENING PERFORMANCE V47
+   Same visual concept, less GPU-heavy on iPhone Safari/Yandex.
+   ===================================================================== */
+body.phone-lite .ios-launch-bg{
+  filter:none!important;
+  transform:scale(1.02)!important;
+}
+
+body.phone-lite .ios-launch-bg:after{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  background:rgba(12,12,18,.24)!important;
+}
+
+body.phone-lite .ios-launch-card{
+  backface-visibility:hidden!important;
+  -webkit-backface-visibility:hidden!important;
+  transform-style:preserve-3d!important;
+  contain:layout paint!important;
+}
+
+body.phone-lite .ios-launch-preview,
+body.phone-lite .ios-launch-side{
+  backface-visibility:hidden!important;
+  -webkit-backface-visibility:hidden!important;
+}
+
+body.phone-lite .ios-launch-app-label{
+  transition-duration:.72s,1.28s!important;
+}
+
+body.phone-lite .ios-launch.ios-launch-run .ios-launch-card{
+  transition:
+    transform 1.55s cubic-bezier(.22,.72,.12,1),
+    border-radius 1.38s cubic-bezier(.22,.72,.12,1),
+    box-shadow 1.05s ease!important;
+}

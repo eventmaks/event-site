@@ -1,5 +1,35 @@
 (()=>{
   const body=document.body;
+
+  /* ========================================================
+     REFRESH POSITION FIX V47
+     Always reopen/reload on the first Hero screen.
+     Safari/Yandex may restore scroll after parsing, so repeat briefly.
+     ======================================================== */
+  try{
+    if("scrollRestoration" in history) history.scrollRestoration="manual";
+  }catch(error){}
+
+  let initialTopLock=true;
+  const forceInitialTop=()=>{
+    if(!initialTopLock) return;
+    document.documentElement.scrollTop=0;
+    document.body.scrollTop=0;
+    window.scrollTo(0,0);
+  };
+
+  forceInitialTop();
+  requestAnimationFrame(forceInitialTop);
+  window.addEventListener("pageshow",forceInitialTop,{passive:true});
+  window.addEventListener("load",()=>{
+    forceInitialTop();
+    window.setTimeout(forceInitialTop,60);
+    window.setTimeout(forceInitialTop,180);
+    window.setTimeout(()=>{
+      forceInitialTop();
+      initialTopLock=false;
+    },420);
+  },{once:true});
   const noise=document.querySelector(".noise");
   const typed=document.getElementById("typed");
   const phoneQuery=window.matchMedia("(max-width: 767px)");
@@ -75,14 +105,15 @@
       body.classList.add("hero-ready");
       if(noise) noise.classList.add("visible");
 
-      /* V44: keep the app-switcher state visible first, then open slowly. */
+      /* V47: same slow feel, but the motion begins almost immediately.
+         This removes the "stuck before opening" feeling on real phones. */
       window.setTimeout(()=>{
         requestAnimationFrame(()=>{
           requestAnimationFrame(()=>{
             launch.classList.add("ios-launch-run");
           });
         });
-      },420);
+      },90);
 
       iosLaunchTimer=window.setTimeout(()=>{
         launch.classList.add("ios-launch-finish");
@@ -91,8 +122,8 @@
           document.body.classList.remove("ios-launch-active");
           iosLaunchDone=true;
           resolve();
-        },120);
-      },2170);
+        },100);
+      },1840);
     });
   }
 
@@ -143,7 +174,11 @@
     begin();
   };
 
-  if(document.fonts && document.fonts.ready){
+  if(phoneLite){
+    /* Mobile opening starts immediately; font loading continues underneath.
+       This removes the visible pre-animation pause on refresh. */
+    requestAnimationFrame(startOnce);
+  }else if(document.fonts && document.fonts.ready){
     Promise.race([
       document.fonts.ready,
       new Promise(resolve=>setTimeout(resolve,650))

@@ -1,0 +1,18 @@
+REFRESH FIX V47
+
+Fixed:
+- Refresh/reopen now returns to the top Hero instead of restoring the previous scroll position.
+- URL hash such as #calculator is removed during a fresh page load.
+- Scroll position is locked to 0 briefly while Safari/Yandex tries to restore old scroll.
+- Mobile intro now starts immediately instead of waiting up to 650 ms for fonts.
+- The iOS-style opening keeps the slow motion but starts after ~90 ms instead of ~420 ms.
+- Removed GPU-heavy blur/backdrop-filter from the synthetic app-switcher background.
+- Added compositor hints to reduce stutter on iPhone.
+
+Unchanged:
+- Main Hero layout.
+- Site sections/content.
+- Cookie behavior.
+- Floating calculator.
+- Cost/treat animation.
+- Desktop visual design.
