@@ -1753,3 +1753,73 @@ body.phone-lite.hero-ready .hero .portrait,
 body.phone-lite.hero-ready .hero .arrow{
   opacity:1!important;
 }
+
+
+/* =====================================================================
+   COST L-PATH V51 — MOBILE
+   Reference composition: narrow card left/center, Muksik at far right.
+   ===================================================================== */
+body.phone-lite .cost-stage{
+  padding-left:12px!important;
+  padding-right:8px!important;
+  overflow:hidden!important;
+}
+
+body.phone-lite .cost-content-row{
+  width:100%!important;
+  max-width:360px!important;
+  align-items:stretch!important;
+  margin:0 auto!important;
+}
+
+body.phone-lite .cost-card{
+  width:min(276px,76vw)!important;
+  max-width:276px!important;
+  align-self:flex-start!important;
+  margin-left:4px!important;
+  margin-right:auto!important;
+}
+
+body.phone-lite .cost-card-copy{
+  padding:18px 16px 16px!important;
+}
+
+body.phone-lite .cost-card-label{
+  font-size:8.5px!important;
+  margin-bottom:11px!important;
+}
+
+body.phone-lite .cost-card li{
+  font-size:12.6px!important;
+  line-height:1.34!important;
+  margin-bottom:5px!important;
+  padding-left:15px!important;
+}
+
+body.phone-lite .cost-card li:before{
+  width:4px!important;
+  height:4px!important;
+}
+
+body.phone-lite .cost-button{
+  height:38px!important;
+  min-height:38px!important;
+  margin-top:13px!important;
+  font-size:9px!important;
+}
+
+body.phone-lite .cost-small{
+  font-size:9.5px!important;
+  margin-top:8px!important;
+}
+
+body.phone-lite .cost-pug{
+  width:clamp(126px,35vw,146px)!important;
+  align-self:flex-end!important;
+  margin:-2px -18px -18px 0!important;
+}
+
+body.phone-lite .cost-treat{
+  width:22px!important;
+  z-index:14!important;
+}

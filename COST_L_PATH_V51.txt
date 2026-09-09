@@ -1,0 +1,21 @@
+COST L-PATH V51
+
+Applied to BOTH desktop and mobile.
+
+Desktop
+- Cost card reduced from ~500 px to 440 px.
+- Muksik moved farther to the right.
+- Treat size slightly reduced.
+
+Mobile
+- Cost card reduced to max 276 px and biased left.
+- Muksik moved to the far-right side.
+- More blue empty space is left for the treat route.
+
+Treat route
+1. Moves strictly horizontally from left to right.
+2. At the end of the card, changes direction and falls straight down.
+3. Makes only a short final move into Muksik's mouth.
+4. No visible curved Bézier route.
+
+All other sections remain unchanged.

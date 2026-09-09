@@ -10108,3 +10108,60 @@ body.entry-consent-open{
 body.entry-consent-open{
   overflow:auto!important;
 }
+
+
+/* =====================================================================
+   COST L-PATH V51 — DESKTOP
+   Narrower card + Muksik pushed to the right + clear path lane.
+   ===================================================================== */
+@media(min-width:1200px){
+  .cost-stage{
+    min-height:600px!important;
+  }
+
+  .cost-content-row{
+    width:min(1180px,calc(100% - 64px))!important;
+    grid-template-columns:440px minmax(130px,1fr) 250px!important;
+    gap:0!important;
+    align-items:end!important;
+    justify-items:stretch!important;
+    padding-bottom:32px!important;
+  }
+
+  .cost-card{
+    grid-column:1!important;
+    width:440px!important;
+    max-width:440px!important;
+    justify-self:start!important;
+    margin:0!important;
+  }
+
+  .cost-card-copy{
+    padding:30px 34px 28px!important;
+  }
+
+  .cost-card li{
+    font-size:12.5px!important;
+    line-height:1.34!important;
+    margin-bottom:7px!important;
+  }
+
+  .cost-button{
+    height:44px!important;
+    margin-top:20px!important;
+  }
+
+  .cost-pug{
+    grid-column:3!important;
+    width:232px!important;
+    justify-self:end!important;
+    align-self:end!important;
+    margin:0 -28px -28px 0!important;
+    transform:none!important;
+  }
+
+  .cost-treat{
+    width:32px!important;
+    z-index:12!important;
+  }
+}

@@ -1134,15 +1134,60 @@
         });
       }
 
-      const pt=cubic(t,p0,p1,p2,p3);
-      const dir=tangent(t,p0,p1,p2,p3);
-
       /*
-        The coin in the reference remains visually calm.
-        The biscuit only rotates gently according to the route.
+        V51 — STRICT L-SHAPED TREAT PATH
+
+        Segment 1: straight LEFT -> RIGHT.
+        Segment 2: straight DOWN at the end of the cost card.
+        Segment 3: a very short final move into Muksik's mouth.
+
+        No curved Bézier movement is used for the visible route.
       */
-      const pathAngle=Math.atan2(dir.y,dir.x)*180/Math.PI;
-      const angle=cClamp(pathAngle,-18,22)*.35;
+      const mouth={
+        x:(pugRect.left-stageRect.left)+(pugRect.width*.415),
+        y:(pugRect.top-stageRect.top)+(pugRect.height*.338)
+      };
+
+      const horizontalY=(cardRect.top-stageRect.top)-18;
+      const cornerX=Math.max(
+        (cardRect.right-stageRect.left)+(phoneLite ? 16 : 28),
+        mouth.x-(phoneLite ? 20 : 28)
+      );
+
+      const startPoint={
+        x:(cardRect.left-stageRect.left)+(cardRect.width*(phoneLite ? .10 : .08)),
+        y:horizontalY
+      };
+
+      const cornerPoint={x:cornerX,y:horizontalY};
+      const dropPoint={x:cornerX,y:mouth.y};
+
+      const lerp=(a,b,p)=>a+(b-a)*p;
+      let pt;
+      let angle=0;
+
+      if(t<=.58){
+        const q=cSmooth(cClamp(t/.58));
+        pt={
+          x:lerp(startPoint.x,cornerPoint.x,q),
+          y:horizontalY
+        };
+        angle=0;
+      }else if(t<=.84){
+        const q=cSmooth(cClamp((t-.58)/.26));
+        pt={
+          x:cornerX,
+          y:lerp(cornerPoint.y,dropPoint.y,q)
+        };
+        angle=0;
+      }else{
+        const q=cSmooth(cClamp((t-.84)/.16));
+        pt={
+          x:lerp(dropPoint.x,mouth.x,q),
+          y:lerp(dropPoint.y,mouth.y,q)
+        };
+        angle=0;
+      }
 
       /*
         The biscuit stays fully visible during the entire travel.
