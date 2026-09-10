@@ -1,0 +1,1 @@
+V65: treat stays visible during motion and disappears only when it reaches the dog. Cache-buster updated to v65.

@@ -1838,3 +1838,18 @@ body.phone-lite .cost-treat{
 body.phone-lite .cost-treat{
   width:40px!important;
 }
+
+
+/* V64 — MOBILE: treat is permanently visible */
+body.phone-lite #costTreat,
+body.phone-lite .cost-treat{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+body.phone-lite #costTreat img,
+body.phone-lite .cost-treat img{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}

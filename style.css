@@ -10197,3 +10197,21 @@ body.entry-consent-open{
     margin:0 -28px -52px 0!important;
   }
 }
+
+
+/* ========================================================
+   V64 — TREAT MUST NEVER DISAPPEAR
+   Global hard override for desktop + tablet.
+   ======================================================== */
+#costTreat,
+.cost-treat{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+#costTreat img,
+.cost-treat img{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}

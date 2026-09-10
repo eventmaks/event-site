@@ -1167,21 +1167,10 @@
         y:(pugRect.top-stageRect.top)+(pugRect.height*.338)
       };
 
-      /*
-        V63 — visible resting endpoint.
-        The treat should still be visible when the user stops scrolling,
-        so the final resting point sits just in front of the mouth instead of
-        disappearing into its center.
-      */
-      const restPoint={
-        x:mouth.x-(phoneLite ? 12 : 16),
-        y:mouth.y-(phoneLite ? 1 : 2)
-      };
-
       const horizontalY=(cardRect.top-stageRect.top)-18;
       const cornerX=Math.max(
         (cardRect.right-stageRect.left)+(phoneLite ? 16 : 28),
-        restPoint.x-(phoneLite ? 20 : 28)
+        mouth.x-(phoneLite ? 20 : 28)
       );
 
       const startPoint={
@@ -1190,7 +1179,7 @@
       };
 
       const cornerPoint={x:cornerX,y:horizontalY};
-      const dropPoint={x:cornerX,y:restPoint.y};
+      const dropPoint={x:cornerX,y:mouth.y};
 
       const lerp=(a,b,p)=>a+(b-a)*p;
       let pt;
@@ -1224,53 +1213,46 @@
       }else{
         const q=smoother(cClamp((t-dropEnd)/(1-dropEnd)));
         pt={
-          x:lerp(dropPoint.x,restPoint.x,q),
-          y:lerp(dropPoint.y,restPoint.y,q)
+          x:lerp(dropPoint.x,mouth.x,q),
+          y:lerp(dropPoint.y,mouth.y,q)
         };
         angle=0;
       }
 
       /*
-        V63 — ALWAYS VISIBLE TREAT (DESKTOP + MOBILE)
-        Keep the treat fully visible at rest. No fade-out, no hidden state.
+        V65 — ALWAYS VISIBLE DURING THE PATH, BUT DISAPPEARS AT THE DOG.
+        The treat stays visible throughout the motion and fades out only in the
+        final bite window when it reaches the mouth.
       */
-      const scale=1;
+      const swallow=smoother(cClamp((t-.985)/.015));
+      const scale=1-(swallow*.88);
+      const opacity=1-swallow;
       costTreat.style.transform=
         `translate3d(${pt.x.toFixed(2)}px,${pt.y.toFixed(2)}px,0) `+
         `translate(-12%,-50%) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
-      costTreat.style.opacity="1";
-      costTreat.style.visibility="visible";
+      costTreat.style.setProperty("display","block","important");
+      costTreat.style.setProperty("opacity",opacity.toFixed(3),"important");
+      costTreat.style.setProperty("visibility",opacity > 0.02 ? "visible" : "hidden","important");
+
+      // Continue only while easing toward the latest scroll position.
+      // When the motion ends, the treat simply stays visible at its current endpoint.
+      if(Math.abs(cTarget-cCurrent) > 0.0007){
+        cRAF=requestAnimationFrame(cRender);
+      }
     }
 
     function cRequest(){
       if(cRAF) return;
-      cRAF=requestAnimationFrame(()=>{
-        cRAF=0;
-        cRender();
-      });
+      cRAF=requestAnimationFrame(cRender);
     }
 
-    /*
-      V63 — continuous sync while the section is near the viewport.
-      This avoids the situation where the treat is only updated during active
-      scrolling and guarantees that its resting position stays visible.
-    */
-    function cTick(){
-      const vh=window.innerHeight;
-      const rect=costSection.getBoundingClientRect();
-      if(rect.bottom > -200 && rect.top < vh + 200){
-        cRender();
-      }
-      requestAnimationFrame(cTick);
-    }
-
-    costTreat.style.opacity="1";
-    costTreat.style.visibility="visible";
+    costTreat.style.setProperty("display","block","important");
+    costTreat.style.setProperty("opacity","1","important");
+    costTreat.style.setProperty("visibility","visible","important");
     window.addEventListener("scroll",cRequest,{passive:true});
     window.addEventListener("resize",cRequest,{passive:true});
     window.addEventListener("load",cRequest,{once:true});
     cRender();
-    cTick();
   }
 
 
