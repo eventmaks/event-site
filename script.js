@@ -1020,10 +1020,6 @@
     let cCurrent=0;
     let cTarget=0;
     let cProgressReady=false;
-    let cScrollActive=false;
-    let cMotionRAF=0;
-    let cLastScrollY=window.scrollY || window.pageYOffset || 0;
-    let cLastMoveTime=0;
 
     function cubic(t,p0,p1,p2,p3){
       const u=1-t;
@@ -1171,10 +1167,21 @@
         y:(pugRect.top-stageRect.top)+(pugRect.height*.338)
       };
 
+      /*
+        V63 — visible resting endpoint.
+        The treat should still be visible when the user stops scrolling,
+        so the final resting point sits just in front of the mouth instead of
+        disappearing into its center.
+      */
+      const restPoint={
+        x:mouth.x-(phoneLite ? 12 : 16),
+        y:mouth.y-(phoneLite ? 1 : 2)
+      };
+
       const horizontalY=(cardRect.top-stageRect.top)-18;
       const cornerX=Math.max(
         (cardRect.right-stageRect.left)+(phoneLite ? 16 : 28),
-        mouth.x-(phoneLite ? 20 : 28)
+        restPoint.x-(phoneLite ? 20 : 28)
       );
 
       const startPoint={
@@ -1183,7 +1190,7 @@
       };
 
       const cornerPoint={x:cornerX,y:horizontalY};
-      const dropPoint={x:cornerX,y:mouth.y};
+      const dropPoint={x:cornerX,y:restPoint.y};
 
       const lerp=(a,b,p)=>a+(b-a)*p;
       let pt;
@@ -1217,70 +1224,53 @@
       }else{
         const q=smoother(cClamp((t-dropEnd)/(1-dropEnd)));
         pt={
-          x:lerp(dropPoint.x,mouth.x,q),
-          y:lerp(dropPoint.y,mouth.y,q)
+          x:lerp(dropPoint.x,restPoint.x,q),
+          y:lerp(dropPoint.y,restPoint.y,q)
         };
         angle=0;
       }
 
       /*
-        V62 — ALWAYS VISIBLE TREAT (DESKTOP + MOBILE)
-        The user wants the treat to remain visible at all times.
-        It still follows the same trajectory, but it no longer fades out
-        or gets hidden when scrolling stops, and it remains visible at the mouth.
+        V63 — ALWAYS VISIBLE TREAT (DESKTOP + MOBILE)
+        Keep the treat fully visible at rest. No fade-out, no hidden state.
       */
       const scale=1;
-      const opacity=1;
-
       costTreat.style.transform=
         `translate3d(${pt.x.toFixed(2)}px,${pt.y.toFixed(2)}px,0) `+
         `translate(-12%,-50%) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
-
-      costTreat.style.opacity=String(opacity);
+      costTreat.style.opacity="1";
       costTreat.style.visibility="visible";
-
-      if(Math.abs(cTarget-cCurrent) > 0.0007){
-        cRAF=requestAnimationFrame(cRender);
-      }
     }
 
     function cRequest(){
       if(cRAF) return;
-      cRAF=requestAnimationFrame(cRender);
+      cRAF=requestAnimationFrame(()=>{
+        cRAF=0;
+        cRender();
+      });
     }
 
     /*
-      V62 — ALWAYS VISIBLE TREAT
-      Scroll still updates the position, but visibility is no longer tied to
-      wheel / touch activity. The treat should be visible in both desktop and mobile.
+      V63 — continuous sync while the section is near the viewport.
+      This avoids the situation where the treat is only updated during active
+      scrolling and guarantees that its resting position stays visible.
     */
-    function cWatchMotion(now){
-      const y=window.scrollY || window.pageYOffset || 0;
-      if(Math.abs(y-cLastScrollY)>.15){
-        cLastScrollY=y;
-        cLastMoveTime=now;
-        cRequest();
+    function cTick(){
+      const vh=window.innerHeight;
+      const rect=costSection.getBoundingClientRect();
+      if(rect.bottom > -200 && rect.top < vh + 200){
+        cRender();
       }
-      cMotionRAF=requestAnimationFrame(cWatchMotion);
-    }
-
-    function cOnScroll(){
-      const now=performance.now();
-      cScrollActive=true;
-      cLastMoveTime=now;
-      cLastScrollY=window.scrollY || window.pageYOffset || 0;
-      cRequest();
-      if(!cMotionRAF){
-        cMotionRAF=requestAnimationFrame(cWatchMotion);
-      }
+      requestAnimationFrame(cTick);
     }
 
     costTreat.style.opacity="1";
     costTreat.style.visibility="visible";
-    window.addEventListener("scroll",cOnScroll,{passive:true});
+    window.addEventListener("scroll",cRequest,{passive:true});
     window.addEventListener("resize",cRequest,{passive:true});
     window.addEventListener("load",cRequest,{once:true});
     cRender();
+    cTick();
   }
 
 
