@@ -1224,24 +1224,20 @@
       }
 
       /*
-        V57 — EATEN AT THE MOUTH
-        The treat stays visible almost until contact, then softly disappears
-        at the mouth so the dog appears to eat it.
+        V62 — ALWAYS VISIBLE TREAT (DESKTOP + MOBILE)
+        The user wants the treat to remain visible at all times.
+        It still follows the same trajectory, but it no longer fades out
+        or gets hidden when scrolling stops, and it remains visible at the mouth.
       */
-      let scale=1;
-      let opacity=1;
-      const swallow=smoother(cClamp((t-.985)/.015));
-      scale=1-(swallow*.88);
-      opacity=1-swallow;
+      const scale=1;
+      const opacity=1;
 
       costTreat.style.transform=
         `translate3d(${pt.x.toFixed(2)}px,${pt.y.toFixed(2)}px,0) `+
         `translate(-12%,-50%) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
 
-      // V59 — the treat exists visually only while the page is actually moving.
-      // Scroll events keep it visible; once scrolling stops, it disappears.
-      costTreat.style.opacity=cScrollActive ? String(opacity) : "0";
-      costTreat.style.visibility=cScrollActive ? "visible" : "hidden";
+      costTreat.style.opacity=String(opacity);
+      costTreat.style.visibility="visible";
 
       if(Math.abs(cTarget-cCurrent) > 0.0007){
         cRAF=requestAnimationFrame(cRender);
@@ -1254,33 +1250,17 @@
     }
 
     /*
-      V60 — DESKTOP VISIBILITY FOLLOWS REAL PAGE MOTION
-      A fixed 110ms debounce was too short for desktop wheel / trackpad use:
-      the treat could flash for a frame and disappear before it was readable.
-      Instead, keep watching the actual scroll position. The treat remains
-      visible while the page is still physically moving (including inertia),
-      and hides only after the page has genuinely settled.
+      V62 — ALWAYS VISIBLE TREAT
+      Scroll still updates the position, but visibility is no longer tied to
+      wheel / touch activity. The treat should be visible in both desktop and mobile.
     */
     function cWatchMotion(now){
       const y=window.scrollY || window.pageYOffset || 0;
       if(Math.abs(y-cLastScrollY)>.15){
         cLastScrollY=y;
         cLastMoveTime=now;
-        if(!cScrollActive){
-          cScrollActive=true;
-        }
         cRequest();
       }
-
-      const settleDelay=phoneLite ? 150 : 230;
-      if(cScrollActive && now-cLastMoveTime>settleDelay){
-        cScrollActive=false;
-        costTreat.style.opacity="0";
-        costTreat.style.visibility="hidden";
-        cMotionRAF=0;
-        return;
-      }
-
       cMotionRAF=requestAnimationFrame(cWatchMotion);
     }
 
@@ -1295,8 +1275,8 @@
       }
     }
 
-    costTreat.style.opacity="0";
-    costTreat.style.visibility="hidden";
+    costTreat.style.opacity="1";
+    costTreat.style.visibility="visible";
     window.addEventListener("scroll",cOnScroll,{passive:true});
     window.addEventListener("resize",cRequest,{passive:true});
     window.addEventListener("load",cRequest,{once:true});
