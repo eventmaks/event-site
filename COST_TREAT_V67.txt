@@ -1,0 +1,1 @@
+V67: desktop-only regression fix — treat stays visible along the route and only fades at the dog; mobile behavior unchanged.

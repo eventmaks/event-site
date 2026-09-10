@@ -1,0 +1,1 @@
+V68: desktop + mobile — treat remains visible through the whole route and fades only at the dog mouth. No layout changes.

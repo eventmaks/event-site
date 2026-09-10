@@ -1236,10 +1236,14 @@
         `translate3d(${pt.x.toFixed(2)}px,${pt.y.toFixed(2)}px,0) `+
         `translate(-12%,-50%) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
 
-      // V59 — the treat exists visually only while the page is actually moving.
-      // Scroll events keep it visible; once scrolling stops, it disappears.
-      costTreat.style.opacity=cScrollActive ? String(opacity) : "0";
-      costTreat.style.visibility=cScrollActive ? "visible" : "hidden";
+      /*
+        V68 — SAME TREAT VISIBILITY ON DESKTOP + MOBILE.
+        Never hide the treat because scroll events pause. It stays visible
+        all along the route and fades only at the final bite into the dog.
+      */
+      costTreat.style.setProperty("display","block","important");
+      costTreat.style.setProperty("opacity",opacity.toFixed(3),"important");
+      costTreat.style.setProperty("visibility",opacity > 0.02 ? "visible" : "hidden","important");
 
       if(Math.abs(cTarget-cCurrent) > 0.0007){
         cRAF=requestAnimationFrame(cRender);
@@ -1255,17 +1259,14 @@
       cScrollActive=true;
       clearTimeout(cScrollStopTimer);
       cRequest();
-
-      // A short debounce means trackpad / touch inertia still counts as movement.
       cScrollStopTimer=setTimeout(()=>{
         cScrollActive=false;
-        costTreat.style.opacity="0";
-        costTreat.style.visibility="hidden";
       },110);
     }
 
-    costTreat.style.opacity="0";
-    costTreat.style.visibility="hidden";
+    costTreat.style.setProperty("display","block","important");
+    costTreat.style.setProperty("opacity","1","important");
+    costTreat.style.setProperty("visibility","visible","important");
     window.addEventListener("scroll",cOnScroll,{passive:true});
     window.addEventListener("resize",cRequest,{passive:true});
     window.addEventListener("load",cRequest,{once:true});
