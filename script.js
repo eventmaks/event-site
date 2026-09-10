@@ -1020,6 +1020,8 @@
     let cCurrent=0;
     let cTarget=0;
     let cProgressReady=false;
+    let cScrollActive=false;
+    let cScrollStopTimer=0;
 
     function cubic(t,p0,p1,p2,p3){
       const u=1-t;
@@ -1220,22 +1222,25 @@
       }
 
       /*
-        V65 — ALWAYS VISIBLE DURING THE PATH, BUT DISAPPEARS AT THE DOG.
-        The treat stays visible throughout the motion and fades out only in the
-        final bite window when it reaches the mouth.
+        V57 — EATEN AT THE MOUTH
+        The treat stays visible almost until contact, then softly disappears
+        at the mouth so the dog appears to eat it.
       */
+      let scale=1;
+      let opacity=1;
       const swallow=smoother(cClamp((t-.985)/.015));
-      const scale=1-(swallow*.88);
-      const opacity=1-swallow;
+      scale=1-(swallow*.88);
+      opacity=1-swallow;
+
       costTreat.style.transform=
         `translate3d(${pt.x.toFixed(2)}px,${pt.y.toFixed(2)}px,0) `+
         `translate(-12%,-50%) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
-      costTreat.style.setProperty("display","block","important");
-      costTreat.style.setProperty("opacity",opacity.toFixed(3),"important");
-      costTreat.style.setProperty("visibility",opacity > 0.02 ? "visible" : "hidden","important");
 
-      // Continue only while easing toward the latest scroll position.
-      // When the motion ends, the treat simply stays visible at its current endpoint.
+      // V59 — the treat exists visually only while the page is actually moving.
+      // Scroll events keep it visible; once scrolling stops, it disappears.
+      costTreat.style.opacity=cScrollActive ? String(opacity) : "0";
+      costTreat.style.visibility=cScrollActive ? "visible" : "hidden";
+
       if(Math.abs(cTarget-cCurrent) > 0.0007){
         cRAF=requestAnimationFrame(cRender);
       }
@@ -1246,10 +1251,22 @@
       cRAF=requestAnimationFrame(cRender);
     }
 
-    costTreat.style.setProperty("display","block","important");
-    costTreat.style.setProperty("opacity","1","important");
-    costTreat.style.setProperty("visibility","visible","important");
-    window.addEventListener("scroll",cRequest,{passive:true});
+    function cOnScroll(){
+      cScrollActive=true;
+      clearTimeout(cScrollStopTimer);
+      cRequest();
+
+      // A short debounce means trackpad / touch inertia still counts as movement.
+      cScrollStopTimer=setTimeout(()=>{
+        cScrollActive=false;
+        costTreat.style.opacity="0";
+        costTreat.style.visibility="hidden";
+      },110);
+    }
+
+    costTreat.style.opacity="0";
+    costTreat.style.visibility="hidden";
+    window.addEventListener("scroll",cOnScroll,{passive:true});
     window.addEventListener("resize",cRequest,{passive:true});
     window.addEventListener("load",cRequest,{once:true});
     cRender();

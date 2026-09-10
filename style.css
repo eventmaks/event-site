@@ -10191,27 +10191,42 @@ body.entry-consent-open{
   }
 }
 
-/* V61 — desktop only: lower pug to match reference */
-@media(min-width:1200px){
-  .cost-pug{
-    margin:0 -28px -52px 0!important;
-  }
-}
-
 
 /* ========================================================
-   V64 — TREAT MUST NEVER DISAPPEAR
-   Global hard override for desktop + tablet.
+   COST DESKTOP CENTERING V60
+   Desktop only: center the cost card in the middle and
+   place the dog like the reference piggy-bank on the right.
+   Mobile untouched.
    ======================================================== */
-#costTreat,
-.cost-treat{
-  display:block!important;
-  visibility:visible!important;
-  opacity:1!important;
-}
-#costTreat img,
-.cost-treat img{
-  display:block!important;
-  visibility:visible!important;
-  opacity:1!important;
+@media(min-width:1200px){
+  .cost-stage{
+    min-height:640px!important;
+    overflow:hidden!important;
+  }
+
+  .cost-content-row{
+    width:min(1180px,calc(100% - 64px))!important;
+    display:flex!important;
+    justify-content:center!important;
+    align-items:flex-start!important;
+    position:relative!important;
+    padding-bottom:0!important;
+  }
+
+  .cost-card{
+    grid-column:auto!important;
+    justify-self:center!important;
+    margin:0 auto!important;
+  }
+
+  .cost-pug{
+    position:absolute!important;
+    right:28px!important;
+    bottom:-92px!important;
+    width:286px!important;
+    min-width:286px!important;
+    margin:0!important;
+    z-index:7!important;
+    justify-self:auto!important;
+  }
 }
