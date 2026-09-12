@@ -1,0 +1,5 @@
+REVIEWS V74
+- Reduced repeated use of “Макс/Максим” in review copy: now only 2 of 7 reviews mention the name.
+- Reordered reviews so wedding and birthday cases are interleaved instead of five wedding reviews in a row.
+- Lightly polished wording for a more natural, less templated tone.
+- No layout, CSS, JS, contact, cost-path, sea, or mobile animation changes.
