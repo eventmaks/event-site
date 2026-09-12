@@ -10230,3 +10230,154 @@ body.entry-consent-open{
     justify-self:auto!important;
   }
 }
+
+/* =========================================================
+   V72 — LIVING SEA / CONTACT FINAL
+   The final contact block now has a layered, slowly moving sea.
+   Pure CSS/SVG motion keeps it lightweight and responsive.
+   ========================================================= */
+.contact-final{
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 50% 16%,rgba(255,255,255,.48),transparent 34%),
+    linear-gradient(180deg,#EEEAE5 0%,#EAE5DF 44%,#E1E4E4 100%)!important;
+}
+
+.contact-sea{
+  position:absolute;
+  z-index:1;
+  left:0;
+  right:0;
+  bottom:67px;
+  height:54%;
+  min-height:360px;
+  overflow:hidden;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(187,203,216,.12) 0%,rgba(152,185,206,.28) 16%,rgba(112,160,190,.62) 56%,rgba(73,126,160,.82) 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 17%,#000 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 17%,#000 100%);
+}
+
+.contact-sea-horizon{
+  position:absolute;
+  z-index:5;
+  left:-5%;
+  right:-5%;
+  top:17%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65) 22%,rgba(255,255,255,.78) 50%,rgba(255,255,255,.56) 78%,transparent);
+  filter:blur(.15px);
+  opacity:.62;
+  animation:contactSeaHorizon 9s ease-in-out infinite alternate;
+}
+
+.contact-sea-wave{
+  position:absolute;
+  z-index:2;
+  left:-12%;
+  width:124%;
+  height:100%;
+  overflow:visible;
+  transform-origin:center bottom;
+  will-change:transform;
+}
+
+.contact-sea-wave path{
+  vector-effect:non-scaling-stroke;
+}
+
+.contact-sea-wave-far{
+  top:-3%;
+  opacity:.72;
+  animation:contactSeaFar 14s ease-in-out infinite alternate;
+}
+.contact-sea-wave-far path{
+  fill:#A9C4D5;
+}
+
+.contact-sea-wave-mid{
+  top:4%;
+  opacity:.78;
+  animation:contactSeaMid 10.5s ease-in-out infinite alternate;
+}
+.contact-sea-wave-mid path{
+  fill:#83ACC6;
+}
+
+.contact-sea-wave-near{
+  top:10%;
+  opacity:.90;
+  animation:contactSeaNear 7.8s ease-in-out infinite alternate;
+}
+.contact-sea-wave-near path{
+  fill:#5F92B2;
+}
+
+.contact-sea-light{
+  position:absolute;
+  z-index:4;
+  left:-28%;
+  top:14%;
+  width:156%;
+  height:48%;
+  opacity:.50;
+  background:
+    radial-gradient(ellipse at 48% 18%,rgba(255,255,255,.48) 0 1.2%,transparent 1.7% 100%),
+    repeating-linear-gradient(168deg,transparent 0 22px,rgba(255,255,255,.13) 23px 24px,transparent 25px 45px);
+  filter:blur(.25px);
+  mix-blend-mode:screen;
+  transform:skewX(-4deg);
+  animation:contactSeaLight 12s ease-in-out infinite alternate;
+  will-change:transform,opacity;
+}
+
+/* Retire the old single static wave without affecting legacy JS selectors. */
+.contact-wave{
+  display:none!important;
+}
+
+@keyframes contactSeaFar{
+  0%{transform:translate3d(-2.2%,0,0) scaleY(.98)}
+  50%{transform:translate3d(.2%,-5px,0) scaleY(1.01)}
+  100%{transform:translate3d(2.2%,1px,0) scaleY(.99)}
+}
+
+@keyframes contactSeaMid{
+  0%{transform:translate3d(2.7%,2px,0) scaleY(1.01)}
+  50%{transform:translate3d(0,-5px,0) scaleY(.985)}
+  100%{transform:translate3d(-2.7%,0,0) scaleY(1.015)}
+}
+
+@keyframes contactSeaNear{
+  0%{transform:translate3d(-3.2%,2px,0) scaleY(.99)}
+  50%{transform:translate3d(.4%,-7px,0) scaleY(1.02)}
+  100%{transform:translate3d(3.2%,1px,0) scaleY(1)}
+}
+
+@keyframes contactSeaLight{
+  0%{transform:translate3d(-2.5%,2px,0) skewX(-4deg);opacity:.38}
+  50%{opacity:.54}
+  100%{transform:translate3d(2.5%,-3px,0) skewX(-4deg);opacity:.44}
+}
+
+@keyframes contactSeaHorizon{
+  from{transform:translate3d(-1%,0,0);opacity:.48}
+  to{transform:translate3d(1%,1px,0);opacity:.70}
+}
+
+@media(max-width:1199px){
+  .contact-sea{
+    bottom:82px;
+    height:58%;
+    min-height:360px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .contact-sea-horizon,
+  .contact-sea-wave,
+  .contact-sea-light{
+    animation:none!important;
+  }
+}

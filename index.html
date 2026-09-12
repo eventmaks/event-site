@@ -9,8 +9,8 @@
   <meta name="format-detection" content="telephone=yes">
   <link rel="preload" as="image" href="assets/hero-person-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
   <link rel="preload" as="image" href="assets/hero-person-clean.webp" media="(min-width: 768px)" fetchpriority="high">
-  <link rel="stylesheet" href="style.css?v=68">
-  <link rel="stylesheet" href="mobile-rebuild.css?v=68" media="(max-width: 767px)">
+  <link rel="stylesheet" href="style.css?v=72">
+  <link rel="stylesheet" href="mobile-rebuild.css?v=72" media="(max-width: 767px)">
 
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <meta name="author" content="Максим Череповский">
@@ -1227,11 +1227,23 @@
   <section class="contact-final" id="contact">
     <div class="contact-final-noise" aria-hidden="true"></div>
 
-    <svg class="contact-wave" viewBox="0 0 1600 320" preserveAspectRatio="none" aria-hidden="true">
-      <path class="contact-wave-fill" d="M720 320C960 140 1205 70 1600 88V320Z"/>
-      <path class="contact-wave-line contact-wave-line-a" d="M690 320C936 156 1195 93 1600 112"/>
-      <path class="contact-wave-line contact-wave-line-b" d="M810 320C1015 190 1240 150 1600 158"/>
-    </svg>
+    <div class="contact-sea" aria-hidden="true">
+      <div class="contact-sea-horizon"></div>
+
+      <svg class="contact-sea-wave contact-sea-wave-far" viewBox="0 0 2400 420" preserveAspectRatio="none">
+        <path d="M-160 108C40 66 238 72 424 104C612 136 786 136 972 98C1156 60 1328 62 1512 100C1698 138 1880 140 2068 104C2220 74 2362 72 2560 104V420H-160Z"/>
+      </svg>
+
+      <svg class="contact-sea-wave contact-sea-wave-mid" viewBox="0 0 2400 420" preserveAspectRatio="none">
+        <path d="M-180 146C30 96 232 102 430 140C626 178 812 176 1002 132C1196 88 1378 94 1564 136C1752 178 1930 184 2118 144C2272 112 2412 108 2580 138V420H-180Z"/>
+      </svg>
+
+      <svg class="contact-sea-wave contact-sea-wave-near" viewBox="0 0 2400 420" preserveAspectRatio="none">
+        <path d="M-200 194C24 138 236 148 444 190C650 232 846 228 1046 178C1246 128 1434 136 1628 184C1820 232 2008 238 2200 192C2350 156 2468 154 2600 176V420H-200Z"/>
+      </svg>
+
+      <div class="contact-sea-light"></div>
+    </div>
 
     <div class="contact-final-inner">
       <div class="contact-final-kicker" aria-hidden="true">ОСТАЛСЯ ОДИН ШАГ</div>

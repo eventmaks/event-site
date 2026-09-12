@@ -1,0 +1,10 @@
+V72 — animated sea in the final contact section
+
+Changed only the visual background of the section “Вы зашли слишком далеко. Познакомимся?”.
+- Replaced the old static decorative wave with a layered animated sea.
+- Three wave depths move independently for a natural parallax effect.
+- Added subtle horizon and moving light reflections.
+- Desktop and mobile have separate sizing/timing rules.
+- Contact content remains above the water and fully interactive.
+- Respects prefers-reduced-motion.
+- CSS cache query updated to v72.

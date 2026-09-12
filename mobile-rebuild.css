@@ -1838,3 +1838,61 @@ body.phone-lite .cost-treat{
 body.phone-lite .cost-treat{
   width:40px!important;
 }
+
+/* V72 — MOBILE LIVING SEA */
+body.phone-lite .contact-final{
+  isolation:isolate!important;
+  background:
+    radial-gradient(circle at 50% 11%,rgba(255,255,255,.54),transparent 29%),
+    linear-gradient(180deg,#EEEAE5 0%,#EAE5DF 35%,#E0E4E5 100%)!important;
+}
+
+body.phone-lite .contact-sea{
+  left:-2%!important;
+  right:-2%!important;
+  bottom:128px!important;
+  width:104%!important;
+  height:61%!important;
+  min-height:400px!important;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 100%)!important;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 100%)!important;
+}
+
+body.phone-lite .contact-sea-horizon{
+  top:14%!important;
+  opacity:.58!important;
+}
+
+body.phone-lite .contact-sea-wave{
+  left:-24%!important;
+  width:148%!important;
+}
+
+body.phone-lite .contact-sea-wave-far{
+  top:-2%!important;
+  animation-duration:15s!important;
+}
+
+body.phone-lite .contact-sea-wave-mid{
+  top:5%!important;
+  animation-duration:11.5s!important;
+}
+
+body.phone-lite .contact-sea-wave-near{
+  top:12%!important;
+  animation-duration:8.6s!important;
+}
+
+body.phone-lite .contact-sea-light{
+  left:-42%!important;
+  width:184%!important;
+  top:12%!important;
+  height:44%!important;
+  opacity:.40!important;
+}
+
+body.phone-lite .contact-final-inner,
+body.phone-lite .site-footer{
+  position:relative!important;
+  z-index:4!important;
+}
