@@ -1,4 +1,4 @@
-YANDEX METRICA GOALS V77 — counter 111456931
+YANDEX METRICA GOALS V77 — counter 112523982
 
 Create these goals in Yandex Metrica as JavaScript event / Conversion goals using exact IDs:
 

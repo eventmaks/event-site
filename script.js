@@ -2047,8 +2047,8 @@
     if(row) row.classList.remove("is-error");
   }
 
-  /* Yandex Metrica 111456931. Load only after analytics consent. */
-  const EVENTMAKS_METRIKA_ID=111456931;
+  /* Yandex Metrica 112523982. Load only after analytics consent. */
+  const EVENTMAKS_METRIKA_ID=112523982;
 
   window.eventmaksReachGoal=(target,params={})=>{
     if(readEntryConsent()!=="accepted") return false;
@@ -2077,7 +2077,7 @@
       k.async=1;
       k.src=r;
       a.parentNode.insertBefore(k,a);
-    })(window,document,"script","https://mc.yandex.ru/metrika/tag.js?id=111456931","ym");
+    })(window,document,"script","https://mc.yandex.ru/metrika/tag.js?id=112523982","ym");
 
     window.ym(EVENTMAKS_METRIKA_ID,"init",{
       ssr:true,

@@ -6,7 +6,7 @@ V76 PERFORMANCE
 - Visual sizing/cropping preserved via object-fit: cover and existing object-position rules.
 
 2) Yandex Metrica
-- Counter ID: 111456931.
+- Counter ID: 112523982.
 - Loads only after the existing Cookie consent is accepted.
 - Existing accepted consent loads it on subsequent visits.
 - clickmap, trackLinks, accurateTrackBounce enabled.

@@ -1,0 +1,3 @@
+YANDEX METRICA V79
+Counter ID: 112523982
+Changed only the Yandex Metrica counter ID from 111456931 to 112523982 and bumped script cache version to v79.
