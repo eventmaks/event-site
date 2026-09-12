@@ -1138,7 +1138,12 @@
 
           Desktop intentionally keeps the V69 continuous Bézier trajectory.
         */
-        const mobileLineX=cornerX;
+        /*
+          V71 — lock to the REAL mobile fall column, not to the old shared
+          corner/mouth calculation. The lane is defined once from the right
+          edge of the mobile cost card and never changes while scrolling.
+        */
+        const mobileLineX=(cardRect.right-stageRect.left)+16;
         pt={
           x:mobileLineX,
           y:horizontalY+(mouth.y-horizontalY)*t

@@ -1,0 +1,13 @@
+COST TREAT V71 — mobile vertical lane + cache bust
+
+Mobile only:
+- Treat X is locked directly to the vertical fall lane 16px to the right of the cost card.
+- X never depends on the dog mouth or the old L-path corner.
+- Only Y changes during scroll, so the trajectory is mathematically vertical.
+- Existing smooth timing and mouth fade remain.
+
+Cache fix:
+- index.html now loads script.js?v=71 instead of script.js?v=68, forcing mobile browsers to fetch the new JavaScript after deployment.
+
+Desktop:
+- V69 desktop trajectory is unchanged.
