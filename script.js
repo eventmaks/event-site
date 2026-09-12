@@ -1014,7 +1014,7 @@
 
   if(costSection && costStage && costPug && costTreat && costCard){
     const cClamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
-    const cSmooth=t=>t*t*(3-2*t);
+    const cSmoother=t=>t*t*t*(t*(t*6-15)+10);
 
     let cRAF=0;
     let cCurrent=0;
@@ -1091,78 +1091,28 @@
       cCurrent += (cTarget-cCurrent)*follow;
       if(Math.abs(cTarget-cCurrent) < 0.0007) cCurrent=cTarget;
 
-      const t=Math.pow(cSmooth(cCurrent),4.9);
+      /*
+        V69 — CONTINUOUS MOTION TIMING
+        The old ^4.9 curve compressed most of the visible motion toward the
+        end of the scroll range, which created a sudden acceleration before
+        the drop. A quintic smootherstep keeps both velocity and acceleration
+        soft at the beginning and at the mouth.
+      */
+      const t=cSmoother(cClamp(cCurrent));
       costStage.style.setProperty("--cost-p",t.toFixed(4));
 
       /*
-        REFERENCE GEOMETRY:
-        coin starts ABOVE the left/center part of the white card,
-        travels almost horizontally across its top,
-        bends around the right side,
-        then descends into the pig.
+        V69 — ONE CONTINUOUS CURVE, NO HARD CORNER
 
-        The bone now uses the same four-point cubic trajectory.
-      */
-      /*
-        Keep the whole first half of the trajectory BELOW the "СТОИМОСТЬ"
-        heading. The biscuit now starts in the clean gap immediately above
-        the white card, so it never touches the title.
-      */
-      const p0={
-        x:(cardRect.left-stageRect.left)+(cardRect.width*.08),
-        y:(cardRect.top-stageRect.top)-22
-      };
+        Previous versions split the route into three independent pieces:
+        horizontal -> vertical -> mouth. Even with easing, the direction
+        changed at a geometric corner and still looked like a sudden drop.
 
-      const p1={
-        x:(cardRect.left-stageRect.left)+(cardRect.width*(phoneLite ? .58 : .66)),
-        y:(cardRect.top-stageRect.top)-(phoneLite ? 20 : 34)
-      };
-
-      const p2={
-        x:(cardRect.right-stageRect.left)+(phoneLite ? 20 : 64),
-        y:(cardRect.top-stageRect.top)+(cardRect.height*(phoneLite ? .20 : .14))
-      };
-
-      /*
-        Destination is the open mouth of the supplied pug.
-        This stays tied to the actual rendered dog, not a hard-coded page point.
-      */
-      const p3={
-        x:(pugRect.left-stageRect.left)+(pugRect.width*.415),
-        y:(pugRect.top-stageRect.top)+(pugRect.height*.338)
-      };
-
-      /*
-        MOBILE V45:
-        Make the treat clearly travel INTO Muksik's mouth like the reference coin.
-        The card is smaller, so the path can now sit near its right side instead of
-        hiding below the whole block.
-      */
-      if(phoneLite){
-        const gapTop=(cardRect.top-stageRect.top)-6;
-        const arcY=(cardRect.top-stageRect.top)+(cardRect.height*.18);
-        Object.assign(p0,{
-          x:cardRect.left-stageRect.left + cardRect.width*.54,
-          y:gapTop
-        });
-        Object.assign(p1,{
-          x:cardRect.right-stageRect.left + 18,
-          y:gapTop + 4
-        });
-        Object.assign(p2,{
-          x:pugRect.left-stageRect.left - 14,
-          y:Math.max(arcY,p3.y-22)
-        });
-      }
-
-      /*
-        V51 — STRICT L-SHAPED TREAT PATH
-
-        Segment 1: straight LEFT -> RIGHT.
-        Segment 2: straight DOWN at the end of the cost card.
-        Segment 3: a very short final move into Muksik's mouth.
-
-        No curved Bézier movement is used for the visible route.
+        The visible route is now one cubic Bézier curve. The first control
+        point keeps the beginning almost horizontal; the second control point
+        pulls the route gently around the right side of the card and into the
+        dog's mouth. There is no segment boundary and therefore no direction
+        snap.
       */
       const mouth={
         x:(pugRect.left-stageRect.left)+(pugRect.width*.415),
@@ -1180,46 +1130,44 @@
         y:horizontalY
       };
 
-      const cornerPoint={x:cornerX,y:horizontalY};
-      const dropPoint={x:cornerX,y:mouth.y};
+      const control1={
+        x:startPoint.x+(cornerX-startPoint.x)*(phoneLite ? .72 : .76),
+        y:horizontalY
+      };
 
-      const lerp=(a,b,p)=>a+(b-a)*p;
-      let pt;
-      let angle=0;
+      const control2={
+        x:cornerX+(phoneLite ? 18 : 34),
+        y:horizontalY+(mouth.y-horizontalY)*(phoneLite ? .28 : .32)
+      };
 
       /*
-        V58 — MUCH SMOOTHER VERTICAL DROP
-        Previously the downward leg was compressed into only 3.4% of the
-        animation progress (0.965 -> 0.999), which made it look like the
-        treat suddenly fell. Give the drop a much larger timing window and
-        use smootherstep for a soft acceleration and soft landing.
+        A cubic Bézier does not move at perfectly even visual speed when its
+        parameter advances evenly. Remap progress through a small arc-length
+        lookup so the biscuit does not suddenly speed up while rounding the
+        bend.
       */
-      const smoother=t=>t*t*t*(t*(t*6-15)+10);
-      const horizontalEnd=phoneLite ? .80 : .82;
-      const dropEnd=.985;
-
-      if(t<=horizontalEnd){
-        const q=cSmooth(cClamp(t/horizontalEnd));
-        pt={
-          x:lerp(startPoint.x,cornerPoint.x,q),
-          y:horizontalY
-        };
-        angle=0;
-      }else if(t<=dropEnd){
-        const q=smoother(cClamp((t-horizontalEnd)/(dropEnd-horizontalEnd)));
-        pt={
-          x:cornerX,
-          y:lerp(cornerPoint.y,dropPoint.y,q)
-        };
-        angle=0;
-      }else{
-        const q=smoother(cClamp((t-dropEnd)/(1-dropEnd)));
-        pt={
-          x:lerp(dropPoint.x,mouth.x,q),
-          y:lerp(dropPoint.y,mouth.y,q)
-        };
-        angle=0;
+      const samples=36;
+      const lengths=[0];
+      let totalLength=0;
+      let prevPoint=startPoint;
+      for(let i=1;i<=samples;i++){
+        const samplePoint=cubic(i/samples,startPoint,control1,control2,mouth);
+        totalLength+=Math.hypot(samplePoint.x-prevPoint.x,samplePoint.y-prevPoint.y);
+        lengths.push(totalLength);
+        prevPoint=samplePoint;
       }
+
+      const targetLength=t*totalLength;
+      let sampleIndex=1;
+      while(sampleIndex<lengths.length && lengths[sampleIndex]<targetLength){
+        sampleIndex++;
+      }
+      const segmentStart=lengths[sampleIndex-1] || 0;
+      const segmentEnd=lengths[sampleIndex] || totalLength || 1;
+      const segmentMix=cClamp((targetLength-segmentStart)/Math.max(.0001,segmentEnd-segmentStart));
+      const curveT=((sampleIndex-1)+segmentMix)/samples;
+      const pt=cubic(curveT,startPoint,control1,control2,mouth);
+      const angle=0;
 
       /*
         V57 — EATEN AT THE MOUTH
@@ -1228,7 +1176,8 @@
       */
       let scale=1;
       let opacity=1;
-      const swallow=smoother(cClamp((t-.985)/.015));
+      /* V69: longer, softer final bite instead of a last-moment pop. */
+      const swallow=cSmoother(cClamp((t-.962)/.038));
       scale=1-(swallow*.88);
       opacity=1-swallow;
 

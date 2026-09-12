@@ -1,0 +1,11 @@
+COST TREAT V69 — continuous smooth trajectory
+
+Changed only the treat motion logic in script.js.
+
+- Removed the old ^4.9 progress curve that caused late acceleration.
+- Removed the segmented L-shaped route (horizontal -> vertical -> mouth).
+- Replaced it with one continuous cubic Bezier trajectory.
+- Added arc-length progress remapping to keep visual speed even through the bend.
+- Kept the start above the cost card and the destination tied to the pug's rendered mouth.
+- Extended the final swallow/fade so the treat disappears softly at the mouth.
+- Existing V68 visibility behavior remains: the treat is visible throughout the route.
