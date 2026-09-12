@@ -1,0 +1,10 @@
+V75 — MOBILE PERFORMANCE + VIDEO QUALITY
+
+- Mobile showreel replaced: 640x360 ~344 kbps -> 960x540 ~1.35 Mbps H.264/AAC.
+- Fast-start MP4 retained; preload remains metadata and playback is paused outside the showreel viewport.
+- Desktop-only decorative scroll RAF work no longer runs on phone.
+- FAQ/contact and flow-bridge decorative scroll variables are static on phone (same final look, no continuous geometry work).
+- Team/portfolio/hero animations pause offscreen; contact sea now pauses offscreen too.
+- Expensive iOS launch blur/backdrop-filter removed while preserving the gradient visual.
+- Cache query updated to v75.
+- Layout/content/reviews/cost-treat behavior otherwise unchanged.

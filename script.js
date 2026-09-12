@@ -1344,7 +1344,7 @@
     }
 
     function requestReviewsScrollRender(){
-      if(reviewsRAF) return;
+      if(phoneLite || reviewsRAF) return;
       reviewsRAF=requestAnimationFrame(reviewsScrollRender);
     }
 
@@ -1676,7 +1676,7 @@
 
 
   function requestVisualUpdate(){
-    if(visualTicking || visualReduceMotion) return;
+    if(phoneLite || visualTicking || visualReduceMotion) return;
     visualTicking=true;
     requestAnimationFrame(updateVisualLayers);
   }
@@ -1695,7 +1695,7 @@
     const decorativeObserver=new IntersectionObserver(entries=>{
       entries.forEach(entry=>entry.target.classList.toggle("motion-paused",!entry.isIntersecting));
     },{rootMargin:"100px"});
-    document.querySelectorAll(".hero,.team-section,.portfolio-section").forEach(el=>decorativeObserver.observe(el));
+    document.querySelectorAll(".hero,.team-section,.portfolio-section,.contact-final").forEach(el=>decorativeObserver.observe(el));
   }
 
   /* Small 3D response only on desktop pointer devices. */
@@ -1763,7 +1763,7 @@
   }
 
   function requestFcRender(){
-    if(fcRAF) return;
+    if(phoneLite || fcRAF) return;
     fcRAF=requestAnimationFrame(fcRender);
   }
 
@@ -1829,7 +1829,7 @@
   }
 
   function requestFlowBridges(){
-    if(flowRAF) return;
+    if(phoneLite || flowRAF) return;
     flowRAF=requestAnimationFrame(renderFlowBridges);
   }
 

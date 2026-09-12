@@ -1896,3 +1896,50 @@ body.phone-lite .site-footer{
   position:relative!important;
   z-index:4!important;
 }
+
+
+/* ========================================================
+   MOBILE PERFORMANCE V75
+   Preserve the same design while reducing continuous GPU/main-thread work.
+   ======================================================== */
+body.phone-lite .faq-section{
+  --faq-scene-p:1!important;
+}
+body.phone-lite .contact-final{
+  --contact-scene-p:1!important;
+  --contact-wave-x:0px!important;
+  --contact-phone-y:0px!important;
+}
+body.phone-lite .flow-bridge{
+  --bridge-p:1!important;
+}
+
+/* The gradient already creates depth; realtime full-screen blur is expensive on iOS. */
+body.phone-lite .ios-launch-bg{
+  filter:none!important;
+  transform:none!important;
+}
+body.phone-lite .ios-launch-bg:after{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  background:rgba(12,12,18,.24)!important;
+}
+
+/* Release compositor layers while animated sections are outside the viewport. */
+body.phone-lite .motion-paused .team-marquee-track,
+body.phone-lite .motion-paused .portfolio-word-track,
+body.phone-lite.hero-opened .hero.motion-paused .portrait img{
+  will-change:auto!important;
+}
+body.phone-lite .contact-final.motion-paused .contact-sea-horizon,
+body.phone-lite .contact-final.motion-paused .contact-sea-wave,
+body.phone-lite .contact-final.motion-paused .contact-sea-light{
+  animation-play-state:paused!important;
+  will-change:auto!important;
+}
+
+/* Avoid expensive layer promotion for the sea until the block is actually visible. */
+body.phone-lite .contact-final.motion-paused .contact-sea-wave,
+body.phone-lite .contact-final.motion-paused .contact-sea-light{
+  transform:translateZ(0);
+}
