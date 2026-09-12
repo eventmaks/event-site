@@ -1,0 +1,9 @@
+V73 — cinematic visual polish
+
+- smoother visual continuity between major sections
+- living hero: ambient light + subtle pointer/scroll depth
+- premium blur/lift reveals for key content
+- scroll depth for team, portfolio, contract, reviews and FAQ decorations
+- existing cost-treat and living sea scenes preserved
+- mobile motion reduced in amplitude for performance and readability
+- cache versions bumped to v73

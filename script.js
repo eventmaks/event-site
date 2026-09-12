@@ -2048,3 +2048,197 @@
       }
     });
   }
+
+
+/* =========================================================
+   V73 — CINEMATIC SITE POLISH
+   Lightweight visual layer. Existing business / quiz / cost logic untouched.
+   ========================================================= */
+(()=>{
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const phone=()=>window.matchMedia('(max-width:1199px)').matches;
+  const clamp=(v,min=0,max=1)=>Math.max(min,Math.min(max,v));
+  const ease=t=>t*t*(3-2*t);
+
+  /* 1. Section flow: a restrained colour memory from the previous scene. */
+  const flowMap={
+    showreel:'rgba(72,34,45,.34)',
+    about:'rgba(234,229,223,.72)',
+    team:'rgba(234,229,223,.55)',
+    portfolio:'rgba(234,229,223,.34)',
+    calculator:'rgba(72,34,45,.26)',
+    benefits:'rgba(234,229,223,.52)',
+    contract:'rgba(234,229,223,.44)',
+    cost:'rgba(234,229,223,.34)',
+    reviews:'rgba(187,203,216,.48)',
+    faq:'rgba(234,229,223,.40)',
+    contact:'rgba(187,203,216,.52)'
+  };
+  Object.entries(flowMap).forEach(([id,color])=>{
+    const el=document.getElementById(id);
+    if(!el) return;
+    el.classList.add('v73-section-flow');
+    el.style.setProperty('--v73-flow-from',color);
+  });
+
+  /* 2. Premium reveals — only elements not already governed by a strong reveal system. */
+  const revealGroups=[
+    ['#about .about-right-text > *',55],
+    ['#calculator .quiz-card',0],
+    ['#contract .contract-ref-copy, #contract .contract-ref-paper-group',120],
+    ['#cost .cost-title, #cost .cost-card, #cost .cost-pug',110],
+    ['#reviews .reviews-carousel-head, #reviews .review-slide',70],
+    ['#faq .faq-title-block, #faq .faq-item, #faq .faq-cta',55],
+    ['#contact .contact-final-kicker, #contact .contact-final-inner > h2, #contact .contact-phone-wrap, #contact .contact-final-caption',95]
+  ];
+  const revealEls=[];
+  revealGroups.forEach(([selector,step])=>{
+    document.querySelectorAll(selector).forEach((el,index)=>{
+      el.classList.add('v73-reveal');
+      el.style.setProperty('--v73-delay',`${Math.min(index*step,360)}ms`);
+      revealEls.push(el);
+    });
+  });
+
+  if(!reduce && 'IntersectionObserver' in window){
+    document.documentElement.classList.add('v73-motion-ready');
+    const revealObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('v73-inview');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },{rootMargin:'0px 0px -7% 0px',threshold:.08});
+    revealEls.forEach(el=>revealObserver.observe(el));
+  }else{
+    revealEls.forEach(el=>el.classList.add('v73-inview'));
+  }
+
+  const hero=document.querySelector('.hero');
+  const team=document.getElementById('team');
+  const teamCards=[...document.querySelectorAll('.team-card')];
+  const portfolio=document.getElementById('portfolio');
+  const portfolioPhotos=[...document.querySelectorAll('.portfolio-photo-bg')];
+  const contract=document.getElementById('contract');
+  const contractPaper=document.querySelector('.contract-ref-paper-group');
+  const reviews=document.getElementById('reviews');
+  const reviewsWave=document.querySelector('.reviews-wave');
+  const faq=document.getElementById('faq');
+  const faqBubble=document.querySelector('.faq-bubble');
+
+  let pointerX=0,pointerY=0;
+  let raf=0;
+  const near=(el,margin=260)=>{
+    if(!el) return false;
+    const r=el.getBoundingClientRect();
+    return r.bottom>-margin && r.top<innerHeight+margin;
+  };
+  const progress=el=>{
+    if(!el) return 0;
+    const r=el.getBoundingClientRect();
+    return ease(clamp((innerHeight-r.top)/(innerHeight+r.height)));
+  };
+
+  function render(){
+    raf=0;
+    if(reduce) return;
+    const mobile=phone();
+
+    /* Living hero: pointer depth on desktop + scroll depth everywhere. */
+    if(hero){
+      const hr=hero.getBoundingClientRect();
+      const hp=clamp((-hr.top)/Math.max(1,hr.height));
+      const scrollShift=hp*(mobile?18:36);
+      const dx=mobile?0:pointerX;
+      const dy=mobile?0:pointerY;
+      hero.style.setProperty('--v73-hero-scroll',`${scrollShift.toFixed(2)}px`);
+      hero.style.setProperty('--v73-atmo-x',`${(dx*.32).toFixed(2)}px`);
+      hero.style.setProperty('--v73-atmo-y',`${(dy*.32+scrollShift*.10).toFixed(2)}px`);
+      hero.style.setProperty('--v73-ring-x',`${(dx*-.16).toFixed(2)}px`);
+      hero.style.setProperty('--v73-ring-y',`${(dy*-.12+scrollShift*.08).toFixed(2)}px`);
+      hero.style.setProperty('--v73-plastic-x',`${(dx*-.10).toFixed(2)}px`);
+      hero.style.setProperty('--v73-plastic-y',`${(dy*-.08+scrollShift*.04).toFixed(2)}px`);
+      hero.style.setProperty('--v73-title-x',`${(dx*.10).toFixed(2)}px`);
+      hero.style.setProperty('--v73-title-y',`${(dy*.06-scrollShift*.055).toFixed(2)}px`);
+      hero.style.setProperty('--v73-subtitle-x',`${(dx*.075).toFixed(2)}px`);
+      hero.style.setProperty('--v73-subtitle-y',`${(dy*.045-scrollShift*.035).toFixed(2)}px`);
+      hero.style.setProperty('--v73-portrait-x',`${(dx*-.08).toFixed(2)}px`);
+      hero.style.setProperty('--v73-portrait-y',`${(dy*-.045-scrollShift*.015).toFixed(2)}px`);
+      hero.style.setProperty('--v73-arrow-x',`${(dx*.14).toFixed(2)}px`);
+      hero.style.setProperty('--v73-arrow-y',`${(dy*.08-scrollShift*.05).toFixed(2)}px`);
+    }
+
+    /* Scroll scene A: team cards occupy slightly different depth planes. */
+    if(near(team,340)){
+      const p=progress(team)-.5;
+      teamCards.forEach((card,index)=>{
+        const lane=(index%3)-1;
+        const depth=((index%2)?-1:1);
+        const y=p*(mobile?10:22)*depth;
+        const r=p*(mobile?.18:.38)*lane;
+        card.style.setProperty('--v73-team-y',`${y.toFixed(2)}px`);
+        card.style.setProperty('--v73-team-r',`${r.toFixed(3)}deg`);
+      });
+    }
+
+    /* Scroll scene B: portfolio images reveal depth inside their fixed frames. */
+    if(near(portfolio,380)){
+      portfolioPhotos.forEach((photo,index)=>{
+        const holder=photo.closest('.portfolio-img') || photo;
+        const r=holder.getBoundingClientRect();
+        const center=r.top+r.height/2;
+        const normalized=clamp((center/Math.max(1,innerHeight)),0,1)-.5;
+        const dir=index%2?1:-1;
+        const amount=normalized*(mobile?8:20)*dir;
+        photo.style.setProperty('--v73-portfolio-y',`${amount.toFixed(2)}px`);
+      });
+    }
+
+    /* Scroll scene C: paper / wave / FAQ decorations float on separate planes. */
+    if(contractPaper && near(contract,320)){
+      const p=progress(contract)-.5;
+      contractPaper.style.setProperty('--v73-contract-y',`${(p*(mobile?-10:-24)).toFixed(2)}px`);
+      contractPaper.style.setProperty('--v73-contract-x',`${(p*(mobile?3:8)).toFixed(2)}px`);
+    }
+    if(reviewsWave && near(reviews,300)){
+      const p=progress(reviews)-.5;
+      reviewsWave.style.setProperty('--v73-reviews-y',`${(p*(mobile?-7:-15)).toFixed(2)}px`);
+    }
+    if(faqBubble && near(faq,280)){
+      const p=progress(faq)-.5;
+      faqBubble.style.setProperty('--v73-faq-y',`${(p*(mobile?-6:-13)).toFixed(2)}px`);
+    }
+  }
+
+  function request(){
+    if(raf) return;
+    raf=requestAnimationFrame(render);
+  }
+
+  if(hero && !reduce && window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+    hero.addEventListener('pointermove',event=>{
+      const r=hero.getBoundingClientRect();
+      const nx=(event.clientX-r.left)/Math.max(1,r.width)-.5;
+      const ny=(event.clientY-r.top)/Math.max(1,r.height)-.5;
+      pointerX=nx*22;
+      pointerY=ny*14;
+      hero.style.setProperty('--v73-hero-light-x',`${(50+nx*16).toFixed(2)}%`);
+      hero.style.setProperty('--v73-hero-light-y',`${(40+ny*12).toFixed(2)}%`);
+      request();
+    },{passive:true});
+    hero.addEventListener('pointerleave',()=>{
+      pointerX=0;pointerY=0;
+      hero.style.setProperty('--v73-hero-light-x','50%');
+      hero.style.setProperty('--v73-hero-light-y','40%');
+      request();
+    },{passive:true});
+  }
+
+  if(!reduce){
+    addEventListener('scroll',request,{passive:true});
+    addEventListener('resize',request,{passive:true});
+    addEventListener('load',request,{once:true});
+    request();
+  }
+})();
