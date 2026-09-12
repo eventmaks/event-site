@@ -8824,9 +8824,7 @@ body{
   display:block!important;
   width:100%!important;
   height:100%!important;
-  background-size:cover!important;
-  background-position:center center!important;
-  background-repeat:no-repeat!important;
+  object-fit:cover;
   transform:none!important;
   transition:none!important;
   pointer-events:none!important;
@@ -8834,7 +8832,7 @@ body{
   -webkit-user-select:none!important;
   -webkit-user-drag:none!important;
 }
-.portfolio-img img{
+.portfolio-img img:not(.portfolio-photo-bg){
   display:none!important;
 }
 

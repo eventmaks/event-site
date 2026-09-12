@@ -1,0 +1,19 @@
+V76 PERFORMANCE
+
+1) Portfolio
+- 9 portfolio background divs replaced with real <img> elements.
+- loading="lazy", decoding="async", fetchpriority="low".
+- Visual sizing/cropping preserved via object-fit: cover and existing object-position rules.
+
+2) Yandex Metrica
+- Counter ID: 111456931.
+- Loads only after the existing Cookie consent is accepted.
+- Existing accepted consent loads it on subsequent visits.
+- clickmap, trackLinks, accurateTrackBounce enabled.
+
+3) CSS
+- Readable source files remain: style.css, mobile-rebuild.css.
+- Production page loads: style.min.css, mobile-rebuild.min.css.
+- Minification is conservative: comments/formatting whitespace only; rule order preserved.
+
+No changes to video, reviews, sea, dog/treat animation, or other page content.
