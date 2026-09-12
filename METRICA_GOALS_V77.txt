@@ -1,0 +1,18 @@
+YANDEX METRICA GOALS V77 — counter 111456931
+
+Create these goals in Yandex Metrica as JavaScript event / Conversion goals using exact IDs:
+
+1. whatsapp_click      — click WhatsApp (contact or completed calculator)
+2. telegram_click      — click Telegram
+3. calculator_cta      — click any link that opens the calculator
+4. calculator_start    — first answer in the calculator
+5. calculator_submit   — valid completed calculator before WhatsApp opens
+6. portfolio_view      — portfolio section became meaningfully visible
+7. contact_view        — final contact section became meaningfully visible
+8. contact_action      — phone/email action from contacts
+
+Important:
+- Goals are sent only after analytics consent has been accepted.
+- No name, phone number or event date is sent to Yandex Metrica.
+- calculator_submit sends only non-personal answer categories (gift/event type/guest range/help type).
+- The source/type parameters are available for goal parameter analysis.

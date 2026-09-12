@@ -1450,6 +1450,82 @@
 
 
   /* ========================================================
+     YANDEX METRICA GOALS V77
+     Goal transport is defined later, next to consent/Metrica loader.
+     Event handlers call it only at the moment of a real user action.
+     ======================================================== */
+  const sendMetricaGoal=(goal,params={})=>{
+    if(typeof window.eventmaksReachGoal!=="function") return false;
+    return window.eventmaksReachGoal(goal,params);
+  };
+
+  /* Main conversion/navigation clicks. */
+  document.addEventListener("click",event=>{
+    const target=event.target instanceof Element ? event.target : null;
+    if(!target) return;
+
+    const link=target.closest("a");
+    if(!link) return;
+
+    const href=(link.getAttribute("href") || "").trim();
+
+    if(link.classList.contains("contact-wa") || href.startsWith("https://wa.me/")){
+      sendMetricaGoal("whatsapp_click",{source:"contact"});
+      return;
+    }
+
+    if(link.classList.contains("contact-tg") || href.startsWith("tg://")){
+      sendMetricaGoal("telegram_click",{source:"contact"});
+      return;
+    }
+
+    if(href==="#calculator"){
+      let source="other";
+      if(link.classList.contains("calc")) source="floating";
+      else if(link.classList.contains("cost-button")) source="cost";
+      else if(link.classList.contains("faq-cta")) source="faq";
+      sendMetricaGoal("calculator_cta",{source});
+      return;
+    }
+
+    if(link.classList.contains("contact-call") || href.startsWith("tel:")){
+      sendMetricaGoal("contact_action",{type:"phone"});
+      return;
+    }
+
+    if(link.classList.contains("contact-mail") || href.startsWith("mailto:")){
+      sendMetricaGoal("contact_action",{type:"email"});
+    }
+  });
+
+  /* Track meaningful section views once per page. */
+  if("IntersectionObserver" in window){
+    const observeGoalOnce=(element,goal,threshold=.42)=>{
+      if(!element) return;
+      const observer=new IntersectionObserver(entries=>{
+        const entry=entries[0];
+        if(!entry?.isIntersecting) return;
+        sendMetricaGoal(goal,{source:"scroll"});
+        observer.disconnect();
+      },{threshold});
+      observer.observe(element);
+    };
+
+    observeGoalOnce(document.getElementById("portfolio"),"portfolio_view",.28);
+    observeGoalOnce(document.getElementById("contact"),"contact_view",.32);
+  }
+
+  /* First real answer means the calculator was started. */
+  let quizStartGoalSent=false;
+  document.querySelectorAll("#calculator .quiz-option").forEach(option=>{
+    option.addEventListener("click",()=>{
+      if(quizStartGoalSent) return;
+      quizStartGoalSent=true;
+      sendMetricaGoal("calculator_start",{step:1});
+    });
+  });
+
+  /* ========================================================
      QUIZ SUBMIT — send completed brief to Maksim via WhatsApp
      ======================================================== */
   const quizSubmit=document.querySelector(".quiz-submit");
@@ -1514,6 +1590,16 @@
       ].join("\n");
 
       const url=`https://wa.me/79779594171?text=${encodeURIComponent(message)}`;
+
+      /* Do not transmit personal fields to analytics. */
+      sendMetricaGoal("calculator_submit",{
+        gift:quizAnswers[1] || "unknown",
+        event_type:quizAnswers[2] || "unknown",
+        guests:quizAnswers[3] || "unknown",
+        help:quizAnswers[4] || "unknown"
+      });
+      sendMetricaGoal("whatsapp_click",{source:"calculator"});
+
       window.open(url,"_blank","noopener,noreferrer");
     });
   }
@@ -1962,6 +2048,20 @@
   }
 
   /* Yandex Metrica 111456931. Load only after analytics consent. */
+  const EVENTMAKS_METRIKA_ID=111456931;
+
+  window.eventmaksReachGoal=(target,params={})=>{
+    if(readEntryConsent()!=="accepted") return false;
+    if(typeof window.ym!=="function") return false;
+
+    try{
+      window.ym(EVENTMAKS_METRIKA_ID,"reachGoal",target,params);
+      return true;
+    }catch(error){
+      return false;
+    }
+  };
+
   function loadYandexMetrika(){
     if(window.__eventmaksMetrikaLoaded) return;
     window.__eventmaksMetrikaLoaded=true;
@@ -1979,7 +2079,7 @@
       a.parentNode.insertBefore(k,a);
     })(window,document,"script","https://mc.yandex.ru/metrika/tag.js?id=111456931","ym");
 
-    window.ym(111456931,"init",{
+    window.ym(EVENTMAKS_METRIKA_ID,"init",{
       ssr:true,
       clickmap:true,
       trackLinks:true,
