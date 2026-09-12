@@ -1125,48 +1125,69 @@
         mouth.x-(phoneLite ? 20 : 28)
       );
 
-      const startPoint={
-        x:(cardRect.left-stageRect.left)+(cardRect.width*(phoneLite ? .10 : .08)),
-        y:horizontalY
-      };
+      let pt;
 
-      const control1={
-        x:startPoint.x+(cornerX-startPoint.x)*(phoneLite ? .72 : .76),
-        y:horizontalY
-      };
+      if(phoneLite){
+        /*
+          V70 — MOBILE ONLY: STRICT VERTICAL COLUMN LINE
 
-      const control2={
-        x:cornerX+(phoneLite ? 18 : 34),
-        y:horizontalY+(mouth.y-horizontalY)*(phoneLite ? .28 : .32)
-      };
+          On phones the treat must not arc, drift sideways or make a final
+          horizontal correction. Its X coordinate is locked to the existing
+          vertical fall lane beside the card for the entire animation. Only Y
+          changes, so the route is mathematically straight from top to bottom.
 
-      /*
-        A cubic Bézier does not move at perfectly even visual speed when its
-        parameter advances evenly. Remap progress through a small arc-length
-        lookup so the biscuit does not suddenly speed up while rounding the
-        bend.
-      */
-      const samples=36;
-      const lengths=[0];
-      let totalLength=0;
-      let prevPoint=startPoint;
-      for(let i=1;i<=samples;i++){
-        const samplePoint=cubic(i/samples,startPoint,control1,control2,mouth);
-        totalLength+=Math.hypot(samplePoint.x-prevPoint.x,samplePoint.y-prevPoint.y);
-        lengths.push(totalLength);
-        prevPoint=samplePoint;
+          Desktop intentionally keeps the V69 continuous Bézier trajectory.
+        */
+        const mobileLineX=cornerX;
+        pt={
+          x:mobileLineX,
+          y:horizontalY+(mouth.y-horizontalY)*t
+        };
+      }else{
+        const startPoint={
+          x:(cardRect.left-stageRect.left)+(cardRect.width*.08),
+          y:horizontalY
+        };
+
+        const control1={
+          x:startPoint.x+(cornerX-startPoint.x)*.76,
+          y:horizontalY
+        };
+
+        const control2={
+          x:cornerX+34,
+          y:horizontalY+(mouth.y-horizontalY)*.32
+        };
+
+        /*
+          A cubic Bézier does not move at perfectly even visual speed when its
+          parameter advances evenly. Remap progress through a small arc-length
+          lookup so the biscuit does not suddenly speed up while rounding the
+          bend.
+        */
+        const samples=36;
+        const lengths=[0];
+        let totalLength=0;
+        let prevPoint=startPoint;
+        for(let i=1;i<=samples;i++){
+          const samplePoint=cubic(i/samples,startPoint,control1,control2,mouth);
+          totalLength+=Math.hypot(samplePoint.x-prevPoint.x,samplePoint.y-prevPoint.y);
+          lengths.push(totalLength);
+          prevPoint=samplePoint;
+        }
+
+        const targetLength=t*totalLength;
+        let sampleIndex=1;
+        while(sampleIndex<lengths.length && lengths[sampleIndex]<targetLength){
+          sampleIndex++;
+        }
+        const segmentStart=lengths[sampleIndex-1] || 0;
+        const segmentEnd=lengths[sampleIndex] || totalLength || 1;
+        const segmentMix=cClamp((targetLength-segmentStart)/Math.max(.0001,segmentEnd-segmentStart));
+        const curveT=((sampleIndex-1)+segmentMix)/samples;
+        pt=cubic(curveT,startPoint,control1,control2,mouth);
       }
 
-      const targetLength=t*totalLength;
-      let sampleIndex=1;
-      while(sampleIndex<lengths.length && lengths[sampleIndex]<targetLength){
-        sampleIndex++;
-      }
-      const segmentStart=lengths[sampleIndex-1] || 0;
-      const segmentEnd=lengths[sampleIndex] || totalLength || 1;
-      const segmentMix=cClamp((targetLength-segmentStart)/Math.max(.0001,segmentEnd-segmentStart));
-      const curveT=((sampleIndex-1)+segmentMix)/samples;
-      const pt=cubic(curveT,startPoint,control1,control2,mouth);
       const angle=0;
 
       /*

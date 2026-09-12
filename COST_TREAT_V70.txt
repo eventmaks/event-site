@@ -1,0 +1,14 @@
+COST TREAT V70 — mobile strict vertical route
+
+Changed only treat motion logic in script.js.
+
+Mobile only:
+- X is locked for the whole route to the existing vertical fall lane beside the cost card.
+- The treat moves only along Y, so the trajectory is perfectly straight vertically.
+- Existing smooth follow + smootherstep timing remains, so there are no sudden speed changes.
+- Visibility/fade behavior remains unchanged.
+
+Desktop:
+- V69 continuous smooth Bezier trajectory is unchanged.
+
+No layout/CSS changes.
