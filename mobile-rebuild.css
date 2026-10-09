@@ -1762,7 +1762,7 @@ body.phone-lite.hero-ready .hero .arrow{
 body.phone-lite .cost-stage{
   padding-left:12px!important;
   padding-right:8px!important;
-  overflow:hidden!important;
+  overflow:visible!important;
 }
 
 body.phone-lite .cost-content-row{
@@ -1814,9 +1814,9 @@ body.phone-lite .cost-small{
 }
 
 body.phone-lite .cost-pug{
-  width:clamp(126px,35vw,146px)!important;
+  width:clamp(160px,44vw,200px)!important;
   align-self:flex-end!important;
-  margin:-2px -18px -18px 0!important;
+  margin:12px 12px 20px 0!important;
 }
 
 body.phone-lite .cost-treat{
