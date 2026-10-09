@@ -750,11 +750,28 @@ body.phone-lite .cost-section {
   overflow: hidden!important;
   padding: 44px 0 36px!important;
 }
+/* One continuous texture behind the entire mobile section, including the pug. */
+body.phone-lite .cost-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .065;
+  background: url("assets/reference-noise.jpg") repeat;
+  background-size: 170px;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 56px, #000 calc(100% - 56px), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 56px, #000 calc(100% - 56px), transparent);
+}
+body.phone-lite .cost-noise {
+  display: none!important;
+}
 body.phone-lite .cost-scene {
   height: auto!important;
   min-height: 0!important;
 }
 body.phone-lite .cost-stage {
+  background: transparent!important;
   position: relative!important;
   top: auto!important;
   width: 100%!important;
@@ -824,6 +841,7 @@ body.phone-lite .cost-small {
   margin-top: 10px!important;
 }
 body.phone-lite .cost-pug {
+  will-change: auto!important;
   left: auto!important;
   top: auto!important;
   pointer-events: none!important;
@@ -838,6 +856,7 @@ body.phone-lite .cost-pug {
   transform: none!important;
 }
 body.phone-lite .cost-pug img {
+  filter: none!important;
   width: 100%!important;
   height: auto!important;
 }
